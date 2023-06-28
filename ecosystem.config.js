@@ -1,6 +1,6 @@
 module.exports = {
     apps: Array.from({ length: 2 }, (_, i) => ({
-        name: `2023-internship-front-${i + 1}`,
+        name: `nextjs-${i + 1}`,
         script: 'yarn',
         args: `start -p ${3000 + i}`,
         exec_mode: 'fork',
