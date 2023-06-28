@@ -1,4 +1,4 @@
-name: Elixir Docker Deploy
+name: Deploy
 
 on:
   push:
@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: client build
 
       - name: compose
         run: zip -r dist.zip .
