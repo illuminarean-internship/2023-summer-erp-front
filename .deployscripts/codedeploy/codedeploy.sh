@@ -5,6 +5,7 @@ sudo mv /tmp/build $LOCATION$PROJECT-new
 sudo chown -R ubuntu:ubuntu $LOCATION$PROJECT-new
 sudo mv $LOCATION$PROJECT $LOCATION$PROJECT\_$(date +"%Y%m%d%H%M")
 sudo mv $LOCATION$PROJECT-new $LOCATION$PROJECT
+cd $LOCATION$PROJECT
 
 pm2 list | grep $LOCATION$PROJECT
 PM2_LIST_RESULT=$?
