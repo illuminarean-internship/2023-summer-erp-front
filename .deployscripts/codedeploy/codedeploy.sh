@@ -15,4 +15,3 @@ else
 	pm2 start ecosystem.config.js
 	pm2 save
 fi
-npm install -g pm2@latest
