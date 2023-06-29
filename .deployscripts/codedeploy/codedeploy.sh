@@ -8,6 +8,9 @@ sudo mv $LOCATION$PROJECT-new $LOCATION$PROJECT
 cd $LOCATION$PROJECT
 
 sudo pm2 list | grep $LOCATION$PROJECT
+sudo yarn install
+sudo yarn build
+sudo yarn start
 PM2_LIST_RESULT=$?
 echo "PM2_LIST_RESULT diff a b result :  ${PM2_LIST_RESULT}"
 if [ ${PM2_LIST_RESULT} -eq "0" ]
