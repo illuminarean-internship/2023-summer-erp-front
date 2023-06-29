@@ -1,9 +1,10 @@
-PROJECT=/home/ubuntu/2023-internship-front
-sudo rm -rf $PROJECT\_*
-sudo mv /tmp/build $PROJECT-new
-sudo chown -R ubuntu:ubuntu $PROJECT-new
-sudo mv $PROJECT $PROJECT\_$(date +"%Y%m%d%H%M")
-sudo mv $PROJECT-new $PROJECT
+PATH=/home/ubuntu/
+PROJECT=2023-internship-front
+sudo rm -rf $PATH$PROJECT\_*
+sudo mv /tmp/build $PATH$PROJECT-new
+sudo chown -R ubuntu:ubuntu $PATH$PROJECT-new
+sudo mv $PATH$PROJECT $PROJECT\_$(date +"%Y%m%d%H%M")
+sudo mv $PATH$PROJECT-new $PROJECT
 
 pm2 list | grep $PROJECT
 PM2_LIST_RESULT=$?
