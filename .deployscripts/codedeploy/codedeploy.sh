@@ -7,13 +7,13 @@ sudo mv $LOCATION$PROJECT $LOCATION$PROJECT\_$(date +"%Y%m%d%H%M")
 sudo mv $LOCATION$PROJECT-new $LOCATION$PROJECT
 cd $LOCATION$PROJECT
 
-pm2 list | grep $LOCATION$PROJECT
+sudo pm2 list | grep $LOCATION$PROJECT
 PM2_LIST_RESULT=$?
 echo "PM2_LIST_RESULT diff a b result :  ${PM2_LIST_RESULT}"
 if [ ${PM2_LIST_RESULT} -eq "0" ]
 then
-	pm2 reload ecosystem.config.js
+	sudo pm2 reload ecosystem.config.js
 else
-	pm2 start ecosystem.config.js
-	pm2 save
+	sudo pm2 start ecosystem.config.js
+	sudo pm2 save
 fi
