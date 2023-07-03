@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: client build
+
+      - name: set env
         run: |
           ls -ahl
           echo "${{ secrets.ENV_LOCAL }}" > .env
-          - name: compose
 
       - name: compose
         run: zip -r dist.zip .

@@ -1,13 +1,14 @@
 LOCATION=/home/ubuntu/
 PROJECT=2023-internship-front
-sudo rm -rf $LOCATION$PROJECT\_*
-sudo mv /tmp/build $LOCATION$PROJECT-new
-sudo chown -R ubuntu:ubuntu $LOCATION$PROJECT-new
-sudo mv $LOCATION$PROJECT $LOCATION$PROJECT\_$(date +"%Y%m%d%H%M")
-sudo mv $LOCATION$PROJECT-new $LOCATION$PROJECT
-cd $LOCATION$PROJECT
+FULL_LOCATION=$LOCATION$PROJECT
+sudo rm -rf $FULL_LOCATION\_*
+sudo mv /tmp/build $FULL_LOCATION-new
+sudo chown -R ubuntu:ubuntu $FULL_LOCATION-new
+sudo mv $FULL_LOCATION $FULL_LOCATION\_$(date +"%Y%m%d%H%M")
+sudo mv $FULL_LOCATION-new $FULL_LOCATION
+cd $FULL_LOCATION
 
-sudo pm2 list | grep $LOCATION$PROJECT
+sudo pm2 list | grep $PROJECT
 sudo yarn install
 sudo yarn build
 sudo yarn start
