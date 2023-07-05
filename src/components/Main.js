@@ -4,7 +4,7 @@ import Button from '../components/Button';
 export default function Main() {
     return (
         <StyledMainWrap>
-            <h1>Title Test!</h1>
+            <h1>Title!!</h1>
             <Button variant={'contained'} />
         </StyledMainWrap>
     );
