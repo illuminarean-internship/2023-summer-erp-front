@@ -18,6 +18,7 @@ import {
     NotificationsNoneOutlined,
     SettingsOutlined,
 } from '@mui/icons-material';
+import { signOut } from 'next-auth/react';
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,7 +63,7 @@ export default function Navbar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={() => signOut()}>Logout</MenuItem>
         </Menu>
     );
 
