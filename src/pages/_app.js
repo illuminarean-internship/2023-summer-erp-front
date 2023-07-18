@@ -15,13 +15,13 @@ function MyApp({ Component, pageProps, session }) {
                 {router.pathname !== '/login' ? (
                     <ProtectLayouts>
                         <GlobalStyle />
-                        <Navbar></Navbar>
-                        <Component {...pageProps} />{' '}
+                        <Navbar />
+                        <Component {...pageProps} />
                     </ProtectLayouts>
                 ) : (
                     <>
                         <GlobalStyle />
-                        <Component {...pageProps} />{' '}
+                        <Component {...pageProps} />
                     </>
                 )}
             </ThemeProvider>

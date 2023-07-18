@@ -17,7 +17,6 @@ const ProtectLayouts = ({ children }) => {
         // if the user is not authorized, redirect to the login page
         // with a return url to the current page
         if (unAuthorized) {
-            console.log('not authorized');
             router.push({
                 pathname: '/login',
                 // query: { returnUrl: router.asPath },
@@ -26,7 +25,7 @@ const ProtectLayouts = ({ children }) => {
     }, [loading, unAuthorized, status, router]);
 
     if (loading) {
-        return <Loading></Loading>;
+        return <Loading />;
     }
     return authorized ? <div>{children}</div> : <></>;
 };
