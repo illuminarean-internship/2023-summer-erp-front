@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps, session }) {
     return (
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
-                {router.pathname !== '/login' ? (
+                {router.pathname !== '/loginPage' ? (
                     <ProtectLayouts>
                         <GlobalStyle />
                         <Navbar />
