@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { redirect } from 'next/navigation';
 import styled from 'styled-components';
-import arrow from 'public/images/Arrow - Right Square.png';
 
 
 export default function CategoryButton({
