@@ -12,16 +12,16 @@ function MyApp({ Component, pageProps, session }) {
     return (
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
-                {router.pathname !== '/login' ? (
+                {router.pathname !== '/loginPage' ? (
                     <ProtectLayouts>
                         <GlobalStyle />
-                        <Navbar></Navbar>
-                        <Component {...pageProps} />{' '}
+                        <Navbar />
+                        <Component {...pageProps} />
                     </ProtectLayouts>
                 ) : (
                     <>
                         <GlobalStyle />
-                        <Component {...pageProps} />{' '}
+                        <Component {...pageProps} />
                     </>
                 )}
             </ThemeProvider>
