@@ -2,6 +2,7 @@ const colors = {
     brightGray: '#eee',
     black: '#000',
     whiteGray: '#f5f5f5',
+    borderGray: 'solid rgba(205, 205, 205, 0.45)',
 };
 
 const fontFamily = `-apple-system,
