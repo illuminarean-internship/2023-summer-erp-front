@@ -19,24 +19,15 @@ import {
 const SideMenu = ({ open }) => {
     const [assetsOpen, setAssetsOpen] = useState(true);
     const [userOpen, setUserOpen] = useState(false);
-    const [settingOpen, setSettingOpen] = useState(false);
 
     const assetsHandleClick = () => {
         setAssetsOpen(!assetsOpen);
         setUserOpen(false);
-        setSettingOpen(false);
     };
 
     const userHandleClick = () => {
         setAssetsOpen(false);
         setUserOpen(!userOpen);
-        setSettingOpen(false);
-    };
-
-    const settingHandleClick = () => {
-        setAssetsOpen(false);
-        setUserOpen(false);
-        setSettingOpen(!settingOpen);
     };
 
     return (
@@ -141,7 +132,6 @@ const SideMenu = ({ open }) => {
                             justifyContent: open ? 'initial' : 'center',
                             px: 2.5,
                         }}
-                        onClick={settingHandleClick}
                     >
                         <ListItemIcon
                             sx={{
@@ -156,23 +146,7 @@ const SideMenu = ({ open }) => {
                             primary="Settings"
                             sx={{ opacity: open ? 1 : 0 }}
                         />
-                        {open &&
-                            (settingOpen ? <ExpandLess /> : <ExpandMore />)}
                     </ListItemButton>
-                    {open && (
-                        <Collapse in={settingOpen} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                {['Settings'].map((text) => (
-                                    <ListItemButton sx={{ pl: 4 }} key={text}>
-                                        <ListItemIcon>
-                                            <FiberManualRecord fontSize="sm" />
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
-                                ))}
-                            </List>
-                        </Collapse>
-                    )}
                 </ListItem>
             </List>
         </>
