@@ -73,7 +73,7 @@ const SideMenu = ({ open }) => {
                                     'Accessory',
                                     'Books',
                                     'Desktop PC',
-                                    'Hardware',
+                                    'Laptop',
                                     'Software',
                                     'Test Device',
                                 ].map((text) => (
