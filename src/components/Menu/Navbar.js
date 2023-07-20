@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import {
     AppBar,
@@ -16,15 +16,16 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
-import {
-    NotificationsNoneOutlined,
-    SettingsOutlined,
-} from '@mui/icons-material';
+import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
+import logo from 'public/images/logo.png';
 
-export default function Navbar() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+const drawerWidth = 240;
+
+export default function Navbar({ open, handleDrawerOpen }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -98,17 +99,6 @@ export default function Navbar() {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show amount of new mails"
-                    color="inherit"
-                >
-                    <SettingsOutlined />
-                </IconButton>
-                <p>Settings</p>
-            </MenuItem>
-
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -126,28 +116,32 @@ export default function Navbar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky" style={{ backgroundColor: '#829CC2' }}>
+            <StyledAppBar
+                position="fixed"
+                style={{ backgroundColor: '#829CC2' }}
+                open={open}
+            >
                 <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                        onClick={handleDrawerOpen}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <StyledLogo sx={{ flexGrow: 1 }}>
+                    <StyledLogo sx={{ flexGrow: 10 }}>
                         <Link href={'/'}>
-                            <a>
-                                <img
-                                    src="/images/logo.png"
-                                    style={{ width: '150px' }}
-                                />
-                            </a>
+                            <Image
+                                src={logo}
+                                alt="일루미나리안 로고"
+                                width="150"
+                            />
                         </Link>
                     </StyledLogo>
-                    <Search sx={{ flexGrow: 1 }}>
+                    <Search sx={{ flexGrow: 3 }}>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -174,13 +168,6 @@ export default function Navbar() {
                         >
                             <AccountCircle />
                         </IconButton>
-                        <IconButton
-                            size="large"
-                            color="inherit"
-                            sx={{ marginLeft: '5px' }}
-                        >
-                            <SettingsOutlined />
-                        </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -195,12 +182,30 @@ export default function Navbar() {
                         </IconButton>
                     </Box>
                 </Toolbar>
-            </AppBar>
+            </StyledAppBar>
             {renderMobileMenu}
             {renderMenu}
         </Box>
     );
 }
+
+const StyledAppBar = styled(AppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -246,5 +251,6 @@ const StyledLogo = styled(Box)(({ theme }) => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
         display: 'flex',
+        marginTop: 7,
     },
 }));
