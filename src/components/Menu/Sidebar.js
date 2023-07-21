@@ -6,7 +6,7 @@ import SideMenu from './SideMenu';
 
 const drawerWidth = 240;
 
-const Sidebar = ({ open, setOpen }) => {
+const Sidebar = ({ open, setOpen, children, selectedLink }) => {
     return (
         <>
             <Drawer variant="permanent" open={open}>
@@ -16,10 +16,12 @@ const Sidebar = ({ open, setOpen }) => {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <SideMenu open={open} />
+                <SideMenu open={open} selectedLink={selectedLink} />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
+                {/* 내용이 여기 찍힘 */}
+                {children}
             </Box>
         </>
     );

@@ -15,8 +15,9 @@ import {
     Person,
     SettingsOutlined,
 } from '@mui/icons-material';
+import Link from 'next/link';
 
-const SideMenu = ({ open }) => {
+const SideMenu = ({ open, selectedLink }) => {
     const [assetsOpen, setAssetsOpen] = useState(true);
     const [userOpen, setUserOpen] = useState(false);
 
@@ -29,6 +30,23 @@ const SideMenu = ({ open }) => {
         setAssetsOpen(false);
         setUserOpen(!userOpen);
     };
+
+    const assetsList = [
+        { title: 'Accessory', link: 'assets/accessory' },
+        { title: 'Books', link: 'assets/books' },
+        { title: 'Desktop PC', link: 'assets/desktopPc' },
+        { title: 'Laptop', link: 'assets/laptop' },
+        { title: 'Software', link: 'assets/software' },
+        { title: 'Test Device', link: 'assets/testDevice' },
+    ];
+
+    const usersList = [
+        { title: 'Operation Team', link: 'users/operationTeam' },
+        { title: 'Development Team', link: 'users/developTeam' },
+        { title: 'Product Team', link: 'users/productTeam' },
+        { title: 'Design Team', link: 'users/designTeam' },
+        { title: 'QA Team', link: 'users/qaTeam' },
+    ];
 
     return (
         <>
@@ -60,20 +78,18 @@ const SideMenu = ({ open }) => {
                     {open && (
                         <Collapse in={assetsOpen} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
-                                {[
-                                    'Accessory',
-                                    'Books',
-                                    'Desktop PC',
-                                    'Laptop',
-                                    'Software',
-                                    'Test Device',
-                                ].map((text) => (
-                                    <ListItemButton sx={{ pl: 4 }} key={text}>
-                                        <ListItemIcon>
-                                            <FiberManualRecord fontSize="sm" />
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
+                                {assetsList.map(({ title, link }) => (
+                                    <Link href={`/${link}`} key={title}>
+                                        <ListItemButton
+                                            sx={{ pl: 4 }}
+                                            selected={link === selectedLink}
+                                        >
+                                            <ListItemIcon>
+                                                <FiberManualRecord fontSize="sm" />
+                                            </ListItemIcon>
+                                            <ListItemText primary={title} />
+                                        </ListItemButton>
+                                    </Link>
                                 ))}
                             </List>
                         </Collapse>
@@ -106,48 +122,45 @@ const SideMenu = ({ open }) => {
                     {open && (
                         <Collapse in={userOpen} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
-                                {[
-                                    'Operation Team',
-                                    'Development Team',
-                                    'Product Team',
-                                    'Design Team',
-                                    'Software',
-                                    'QA Team',
-                                ].map((text) => (
-                                    <ListItemButton sx={{ pl: 4 }} key={text}>
-                                        <ListItemIcon>
-                                            <FiberManualRecord fontSize="sm" />
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
+                                {usersList.map(({ title, link }) => (
+                                    <Link key={title} href={`/${link}`}>
+                                        <ListItemButton sx={{ pl: 4 }}>
+                                            <ListItemIcon>
+                                                <FiberManualRecord fontSize="sm" />
+                                            </ListItemIcon>
+                                            <ListItemText primary={title} />
+                                        </ListItemButton>
+                                    </Link>
                                 ))}
                             </List>
                         </Collapse>
                     )}
                 </ListItem>
-                <ListItem disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
-                    >
-                        <ListItemIcon
+                <Link href={'/settings'}>
+                    <ListItem disablePadding sx={{ display: 'block' }}>
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <SettingsOutlined />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary="Settings"
-                            sx={{ opacity: open ? 1 : 0 }}
-                        />
-                    </ListItemButton>
-                </ListItem>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <SettingsOutlined />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Settings"
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
             </List>
         </>
     );
