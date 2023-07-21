@@ -1,18 +1,22 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import CategoryButton from './CategoryButton';
+import CategoryButton from './CategoryItem';
+import * as React from 'react';
 
-export default function AddCategoryButton({
+
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from '@mui/material'
+
+export default function AddCategoryDialog({
     categoryButtonList,
     setCategoryButtonList,
 }) {
-    const [open, setOpen] = React.useState(false);
+    const [isOpenedState, setIsOpened] = React.useState(false);
     const [textValue, setTextValue] = React.useState(''); //tracks the text in the component,
 
     const addItemToCategoryButtonList = () => {
@@ -26,12 +30,12 @@ export default function AddCategoryButton({
     };
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setIsOpened(true);
     };
 
     const handleClose = (isSubmit = false) => {
         textValue && isSubmit && addItemToCategoryButtonList(); //lifts the state up
-        setOpen(false);
+        setIsOpened(false);
     };
     const handleChange = (event) => {
         setTextValue(event.target.value);
@@ -44,7 +48,7 @@ export default function AddCategoryButton({
             <Button variant="outlined" onClick={handleClickOpen}>
                 + New
             </Button>
-            <Dialog open={open} onClose={() => handleClose(false)}>
+            <Dialog open={isOpenedState} onClose={() => handleClose(false)}>
                 <DialogTitle>New Category</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
