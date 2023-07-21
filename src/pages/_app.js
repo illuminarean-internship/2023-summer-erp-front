@@ -23,9 +23,10 @@ function MyApp({ Component, pageProps, session }) {
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
                 {router.pathname !== '/loginPage' ? (
-                    <ProtectLayouts>
-                        <GlobalStyle />
-                        <Box sx={{ display: 'flex' }}>
+                    //<ProtectLayouts>
+                    <>
+                    <GlobalStyle />
+                                <Box sx={{ display: 'flex' }}>
                             <Navbar {...{ open, setOpen, handleDrawerOpen }} />
                             <Sidebar {...{ open, setOpen, selectedLink }}>
                                 <Component
@@ -35,7 +36,8 @@ function MyApp({ Component, pageProps, session }) {
                                 />
                             </Sidebar>
                         </Box>
-                    </ProtectLayouts>
+                                </>
+                    //</ProtectLayouts>
                 ) : (
                     <>
                         <GlobalStyle />
