@@ -115,7 +115,7 @@ export default function Navbar({ open, handleDrawerOpen }) {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <StyledAppBar
                 position="fixed"
                 style={{ backgroundColor: '#829CC2' }}
