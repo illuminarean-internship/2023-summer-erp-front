@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/AddCategoryButton.js", "src/components/CategoryButton.js", "src/components/DisplayCategoryButtons.js", "src/pages/CategoryNavigationPage.js"  ],
+, "src/components/AddCategoryButton.js", "src/components/CategoryButton.js", "src/components/DisplayCategoryButtons.js", "src/pages/categoryNavigationPage.js"  ],
   "exclude": [
     "node_modules"
   ]

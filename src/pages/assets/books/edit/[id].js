@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
 const BooksEdit = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
-  return <p>{id}</p>;
+    const router = useRouter();
+    const { id } = router.query;
+    return <p>{id}</p>;
 };
 
 export default BooksEdit;

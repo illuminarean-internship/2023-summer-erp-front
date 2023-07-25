@@ -1,10 +1,15 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 
 const BooksInfo = () => {
-  const router = useRouter();
-  const { id } = router.query;
+    const router = useRouter();
+    const { id } = router.query;
 
-  return <p>{id}</p>;
+    return (
+        <div>
+            <InfoPageTemplate id={id} />
+        </div>
+    );
 };
 
 export default BooksInfo;

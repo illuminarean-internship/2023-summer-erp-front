@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 //const startingList = [] //import from DB
 const sampleStartingList = [
-    { name: 'Accessory', link: 'test', size: 197 },
-    { name: 'Books', link: 'test', size: 90 },
-    { name: 'Desktop PC', link: 'test', size: 6 },
-    { name: 'Laptops', link: 'test', size: 99 },
-    { name: 'Software', link: 'test', size: 9 },
-    { name: 'Test Device', link: 'test', size: 10 },
+    { name: 'Accessory', link: 'accessory', size: 197 },
+    { name: 'Books', link: 'books', size: 90 },
+    { name: 'Desktop PC', link: 'desktopPc', size: 6 },
+    { name: 'Laptops', link: 'laptop', size: 99 },
+    { name: 'Software', link: 'software', size: 9 },
+    { name: 'Test Device', link: 'testDevice', size: 10 },
 ];
+
 const username = 'testName';
 
 export default function CategoryNavigationPage() {
@@ -27,9 +28,10 @@ export default function CategoryNavigationPage() {
 
     return (
         <div>
-            <WelcomeText>
-                Welcome "{username}"<WelcomeTextLine />
-            </WelcomeText>
+            <WelcomeContainer>
+                <WelcomeText>Welcome "{username}"</WelcomeText>
+                <WelcomeTextLine />
+            </WelcomeContainer>
             <OverviewText>Overview</OverviewText>
             <OverviewBox>
                 <div>{categories}</div>;
@@ -44,10 +46,11 @@ const OverviewBox = styled.div`
     flex-shrink: 0;
     border: 1px solid #616161;
     background: rgba(217, 217, 217, 0);
+    text-align: center;
 `;
 
 const OverviewText = styled.text`
-    display: flex;
+    display: block;
     width: 6.625rem;
     height: 3.25rem;
     flex-direction: column;
@@ -65,8 +68,6 @@ const OverviewText = styled.text`
 
 const WelcomeText = styled.text`
     display: flex;
-    width: 301px;
-    height: 54px;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
@@ -81,7 +82,17 @@ const WelcomeText = styled.text`
 `;
 
 const WelcomeTextLine = styled.line`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     width: 206.039px;
     height: 15px;
     background: rgba(96, 95, 95, 0.09);
+`;
+
+const WelcomeContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;

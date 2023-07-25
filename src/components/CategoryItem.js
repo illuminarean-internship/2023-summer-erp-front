@@ -1,18 +1,22 @@
-import { Alert } from '@mui/material';
-import Button from '@mui/material/Button';
 import * as React from 'react';
 import { redirect } from 'next/navigation';
 import styled from 'styled-components';
 import arrow from 'public/images/arrow.png';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function CategoryItem({ name, link, size }) {
+    const router = useRouter();
+    const handleClick = () => {
+        router.push(
+            router.push({
+                pathname: '/assets/' + link ,
+            }),
+        );
+    };
+
     return (
-        <ButtonStyle
-            onClick={() => {
-                alert(link); //need to redirect to the link
-            }}
-        >
+        <ButtonStyle onClick={handleClick}>
             <ButtonStyleTop>
                 <ButtonStyleTextWrapper>
                     <ButtonStyleTextSize>{size}</ButtonStyleTextSize>
@@ -35,7 +39,7 @@ const ArrowStyle = styled.a`
     display: flex;
     width: 0.891rem;
     height: 0.898rem;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -56,7 +60,7 @@ const ButtonLinkStyleTextWrapper = styled.div`
     padding: 0rem 3.125rem;
     justify-content: center;
     align-items: flex-start;
-    gap: 0.625rem;
+
     flex-shrink: 0;
     align-self: stretch;
 `;
@@ -73,10 +77,9 @@ const ButtonLinkStyleText = styled.text`
     display: flex;
     width: 5.15rem;
     height: 3.033rem;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     flex-shrink: 0;
-    margin-right: 0.313rem;
 `;
 const ButtonStyleBottom = styled.div`
     display: flex;
@@ -113,6 +116,7 @@ const ButtonStyleTextWrapper = styled.div`
     align-items: flex-start;
     gap: 0.625rem;
     align-self: stretch;
+    flex-direction: column;
 `;
 const ButtonStyleTextName = styled.text`
     color: #1b1b1b;

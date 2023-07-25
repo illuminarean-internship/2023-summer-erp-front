@@ -13,6 +13,7 @@ const fontSizes = {
     size40: '4rem',
 };
 
+
 const theme = {
     colors,
     fontFamily,
