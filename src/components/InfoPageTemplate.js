@@ -1,14 +1,76 @@
 import React from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+//all data guarenteed to have an id, type, and history
+
+const sampleData = {
+    _id: 'first',
+    type: 'book',
+    title: 'UI/UX 디자인 이론과 실습',
+    team: 'Design Team',
+    location: 'Office',
+    purchaseDate: '07 / 10 / 2019',
+    price: '₩27,000',
+    history: [
+        ['Jonghyun_Lee', '07 / 10 / 2019', '10 / 28 / 2020'],
+        ['office', '10 / 29 / 2020', 'N/A'],
+    ],
+};
 
 export default function InfoPageTemplate({ id }) {
+    useEffect(() => {
+        axios
+            .get('http://43.200.193.130:4040/api/books/')
+            .then(function (response) {
+                console.log(response.data);
+            });
+    }, []);
+
+    const renderLabels = Object.keys(sampleData) //hard coded for now, but eventually will do based on id
+        .flat()
+        .map(
+            (v) =>
+                v !== 'type' &&
+                v !== '_id' && (
+                    <LabelInfoWrapper>
+                        <LabelContainer key={v}>
+                            <Label>
+                                {v
+                                    .replace(/([A-Z])/g, ' $1')
+                                    .replace(/^./, function (str) {
+                                        return str.toUpperCase(); //converts camelCase to Label
+                                    })}
+                            </Label>
+                        </LabelContainer>
+                        <InfoContainer key={sampleData[v]}>
+                            <Info>{sampleData[v]}</Info>
+                        </InfoContainer>
+                    </LabelInfoWrapper>
+                ),
+        );
+    const vals = Object.keys(sampleData).map(function (key) {
+        return sampleData[key];
+    });
+
+    const renderInfo = vals.map(
+        (v) =>
+            v !== id &&
+            v !== 'book' && ( //hard coded in as well, will eventually fix condition
+                <InfoContainer key={v}>
+                    <Info>{v}</Info>
+                </InfoContainer>
+            ),
+    );
+
     return (
         <PageDiv>
             <InfoGroup>
                 <InfoIcon />
-                <InfoText>Info {id}</InfoText>
+                <InfoIconText>Info</InfoIconText>
             </InfoGroup>
             <Container fixed>
                 <Box
@@ -24,6 +86,8 @@ export default function InfoPageTemplate({ id }) {
                     }}
                 >
                     <ItemTitle>UI/UX 디자인 이론과 실습</ItemTitle>
+                    <TitleDivider />
+                    <InfoWrapper>{renderLabels}</InfoWrapper>
                 </Box>
             </Container>
         </PageDiv>
@@ -52,7 +116,7 @@ const InfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({
     marginRight: 5,
 }));
 
-const InfoText = styled('div')(({ theme }) => ({
+const InfoIconText = styled('div')(({ theme }) => ({
     display: 'flex',
     width: 106,
     height: 52,
@@ -66,7 +130,7 @@ const InfoText = styled('div')(({ theme }) => ({
     letterSpacing: 0.22,
 }));
 
-const ItemTitle = styled('text')(({ theme }) => ({
+const ItemTitle = styled('text')(() => ({
     display: 'flex',
     width: 420,
     height: 44,
@@ -77,9 +141,76 @@ const ItemTitle = styled('text')(({ theme }) => ({
     fontFamily: 'Source Sans Pro',
     fontSize: 20,
     fontStyle: 'normal',
+    fontWeight: 'bold',
     fontHeight: 600,
     lineHeight: 'normal',
     letterSpacing: 0.2,
+    marginLeft: 30,
+    marginTop: 10,
+    marginBottom: 10,
 }));
 
-const Title = styled('text')(({ theme }) => ({}));
+const TitleDivider = styled(Divider)(() => ({
+    width: 842.003,
+    height: 1,
+    background: '#DBDBDB',
+}));
+
+const InfoWrapper = styled('div')(() => ({
+    width: 842,
+    height: 417,
+    marginTop: 70,
+}));
+
+const LabelInfoWrapper = styled('div')(() => ({
+    width: 842,
+    height: 20,
+    marginBottom: 26,
+    alignItems: 'flex-start',
+    flexShrink: 0,
+    alignSelf: 'stretch',
+}));
+
+const LabelContainer = styled('div')(() => ({
+    width: 202,
+    display: 'flex',
+    height: 22,
+    justifyContent: 'right',
+    flexDirection: 'row',
+    flexShrink: 0,
+    marginRight: 10,
+}));
+
+const Label = styled('text')(() => ({
+    width: 96,
+    height: 22,
+    flexShrink: 0,
+    color: '#000',
+    textAlign: 'right',
+    fontFamily: 'Source Sans Pro',
+    fontSize: 15,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 'normal',
+}));
+
+const InfoContainer = styled('div')(() => ({
+    width: 800,
+    display: 'flex',
+    height: 22,
+    justifyContent: 'left',
+    flexShrink: 0,
+}));
+
+const Info = styled('text')(() => ({
+    width: 96,
+    height: 22,
+    flexShrink: 0,
+    color: '#000',
+    textAlign: 'right',
+    fontFamily: 'Source Sans Pro',
+    fontSize: 15,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 'normal',
+}));
