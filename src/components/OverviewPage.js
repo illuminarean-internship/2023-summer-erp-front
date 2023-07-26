@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryItem from '../components/CategoryItem';
+import CategoryItem from './CategoryItem';
 import styled from 'styled-components';
 
 //const startingList = [] //import from DB
