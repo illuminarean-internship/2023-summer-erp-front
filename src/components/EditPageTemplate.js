@@ -7,7 +7,7 @@ import axios from 'axios';
 
 //all data guarenteed to have an id, type, and history
 
-export default function InfoPageTemplate({ id }) {
+export default function EditPageTemplate({ id }) {
     // useEffect(() => {
     //     axios
     //         .get('http://43.200.193.130:4040/api/books/')
@@ -59,6 +59,7 @@ export default function InfoPageTemplate({ id }) {
         (v) =>
             v !== history[0] && (
                 <HistoryContainer
+                    key={v}
                     sx={{
                         width: 281,
                         display: 'flex',
