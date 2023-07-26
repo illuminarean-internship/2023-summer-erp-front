@@ -13,8 +13,7 @@ const sampleStartingList = [
 ];
 
 const username = 'testName';
-
-export default function CategoryNavigationPage() {
+export default function OverviewPage() {
     const [categoryButtonList, setCategoryButtonList] =
         React.useState(sampleStartingList); //create a hook whose array can be updated in react
     const categories = categoryButtonList.map((item) => (
