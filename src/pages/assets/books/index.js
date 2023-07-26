@@ -1,16 +1,32 @@
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import { AddBoxOutlined } from '@mui/icons-material';
+import Link from 'next/link';
+import BookAction from '../../../components/actions/BookAction';
 
 const Books = ({ setSelectedLink }) => {
+    const [rows, setRows] = useState([]);
+    const [alertVisible, setAlertVisible] = useState(false);
+
+    const fetchData = async () => {
+        await axios.get('http://43.200.193.130:4040/api/books/').then((res) => {
+            setRows(res.data);
+        });
+    };
+
     useEffect(() => {
         setSelectedLink('assets/books');
-    }, []);
+        fetchData();
+    }, [rows]);
 
     const columns = [
-        { field: 'Title', width: 300 },
+        { field: 'name', headerName: 'Title', width: 500 },
         {
-            field: 'Team',
+            field: 'teamName',
+            headerName: 'Team',
             width: 200,
             type: 'singleSelect',
             valueOptions: [
@@ -23,88 +39,63 @@ const Books = ({ setSelectedLink }) => {
             ],
             editable: true,
         },
-        { field: 'Location', width: 200 },
-        { field: 'PurchaseDate', width: 200 },
-        { field: 'Price', width: 200 },
-    ];
-    const rows = [
+        { field: 'location', headerName: 'Location', width: 250 },
         {
-            id: 1,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
+            field: 'purchaseDate',
+            headerName: 'Purchase Date',
+            width: 250,
+            renderCell: (params) =>
+                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
-            id: 2,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
+            field: 'price',
+            headerName: 'Price',
+            width: 200,
+            renderCell: (params) => '₩' + params.row.price,
         },
         {
-            id: 3,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
-        },
-        {
-            id: 4,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
-        },
-        {
-            id: 5,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
-        },
-        {
-            id: 6,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
-        },
-        {
-            id: 7,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
-        },
-        {
-            id: 8,
-            Title: 'UI/UX 디자인 이론과 실습',
-            Team: 'Design Team',
-            Location: '강남사무실',
-            PurchaseDate: '2019-07-19',
-            Price: '27,000원',
+            field: 'Actions',
+            headerName: 'Actions',
+            type: 'actions',
+            width: 200,
+            renderCell: (params) => (
+                <BookAction
+                    params={params}
+                    setAlertVisible={setAlertVisible}
+                ></BookAction>
+            ),
         },
     ];
+
     return (
-        <Box sx={{ height: 400, width: '100%' }}>
-            <Typography
-                variant="h5"
-                component="h5"
-                sx={{ textAlign: 'left', mt: 3, mb: 3 }}
-            >
-                Books
-            </Typography>
+        <Box sx={{ height: 650, width: '100%' }}>
+            <div>
+                {alertVisible && (
+                    <Stack sx={{ width: '100%' }} spacing={2}>
+                        <Alert onClose={() => setAlertVisible(false)}>
+                            This is a success alert — item has been deleted!
+                        </Alert>
+                    </Stack>
+                )}
+            </div>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ textAlign: 'left', mt: 3, mb: 3 }}
+                >
+                    Books
+                </Typography>
+                <Link href={'/assets/books/add'}>
+                    <IconButton sx={{}} aria-label="add book">
+                        <AddBoxOutlined />
+                    </IconButton>
+                </Link>
+            </Box>
             <DataGrid
                 columns={columns}
                 rows={rows}
+                getRowId={(rows) => rows._id}
                 initialState={{
                     pagination: { paginationModel: { pageSize: 10 } },
                 }}

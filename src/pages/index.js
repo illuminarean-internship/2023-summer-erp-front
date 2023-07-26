@@ -1,15 +1,16 @@
 import Head from 'next/head';
-// import Main from '../components/Main';
+import OverviewPage from '../components/OverviewPage';
 import Footer from '../components/Footer';
 
 export default function Home() {
     return (
         <div>
             <Head>
-                <title>Create Your App</title>
+                <title>illuminarean system</title>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <OverviewPage />
             <Footer />
         </div>
     );

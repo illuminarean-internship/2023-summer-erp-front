@@ -7,28 +7,28 @@ import axios from 'axios';
 
 //all data guarenteed to have an id, type, and history
 
-const sampleData = {
-    _id: 'first',
-    type: 'book',
-    title: 'UI/UX 디자인 이론과 실습',
-    team: 'Design Team',
-    location: 'Office',
-    purchaseDate: '07 / 10 / 2019',
-    price: '₩27,000',
-    history: [
-        ['Jonghyun_Lee', '07 / 10 / 2019', '10 / 28 / 2020'],
-        ['office', '10 / 29 / 2020', 'N/A'],
-    ],
-};
-
 export default function InfoPageTemplate({ id }) {
-    useEffect(() => {
-        axios
-            .get('http://43.200.193.130:4040/api/books/')
-            .then(function (response) {
-                console.log(response.data);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get('http://43.200.193.130:4040/api/books/')
+    //         .then(function (response) {
+    //             console.log(response.data);
+    //         });
+    // }, []);
+
+    const sampleData = {
+        _id: 'first',
+        type: 'book',
+        title: 'UI/UX 디자인 이론과 실습',
+        team: 'Design Team',
+        location: 'Office',
+        purchaseDate: '07 / 10 / 2019',
+        price: '₩27,000',
+        history: [
+            ['Jonghyun_Lee', '07 / 10 / 2019', '10 / 28 / 2020'],
+            ['office', '10 / 29 / 2020', 'N/A'],
+        ],
+    };
 
     const renderLabels = Object.keys(sampleData) //hard coded for now, but eventually will do based on id
         .flat()
@@ -36,8 +36,8 @@ export default function InfoPageTemplate({ id }) {
             (v) =>
                 v !== 'type' &&
                 v !== '_id' && (
-                    <LabelInfoWrapper>
-                        <LabelContainer key={v}>
+                    <LabelInfoWrapper key={v}>
+                        <LabelContainer>
                             <Label>
                                 {v
                                     .replace(/([A-Z])/g, ' $1')
