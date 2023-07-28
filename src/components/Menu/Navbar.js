@@ -20,8 +20,7 @@ import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import logo from 'public/images/logo.png';
-
-const drawerWidth = 240;
+import { drawerWidth } from '../../constants/constants';
 
 export default function Navbar({ open, handleDrawerOpen }) {
     const [anchorEl, setAnchorEl] = useState(null);

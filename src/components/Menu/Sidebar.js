@@ -3,8 +3,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
 import SideMenu from './SideMenu';
-
-const drawerWidth = 240;
+import { drawerWidth } from '../../constants/constants';
 
 const Sidebar = ({ open, setOpen, children, selectedLink }) => {
     return (
