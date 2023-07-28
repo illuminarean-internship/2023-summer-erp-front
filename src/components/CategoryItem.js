@@ -4,17 +4,17 @@ import Link from 'next/link';
 import { Button, Typography } from '@mui/material';
 import { OpenInBrowserOutlined } from '@mui/icons-material';
 
-export default function CategoryItem({ name, link, size }) {
+export default function CategoryItem({ item }) {
     return (
         <ButtonStyle>
             <ButtonStyleTop>
                 <ButtonStyleTextWrapper>
-                    <Typography variant="h4">{size}</Typography>
-                    <Typography variant="h5">{name}</Typography>
+                    <Typography variant="h4">{item.size}</Typography>
+                    <Typography variant="h5">{item.name}</Typography>
                 </ButtonStyleTextWrapper>
             </ButtonStyleTop>
             <ButtonStyleBottom>
-                <Link href={`/assets/${link}`}>
+                <Link href={`/assets/${item.link}`}>
                     <Button
                         variant="text"
                         color="inherit"

@@ -1,6 +1,7 @@
 import CategoryItem from './CategoryItem';
 import { useSession } from 'next-auth/react';
 import { Box, Container, Grid, Typography } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 // import { useState } from 'react';
 
 //const startingList = [] //import from DB
@@ -29,12 +30,7 @@ export default function OverviewPage() {
     // ));
 
     const categories = sampleStartingList.map((item) => (
-        <CategoryItem
-            key={item.name}
-            name={item.name}
-            link={item.link}
-            size={item.size}
-        />
+        <CategoryItem item={item} key={uuidv4()} />
     ));
 
     return (
