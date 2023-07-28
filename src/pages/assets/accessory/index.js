@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 const Accessory = ({ setSelectedLink }) => {
     const router = useRouter();
     useEffect(() => {
-        setSelectedLink('assets/accessory');
+        setSelectedLink(router.pathname.slice(1));
     }, []);
 
     return <div>accessory</div>;
