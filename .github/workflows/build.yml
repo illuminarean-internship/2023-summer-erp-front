@@ -22,19 +22,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      - name: Comment PR with SonarQube analysis result
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            SonarQube Analysis Result:
-            ${{ steps.sonarQube.outputs.report_summary }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # If you wish to fail yosing pull request
-      # decoration instead.ur job when the Quality Gate is red, uncomment the
-      #      # following lines. This would typically be used to fail a deployment.
-      #      # We do not recommend to use this in a pull request. Prefer u
-      - uses: sonarsource/sonarqube-quality-gate-action@master
+
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
