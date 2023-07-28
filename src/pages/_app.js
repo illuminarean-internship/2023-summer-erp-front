@@ -8,17 +8,26 @@ import ProtectLayouts from '../components/ProtectLayouts';
 import { useState } from 'react';
 import Sidebar from '../components/Menu/Sidebar';
 import { Box } from '@mui/material';
+import useBoolean from '../hooks/useBoolean';
 
 function MyApp({ Component, pageProps, session }) {
     const router = useRouter();
 
-    const [open, setOpen] = useState(false);
+    const {
+        value: isOpen,
+        setTrue: setIsOpenTrue,
+        setFalse: setIsOpenFalse,
+    } = useBoolean(false);
+
     const [selectedLink, setSelectedLink] = useState(null);
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+        setIsOpenTrue();
     };
 
+    const handleDrawerClose = () => {
+        setIsOpenFalse();
+    };
     return (
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
@@ -26,8 +35,15 @@ function MyApp({ Component, pageProps, session }) {
                 {router.pathname !== '/login-page' ? (
                     <ProtectLayouts>
                         <Box sx={{ display: 'flex' }}>
-                            <Navbar {...{ open, handleDrawerOpen }} />
-                            <Sidebar {...{ open, setOpen, selectedLink }}>
+                            <Navbar {...{ isOpen, handleDrawerOpen }} />
+                            <Sidebar
+                                {...{
+                                    isOpen,
+                                    handleDrawerClose,
+                                    handleDrawerOpen,
+                                    selectedLink,
+                                }}
+                            >
                                 <Component
                                     {...pageProps}
                                     selectedLink={selectedLink}

@@ -5,12 +5,17 @@ import Divider from '@mui/material/Divider';
 import SideMenu from './SideMenu';
 import { drawerWidth } from '../../constants/constants';
 
-const Sidebar = ({ open, setOpen, children, selectedLink }) => {
+const Sidebar = ({
+    isOpen: open,
+    handleDrawerClose,
+    children,
+    selectedLink,
+}) => {
     return (
         <>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={() => setOpen(false)}>
+                    <IconButton onClick={() => handleDrawerClose()}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </DrawerHeader>

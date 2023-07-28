@@ -22,7 +22,7 @@ import Image from 'next/image';
 import logo from 'public/images/logo.png';
 import { drawerWidth } from '../../constants/constants';
 
-export default function Navbar({ open, handleDrawerOpen }) {
+export default function Navbar({ isOpen: open, handleDrawerOpen }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
