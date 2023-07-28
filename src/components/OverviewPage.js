@@ -1,22 +1,34 @@
-import React from 'react';
 import CategoryItem from './CategoryItem';
-import styled from 'styled-components';
+import { useSession } from 'next-auth/react';
+import { Box, Container, Grid, Typography } from '@mui/material';
+// import { useState } from 'react';
 
 //const startingList = [] //import from DB
 const sampleStartingList = [
     { name: 'Accessory', link: 'accessory', size: 197 },
     { name: 'Books', link: 'books', size: 90 },
-    { name: 'Desktop PC', link: 'desktopPc', size: 6 },
+    { name: 'Desktop PC', link: 'desktop-pc', size: 6 },
     { name: 'Laptops', link: 'laptop', size: 99 },
     { name: 'Software', link: 'software', size: 9 },
-    { name: 'Test Device', link: 'testDevice', size: 10 },
+    { name: 'Test Device', link: 'test-device', size: 10 },
 ];
 
-const username = 'testName';
 export default function OverviewPage() {
-    const [categoryButtonList, setCategoryButtonList] =
-        React.useState(sampleStartingList); //create a hook whose array can be updated in react
-    const categories = categoryButtonList.map((item) => (
+    const { data: session } = useSession();
+
+    // to not make any errors comment for a while
+    // const [categoryButtonList, setCategoryButtonList] =
+    //     useState(sampleStartingList); //create a hook whose array can be updated in react
+    // const categories = categoryButtonList.map((item) => (
+    //     <CategoryItem
+    //         key={item.name}
+    //         name={item.name}
+    //         link={item.link}
+    //         size={item.size}
+    //     />
+    // ));
+
+    const categories = sampleStartingList.map((item) => (
         <CategoryItem
             key={item.name}
             name={item.name}
@@ -27,71 +39,36 @@ export default function OverviewPage() {
 
     return (
         <div>
-            <WelcomeContainer>
-                <WelcomeText>Welcome "{username}"</WelcomeText>
-                <WelcomeTextLine />
-            </WelcomeContainer>
-            <OverviewText>Overview</OverviewText>
-            <OverviewBox>
-                <div>{categories}</div>;
-            </OverviewBox>
+            <Container>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    sx={{ ml: -28 }}
+                >
+                    <Typography variant="h5" align="center">
+                        Welcome &quot;{session.user.name}&quot;
+                    </Typography>
+                    <Box
+                        sx={{
+                            mt: 0.5,
+                            width: 170,
+                            height: 7,
+                            bgcolor: 'text.disabled',
+                        }}
+                    />
+                </Box>
+                <Typography variant="h5" sx={{ mb: 3, mt: 2 }}>
+                    Overview
+                </Typography>
+
+                <Box display="flex" justifyContent="center">
+                    <Grid container spacing={2}>
+                        {categories}
+                    </Grid>
+                </Box>
+            </Container>
         </div>
     );
 }
-
-const OverviewBox = styled.div`
-    width: 74.94rem;
-    height: 32.813rem;
-    flex-shrink: 0;
-    border: 1px solid #616161;
-    background: rgba(217, 217, 217, 0);
-    text-align: center;
-`;
-
-const OverviewText = styled.text`
-    display: block;
-    width: 6.625rem;
-    height: 3.25rem;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #000;
-    text-align: center;
-    font-family: Source Sans Pro;
-    font-size: 1.375rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: 0.01375rem;
-`;
-
-const WelcomeText = styled.text`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #000;
-    text-align: center;
-    font-family: Source Sans Pro;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 1.25px;
-`;
-
-const WelcomeTextLine = styled.line`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 206.039px;
-    height: 15px;
-    background: rgba(96, 95, 95, 0.09);
-`;
-
-const WelcomeContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;

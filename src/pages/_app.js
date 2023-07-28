@@ -22,11 +22,11 @@ function MyApp({ Component, pageProps, session }) {
     return (
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
-                {router.pathname !== '/loginPage' ? (
+                <GlobalStyle />
+                {router.pathname !== '/login-page' ? (
                     <ProtectLayouts>
-                        <GlobalStyle />
                         <Box sx={{ display: 'flex' }}>
-                            <Navbar {...{ open, setOpen, handleDrawerOpen }} />
+                            <Navbar {...{ open, handleDrawerOpen }} />
                             <Sidebar {...{ open, setOpen, selectedLink }}>
                                 <Component
                                     {...pageProps}
