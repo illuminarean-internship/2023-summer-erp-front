@@ -25,9 +25,9 @@ const Books = ({ setSelectedLink }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'name', headerName: 'Title', width: 500 },
+        { field: 'title', headerName: 'Title', width: 500 },
         {
-            field: 'teamName',
+            field: 'team',
             headerName: 'Team',
             width: 200,
             type: 'singleSelect',
