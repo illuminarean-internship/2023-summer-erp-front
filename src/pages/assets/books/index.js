@@ -6,10 +6,12 @@ import moment from 'moment';
 import { AddBoxOutlined } from '@mui/icons-material';
 import Link from 'next/link';
 import BookAction from '../../../components/actions/BookAction';
+import { useRouter } from 'next/router';
 
 const Books = ({ setSelectedLink }) => {
     const [rows, setRows] = useState([]);
     const [alertVisible, setAlertVisible] = useState(false);
+    const router = useRouter();
 
     const fetchData = async () => {
         await axios.get('http://43.200.193.130:4040/api/books/').then((res) => {
@@ -18,7 +20,7 @@ const Books = ({ setSelectedLink }) => {
     };
 
     useEffect(() => {
-        setSelectedLink('assets/books');
+        setSelectedLink(router.pathname.slice(1));
         fetchData();
     }, [rows]);
 
