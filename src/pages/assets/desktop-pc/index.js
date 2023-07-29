@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const Laptop = ({ setSelectedLink }) => {
+const DesktopPc = ({ setSelectedLink }) => {
     const router = useRouter();
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
     }, []);
-    return <div>laptop</div>;
+    return <div>desktopPc</div>;
 };
 
-export default Laptop;
+export default DesktopPc;

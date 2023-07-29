@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Accessory = ({ setSelectedLink }) => {
-  useEffect(() => {
-    setSelectedLink("assets/accessory");
-  }, []);
+    const router = useRouter();
+    useEffect(() => {
+        setSelectedLink(router.pathname.slice(1));
+    }, []);
 
-  return <div>accessory</div>;
+    return <div>accessory</div>;
 };
 
 export default Accessory;
