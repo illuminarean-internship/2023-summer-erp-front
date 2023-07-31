@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps, session }) {
                                     {...pageProps}
                                     selectedLink={selectedLink}
                                     setSelectedLink={setSelectedLink}
+                                    isOpen={isOpen}
                                 />
                             </Sidebar>
                         </Box>
