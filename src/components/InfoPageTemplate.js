@@ -8,14 +8,7 @@ import axios from 'axios';
 //all data guarenteed to have an id, type, and history
 
 export default function InfoPageTemplate({ id }) {
-    // useEffect(() => {
-    //     axios
-    //         .get('http://43.200.193.130:4040/api/books/')
-    //         .then(function (response) {
-    //             console.log(response.data);
-    //         });
-    // }, []);
-
+    const [retreivedInfoState, setRetreivedInfoState] = useState(null);
     const sampleData = {
         _id: 'first',
         type: 'book',
@@ -26,7 +19,13 @@ export default function InfoPageTemplate({ id }) {
         price: '₩27,000',
     };
 
-    const renderLabels = Object.keys(sampleData) //hard coded for now, but eventually will do based on id
+    useEffect(() => {
+        axios.get(`http://43.200.193.130:4040/api/books/${id}`).then((res) => {
+            setRetreivedInfoState(res.data);
+        });
+    }, []);
+
+    const renderLabels = Object.keys(retreivedInfoState) //hard coded for now, but eventually will do based on id
         .flat()
         .map(
             (v) =>
@@ -43,8 +42,9 @@ export default function InfoPageTemplate({ id }) {
                                     })}
                             </Label>
                         </LabelContainer>
-                        <InfoContainer key={sampleData[v]}>
-                            <Info>{sampleData[v]}</Info>
+                        <InfoContainer key={retreivedInfoState[v]}>
+
+                            <Info>{retreivedInfoState[v]}</Info>
                         </InfoContainer>
                     </LabelInfoWrapper>
                 ),
