@@ -1,54 +1,36 @@
-import React from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Box, Container, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 //all data guarenteed to have an id, type, and history
-
-export default function InfoPageTemplate({ id }) {
-    const [retreivedInfoState, setRetreivedInfoState] = useState(null);
-    const sampleData = {
-        _id: 'first',
-        type: 'book',
-        title: 'UI/UX 디자인 이론과 실습',
-        team: 'Design Team',
-        location: 'Office',
-        purchaseDate: '07 / 10 / 2019',
-        price: '₩27,000',
+export default function InfoPageTemplate({ dataToRender }) {
+    const dataTypes = {
+        title: 'string',
+        team: 'string',
+        location: 'string',
+        purchaseDate: 'date',
+        price: 'integer',
     };
+    //FIX THIS, get it to render and then modify the date and money amount.
 
-    useEffect(() => {
-        axios.get(`http://43.200.193.130:4040/api/books/${id}`).then((res) => {
-            setRetreivedInfoState(res.data);
-        });
-    }, []);
-
-    const renderLabels = Object.keys(retreivedInfoState) //hard coded for now, but eventually will do based on id
+    const renderLabels = Object.keys(dataToRender) //hard coded for now, but eventually will do based on id
         .flat()
-        .map(
-            (v) =>
-                v !== 'type' &&
-                v !== '_id' &&
-                v !== 'history' && (
-                    <LabelInfoWrapper key={v}>
-                        <LabelContainer>
-                            <Label>
-                                {v
-                                    .replace(/([A-Z])/g, ' $1')
-                                    .replace(/^./, function (str) {
-                                        return str.toUpperCase(); //converts camelCase to Label
-                                    })}
-                            </Label>
-                        </LabelContainer>
-                        <InfoContainer key={retreivedInfoState[v]}>
-
-                            <Info>{retreivedInfoState[v]}</Info>
-                        </InfoContainer>
-                    </LabelInfoWrapper>
-                ),
-        );
+        .map((v) => (
+            <LabelInfoWrapper key={v}>
+                <LabelContainer>
+                    <Label>
+                        {v
+                            .replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, function (str) {
+                                return str.toUpperCase(); //converts camelCase to Label
+                            })}
+                    </Label>
+                </LabelContainer>
+                <InfoContainer key={dataToRender[v]}>
+                    <Info>{dataToRender[v]}</Info>
+                </InfoContainer>
+            </LabelInfoWrapper>
+        ));
 
     const history = [
         '07 / 10 / 2019 - 10 / 28 / 2020      Jonghyun Lee ',
@@ -89,7 +71,7 @@ export default function InfoPageTemplate({ id }) {
                         border: '1px solid #B9B9B9',
                     }}
                 >
-                    <ItemTitle>UI/UX 디자인 이론과 실습</ItemTitle>
+                    <ItemTitle>{dataToRender['title']}</ItemTitle>
                     <TitleDivider />
                     <InfoWrapper>
                         {renderLabels}
@@ -155,7 +137,7 @@ const InfoIconText = styled('div')(({ theme }) => ({
 
 const ItemTitle = styled('text')(() => ({
     display: 'flex',
-    width: 420,
+    width: 842,
     height: 44,
     flexDirection: 'column',
     justifyContent: 'center',
