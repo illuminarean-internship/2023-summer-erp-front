@@ -17,16 +17,18 @@ import {
 } from '@mui/icons-material';
 import Link from 'next/link';
 
-const SideMenu = ({ open, selectedLink }) => {
+const SideMenu = ({ open, selectedLink, handleDrawerOpen }) => {
     const [assetsOpen, setAssetsOpen] = useState(true);
     const [userOpen, setUserOpen] = useState(false);
 
     const assetsHandleClick = () => {
+        handleDrawerOpen();
         setAssetsOpen(!assetsOpen);
         setUserOpen(false);
     };
 
     const userHandleClick = () => {
+        handleDrawerOpen();
         setAssetsOpen(false);
         setUserOpen(!userOpen);
     };

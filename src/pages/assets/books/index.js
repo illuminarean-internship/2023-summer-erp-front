@@ -1,14 +1,11 @@
-import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { AddBoxOutlined } from '@mui/icons-material';
-import Link from 'next/link';
 import BookAction from '../../../components/actions/BookAction';
 import { useRouter } from 'next/router';
+import DataTable from '../../../components/DataTable';
 
-const Books = ({ setSelectedLink }) => {
+const Books = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
@@ -54,19 +51,20 @@ const Books = ({ setSelectedLink }) => {
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
-            width: 170,
+            width: 200,
+
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
             field: 'purchasedFrom',
             headerName: 'Purchased From',
-            width: 170,
+            width: 200,
         },
         {
             field: 'price',
             headerName: 'Price',
-            width: 170,
+            width: 150,
             renderCell: (params) => '₩' + params.row.price,
         },
         {
@@ -84,45 +82,14 @@ const Books = ({ setSelectedLink }) => {
     ];
 
     return (
-        <Box sx={{ height: 650, width: '100%' }}>
-            <div>
-                {alertVisible && (
-                    <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert onClose={() => setAlertVisible(false)}>
-                            This is a success alert — item has been deleted!
-                        </Alert>
-                    </Stack>
-                )}
-            </div>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography
-                    variant="h5"
-                    component="h5"
-                    sx={{ textAlign: 'left', mt: 3, mb: 3 }}
-                >
-                    Books
-                </Typography>
-                <Link href={'/assets/books/add'}>
-                    <IconButton sx={{}} aria-label="add book">
-                        <AddBoxOutlined />
-                    </IconButton>
-                </Link>
-            </Box>
-
-            <DataGrid
-                columns={columns}
-                rows={rows}
-                getRowId={(rows) => rows._id}
-                initialState={{
-                    pagination: { paginationModel: { pageSize: 10 } },
-                }}
-                pageSizeOptions={[5, 10, 25]}
-                disableDensitySelector
-                slots={{ toolbar: GridToolbar }}
-                slotProps={{ toolbar: { showQuickFilter: true } }}
-                loading={isLoading}
-            ></DataGrid>
-        </Box>
+        <DataTable
+            columns={columns}
+            rows={rows}
+            isLoading={isLoading}
+            isOpen={isOpen}
+            alertVisible={alertVisible}
+            setAlertVisible={setAlertVisible}
+        />
     );
 };
 

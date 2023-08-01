@@ -8,6 +8,7 @@ import { drawerWidth } from '../../constants/constants';
 const Sidebar = ({
     isOpen: open,
     handleDrawerClose,
+    handleDrawerOpen,
     children,
     selectedLink,
 }) => {
@@ -20,7 +21,11 @@ const Sidebar = ({
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <SideMenu open={open} selectedLink={selectedLink} />
+                <SideMenu
+                    open={open}
+                    selectedLink={selectedLink}
+                    handleDrawerOpen={handleDrawerOpen}
+                />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />

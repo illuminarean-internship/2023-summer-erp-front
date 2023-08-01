@@ -30,7 +30,9 @@ const BookAction = ({ params, setAlertVisible }) => {
 
     const deleteItem = () => {
         axios
-            .delete(`http://43.200.193.130:4040/api/books/${params.row._id}`)
+            .delete(
+                `http://43.200.193.130:4040/api/books/item/${params.row._id}`,
+            )
             .then(() => {
                 setOpen(false);
                 setAlertVisible(true);
