@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import BookAction from '../../../components/actions/BookAction';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 
-const Accessory = ({ setSelectedLink, isOpen }) => {
+const TestDevice = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
@@ -38,33 +37,28 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
         { field: 'deviceImage', headerName: 'Device Image', width: 100 },
         { field: 'model', headerName: 'Model', width: 100 },
         { field: 'category', headerName: 'Category', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
+        { field: 'ram', headerName: 'RAM', width: 100 },
+        { field: 'ssd', headerName: 'SSD', width: 100 },
+        { field: 'team', headerName: 'Team', width: 100 },
         { field: 'location', headerName: 'Location', width: 100 },
+        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
+        { field: 'condition', headerName: 'Condition', width: 100 },
+        { field: 'color', headerName: 'Color', width: 100 },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
-            width: 100,
+            width: 170,
             renderCell: (params) => '₩' + params.row.price,
-        },
-        {
-            field: 'availableDate',
-            headerName: 'Available Date',
-            width: 200,
-            renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
-        },
-        { field: 'color', headerName: 'Color', width: 100 },
-        {
-            field: 'purchaseDate',
-            headerName: 'Purchase Date',
-            width: 200,
-            renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
             field: 'purchasedFrom',
             headerName: 'Purchased From',
-            width: 200,
+            width: 170,
+        },
+        {
+            field: 'remarks',
+            headerName: 'Remarks',
+            width: 170,
         },
         {
             field: 'Actions',
@@ -91,4 +85,4 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     );
 };
 
-export default Accessory;
+export default TestDevice;

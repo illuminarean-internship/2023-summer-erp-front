@@ -17,16 +17,18 @@ import {
 } from '@mui/icons-material';
 import Link from 'next/link';
 
-const SideMenu = ({ open, selectedLink }) => {
+const SideMenu = ({ open, selectedLink, handleDrawerOpen }) => {
     const [assetsOpen, setAssetsOpen] = useState(true);
     const [userOpen, setUserOpen] = useState(false);
 
     const assetsHandleClick = () => {
+        handleDrawerOpen();
         setAssetsOpen(!assetsOpen);
         setUserOpen(false);
     };
 
     const userHandleClick = () => {
+        handleDrawerOpen();
         setAssetsOpen(false);
         setUserOpen(!userOpen);
     };
@@ -34,18 +36,18 @@ const SideMenu = ({ open, selectedLink }) => {
     const assetsList = [
         { title: 'Accessory', link: 'assets/accessory' },
         { title: 'Books', link: 'assets/books' },
-        { title: 'Desktop PC', link: 'assets/desktopPc' },
+        { title: 'Desktop PC', link: 'assets/desktop-pc' },
         { title: 'Laptop', link: 'assets/laptop' },
         { title: 'Software', link: 'assets/software' },
-        { title: 'Test Device', link: 'assets/testDevice' },
+        { title: 'Test Device', link: 'assets/test-device' },
     ];
 
     const usersList = [
-        { title: 'Operation Team', link: 'users/operationTeam' },
-        { title: 'Development Team', link: 'users/developTeam' },
-        { title: 'Product Team', link: 'users/productTeam' },
-        { title: 'Design Team', link: 'users/designTeam' },
-        { title: 'QA Team', link: 'users/qaTeam' },
+        { title: 'Operation Team', link: 'users/operation-team' },
+        { title: 'Development Team', link: 'users/develop-team' },
+        { title: 'Product Team', link: 'users/product-team' },
+        { title: 'Design Team', link: 'users/design-team' },
+        { title: 'QA Team', link: 'users/qa-team' },
     ];
 
     return (

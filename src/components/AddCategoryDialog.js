@@ -1,23 +1,24 @@
+// We don't use this component anymore. we this leave here just in case.
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CategoryButton from './CategoryItem';
-import * as React from 'react';
-
 
 import {
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle
-} from '@mui/material'
+    DialogTitle,
+} from '@mui/material';
+import { useState } from 'react';
 
 export default function AddCategoryDialog({
     categoryButtonList,
     setCategoryButtonList,
 }) {
-    const [isOpenedState, setIsOpened] = React.useState(false);
-    const [textValue, setTextValue] = React.useState(''); //tracks the text in the component,
+    const [isOpenedState, setIsOpened] = useState(false);
+    const [textValue, setTextValue] = useState(''); //tracks the text in the component,
 
     const addItemToCategoryButtonList = () => {
         setCategoryButtonList((existingItems) => {
@@ -81,3 +82,4 @@ export default function AddCategoryDialog({
         </div>
     );
 }
+// We don't use this component anymore. we this leave here just in case.
