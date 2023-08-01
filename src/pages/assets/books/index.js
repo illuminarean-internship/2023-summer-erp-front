@@ -1,5 +1,5 @@
 import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
@@ -10,13 +10,22 @@ import { useRouter } from 'next/router';
 
 const Books = ({ setSelectedLink }) => {
     const [rows, setRows] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
     const fetchData = async () => {
-        await axios.get('http://43.200.193.130:4040/api/books/').then((res) => {
-            setRows(res.data);
-        });
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/books/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -29,7 +38,7 @@ const Books = ({ setSelectedLink }) => {
         {
             field: 'team',
             headerName: 'Team',
-            width: 200,
+            width: 170,
             type: 'singleSelect',
             valueOptions: [
                 'HR Team',
@@ -41,18 +50,23 @@ const Books = ({ setSelectedLink }) => {
             ],
             editable: true,
         },
-        { field: 'location', headerName: 'Location', width: 250 },
+        { field: 'location', headerName: 'Location', width: 170 },
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
-            width: 250,
+            width: 170,
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
+            field: 'purchasedFrom',
+            headerName: 'Purchased From',
+            width: 170,
+        },
+        {
             field: 'price',
             headerName: 'Price',
-            width: 200,
+            width: 170,
             renderCell: (params) => '₩' + params.row.price,
         },
         {
@@ -94,6 +108,7 @@ const Books = ({ setSelectedLink }) => {
                     </IconButton>
                 </Link>
             </Box>
+
             <DataGrid
                 columns={columns}
                 rows={rows}
@@ -102,6 +117,10 @@ const Books = ({ setSelectedLink }) => {
                     pagination: { paginationModel: { pageSize: 10 } },
                 }}
                 pageSizeOptions={[5, 10, 25]}
+                disableDensitySelector
+                slots={{ toolbar: GridToolbar }}
+                slotProps={{ toolbar: { showQuickFilter: true } }}
+                loading={isLoading}
             ></DataGrid>
         </Box>
     );
