@@ -35,7 +35,7 @@ const Books = ({ setSelectedLink, isOpen }) => {
         {
             field: 'team',
             headerName: 'Team',
-            width: 200,
+            width: 170,
             type: 'singleSelect',
             valueOptions: [
                 'HR Team',
@@ -52,6 +52,7 @@ const Books = ({ setSelectedLink, isOpen }) => {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
             width: 200,
+
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
