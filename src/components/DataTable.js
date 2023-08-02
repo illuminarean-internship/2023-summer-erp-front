@@ -26,7 +26,7 @@ const DataTable = ({
     const pageTitle = getPageTitle(assetName);
 
     return (
-        <Box sx={{ height: 650, width: '100%', overflowX: 'auto' }}>
+        <Box sx={{ height: 650, width: '100%', overflowX: 'auto', p: 3 }}>
             <div>
                 {alertVisible && (
                     <Stack sx={{ width: '100%' }} spacing={2}>
@@ -45,7 +45,7 @@ const DataTable = ({
                     {pageTitle}
                 </Typography>
                 <Link href={`/assets/${assetName}/add`}>
-                    <IconButton sx={{}} aria-label="add item">
+                    <IconButton aria-label="add item">
                         <AddBoxOutlined />
                     </IconButton>
                 </Link>

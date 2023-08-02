@@ -17,3 +17,9 @@ const BooksEdit = () => {
 };
 
 export default BooksEdit;
+
+export async function getServerSideProps() {
+    return {
+        props: {},
+    };
+}
