@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import useLocationsData from '../../../../hooks/useLocationsData';
 
 const BookAdd = () => {
     const router = useRouter();
@@ -29,22 +30,7 @@ const BookAdd = () => {
         isUnreserved: false,
     });
 
-    const [locations, setLocations] = useState([]);
-
-    useEffect(() => {
-        // Fetch locations data from the API and update the locations state
-        axios
-            .get('http://43.200.193.130:4040/api/users/')
-            .then((response) => {
-                const locationNames = response.data.map(
-                    (location) => location.name,
-                );
-                setLocations(locationNames);
-            })
-            .catch((error) => {
-                console.error('Error fetching locations:', error);
-            });
-    }, []);
+    const locations = useLocationsData();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -125,7 +111,7 @@ const BookAdd = () => {
                                 sx={{ p: 1 }}
                             >
                                 <Typography sx={{ mr: 2 }}>Title</Typography>
-                                <Box mb={2}>
+                                <Box mb={2} sx={{ width: '100%' }}>
                                     <TextField
                                         name="title"
                                         label="Enter"
