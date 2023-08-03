@@ -28,7 +28,7 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                         >
                             <TextField
                                 name="title"
-                                label="Title"
+                                label="Enter Title"
                                 fullWidth
                                 value={bookInfo.title}
                                 onChange={handleChange}
@@ -57,7 +57,7 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                         >
                             <TextField
                                 name="team"
-                                label="Auto Fill"
+                                label="Auto-filled "
                                 fullWidth
                                 value={bookInfo.team}
                                 onChange={handleChange}
@@ -102,7 +102,7 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="Location"
+                                        label="Select Location"
                                         required
                                     />
                                 )}
