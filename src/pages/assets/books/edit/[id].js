@@ -69,6 +69,28 @@ const BooksEdit = () => {
         }));
     };
 
+    // Update team value when location is selected
+    const handleLocationChange = (event, newValue) => {
+        if (newValue) {
+            const selectedLocation = locations.find(
+                (location) => location.name === newValue,
+            );
+            if (selectedLocation) {
+                setBookInfo((prevInfo) => ({
+                    ...prevInfo,
+                    location: newValue,
+                    team: selectedLocation.team,
+                }));
+            }
+        } else {
+            setBookInfo((prevInfo) => ({
+                ...prevInfo,
+                location: newValue,
+                team: '', // If location is cleared, also clear the team
+            }));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -131,6 +153,7 @@ const BooksEdit = () => {
                         bookInfo={bookInfo}
                         handleChange={handleChange}
                         locations={locations}
+                        handleLocationChange={handleLocationChange}
                     />
                 </Paper>
             </Container>

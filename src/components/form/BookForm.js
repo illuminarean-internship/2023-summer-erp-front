@@ -9,7 +9,15 @@ import {
     Typography,
 } from '@mui/material';
 
-const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
+const BookForm = ({
+    handleSubmit,
+    bookInfo,
+    handleChange,
+    locations: locationsData,
+    handleLocationChange,
+}) => {
+    const locations = locationsData.map((location) => location.name);
+
     return (
         <form onSubmit={handleSubmit}>
             <Container maxWidth="sm">
@@ -89,14 +97,7 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                                 name="location"
                                 fullWidth
                                 value={bookInfo.location}
-                                onChange={(event, newValue) =>
-                                    handleChange({
-                                        target: {
-                                            name: 'location',
-                                            value: newValue,
-                                        },
-                                    })
-                                }
+                                onChange={handleLocationChange}
                                 options={locations}
                                 getOptionLabel={(option) => option}
                                 renderInput={(params) => (

@@ -10,9 +10,10 @@ const useLocationsData = () => {
                 const response = await axios.get(
                     'http://43.200.193.130:4040/api/users/',
                 );
-                const locationNames = response.data.map(
-                    (location) => location.name,
-                );
+                const locationNames = response.data.map((location) => ({
+                    name: location.name,
+                    team: location.team,
+                }));
                 setLocations(locationNames);
             } catch (error) {
                 console.error('Error fetching locations:', error);
