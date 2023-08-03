@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { AddBoxOutlined } from '@mui/icons-material';
 import BookAction from '../../../components/actions/BookAction';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 
-const Accessory = ({ setSelectedLink, isOpen }) => {
+const DesktopPc = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
@@ -35,36 +36,27 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     }, []);
 
     const columns = [
-        { field: 'deviceImage', headerName: 'Device Image', width: 100 },
-        { field: 'model', headerName: 'Model', width: 100 },
-        { field: 'category', headerName: 'Category', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
-        { field: 'location', headerName: 'Location', width: 100 },
         {
-            field: 'totalPrice',
-            headerName: 'Total Price',
-            width: 100,
-            renderCell: (params) => '₩' + params.row.price,
+            field: 'illuminareanSerialNumber',
+            headerName: 'Illuminarean Serial #',
+            width: 300,
         },
-        {
-            field: 'availableDate',
-            headerName: 'Available Date',
-            width: 200,
-            renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
-        },
-        { field: 'color', headerName: 'Color', width: 100 },
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
-            width: 200,
+            width: 250,
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
-            field: 'purchasedFrom',
-            headerName: 'Purchased From',
-            width: 200,
+            field: 'purpose',
+            headerName: 'Purpose',
+            width: 250,
+        },
+        {
+            field: 'location',
+            headerName: 'Location',
+            width: 250,
         },
         {
             field: 'Actions',
@@ -91,4 +83,4 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     );
 };
 
-export default Accessory;
+export default DesktopPc;

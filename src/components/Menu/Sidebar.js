@@ -3,20 +3,29 @@ import MuiDrawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
 import SideMenu from './SideMenu';
+import { drawerWidth } from '../../constants/constants';
 
-const drawerWidth = 240;
-
-const Sidebar = ({ open, setOpen, children, selectedLink }) => {
+const Sidebar = ({
+    isOpen: open,
+    handleDrawerClose,
+    handleDrawerOpen,
+    children,
+    selectedLink,
+}) => {
     return (
         <>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={() => setOpen(false)}>
+                    <IconButton onClick={() => handleDrawerClose()}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <SideMenu open={open} selectedLink={selectedLink} />
+                <SideMenu
+                    open={open}
+                    selectedLink={selectedLink}
+                    handleDrawerOpen={handleDrawerOpen}
+                />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />

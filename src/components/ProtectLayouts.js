@@ -18,7 +18,7 @@ const ProtectLayouts = ({ children }) => {
         // with a return url to the current page
         if (unAuthorized) {
             router.push({
-                pathname: '/loginPage',
+                pathname: '/login-page',
                 // query: { returnUrl: router.asPath },
             });
         }

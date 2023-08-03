@@ -20,10 +20,9 @@ import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import logo from 'public/images/logo.png';
+import { drawerWidth } from '../../constants/constants';
 
-const drawerWidth = 240;
-
-export default function Navbar({ open, handleDrawerOpen }) {
+export default function Navbar({ isOpen: open, handleDrawerOpen }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -195,14 +194,15 @@ const StyledAppBar = styled(AppBar, {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: open
+            ? theme.transitions.duration.enteringScreen
+            : theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
         }),
     }),
 }));
