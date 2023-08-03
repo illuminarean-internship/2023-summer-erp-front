@@ -14,7 +14,6 @@ import {
     Tooltip,
 } from '@mui/material';
 import axios from 'axios';
-import Link from 'next/link';
 import { useState } from 'react';
 
 const BookAction = ({ params, setAlertVisible }) => {
@@ -45,23 +44,19 @@ const BookAction = ({ params, setAlertVisible }) => {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Tooltip title="Copy item">
-                <IconButton onClick={() => {}}>
+                <IconButton href={`/assets/books/copy/${params.row._id}`}>
                     <ContentCopy />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Item info">
-                <Link href={`/assets/books/info/${params.row._id}`}>
-                    <IconButton>
-                        <InfoOutlined />
-                    </IconButton>
-                </Link>
+                <IconButton href={`/assets/books/info/${params.row._id}`}>
+                    <InfoOutlined />
+                </IconButton>
             </Tooltip>
             <Tooltip title="Item edit">
-                <Link href={`/assets/books/edit/${params.row._id}`}>
-                    <IconButton>
-                        <EditNoteOutlined />
-                    </IconButton>
-                </Link>
+                <IconButton href={`/assets/books/edit/${params.row._id}`}>
+                    <EditNoteOutlined />
+                </IconButton>
             </Tooltip>
             <Tooltip title="Item delete">
                 <IconButton

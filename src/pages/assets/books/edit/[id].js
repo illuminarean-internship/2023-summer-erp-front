@@ -1,14 +1,10 @@
 import { DisabledByDefaultOutlined, EditNote } from '@mui/icons-material';
 import {
-    Autocomplete,
     Box,
-    Button,
     Container,
     Divider,
     IconButton,
-    InputAdornment,
     Paper,
-    TextField,
     Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -16,6 +12,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import moment from 'moment';
+import BookForm from '../../../../components/form/BookForm';
 
 const BooksEdit = () => {
     const router = useRouter();
@@ -120,128 +117,13 @@ const BooksEdit = () => {
                     <Typography variant="h5" component="h5">
                         {bookInfo.title}
                     </Typography>
-
                     <Divider sx={{ my: 2, borderColor: 'gray' }} />
-                    <form onSubmit={handleSubmit}>
-                        <Container maxWidth="sm">
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{ p: 1 }}
-                            >
-                                <Typography sx={{ mr: 2 }}>Title</Typography>
-                                <Box mb={2} sx={{ width: '100%' }}>
-                                    <TextField
-                                        name="title"
-                                        label="Enter"
-                                        fullWidth
-                                        value={bookInfo.title}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Box>
-                            </Box>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{ p: 1 }}
-                            >
-                                <Typography sx={{ mr: 2 }}>Location</Typography>
-                                <Autocomplete
-                                    id="location"
-                                    name="location"
-                                    fullWidth
-                                    value={bookInfo.location}
-                                    onChange={(event, newValue) =>
-                                        handleChange({
-                                            target: {
-                                                name: 'location',
-                                                value: newValue,
-                                            },
-                                        })
-                                    }
-                                    options={locations}
-                                    getOptionLabel={(option) => option}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            label="Location"
-                                            required
-                                        />
-                                    )}
-                                />
-                            </Box>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{ p: 1 }}
-                            >
-                                <Typography sx={{ mr: 2 }}>
-                                    Purchase Date
-                                </Typography>
-
-                                <Box mb={2}>
-                                    <TextField
-                                        name="purchaseDate"
-                                        type="date"
-                                        fullWidth
-                                        value={bookInfo.purchaseDate}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Box>
-                            </Box>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{ p: 1 }}
-                            >
-                                <Typography sx={{ mr: 2 }}>
-                                    Purchased From
-                                </Typography>
-                                <TextField
-                                    name="purchasedFrom"
-                                    label="Purchased From"
-                                    fullWidth
-                                    value={bookInfo.purchasedFrom}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </Box>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{ p: 1 }}
-                            >
-                                <Typography sx={{ mr: 2 }}>Price</Typography>
-                                <TextField
-                                    name="price"
-                                    label="Price"
-                                    type="number"
-                                    fullWidth
-                                    value={bookInfo.price}
-                                    onChange={handleChange}
-                                    required
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                ₩
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </Box>
-                            <Box display="flex" justifyContent="center" mt={3}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    Save
-                                </Button>
-                            </Box>
-                        </Container>
-                    </form>
+                    <BookForm
+                        handleSubmit={handleSubmit}
+                        bookInfo={bookInfo}
+                        handleChange={handleChange}
+                        locations={locations}
+                    />
                 </Paper>
             </Container>
         </Box>
