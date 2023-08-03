@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { AddBoxOutlined } from '@mui/icons-material';
-import BookAction from '../../../components/actions/BookAction';
+import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 
@@ -64,10 +64,10 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <BookAction
+                <Action
                     params={params}
                     setAlertVisible={setAlertVisible}
-                ></BookAction>
+                ></Action>
             ),
         },
     ];

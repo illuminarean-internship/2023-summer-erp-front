@@ -14,8 +14,8 @@ const DataTable = ({
 }) => {
     const router = useRouter();
     const { pathname } = router;
-    const paths = pathname.split('/');
-    const assetName = paths[2];
+    const pathParsed = pathname.split('/');
+    let pageTitle = '';
 
     const getPageTitle = (assetName) => {
         let title = assetName.replace(/-/g, ' '); // Replace hyphens with spaces
@@ -23,7 +23,13 @@ const DataTable = ({
         return title;
     };
 
-    const pageTitle = getPageTitle(assetName);
+    if (pathParsed[1] === 'assets') {
+        const assetName = pathParsed[2];
+        pageTitle = getPageTitle(assetName);
+    } else {
+        pageTitle =
+            pathParsed[1].charAt(0).toUpperCase() + pathParsed[1].slice(1);
+    }
 
     return (
         <Box sx={{ height: 650, width: '100%', overflowX: 'auto', p: 3 }}>
@@ -31,7 +37,7 @@ const DataTable = ({
                 {alertVisible && (
                     <Stack sx={{ width: '100%' }} spacing={2}>
                         <Alert onClose={() => setAlertVisible(false)}>
-                            This is a success alert — item has been deleted!
+                            This is a success alert — successfully deleted!
                         </Alert>
                     </Stack>
                 )}
@@ -44,7 +50,7 @@ const DataTable = ({
                 >
                     {pageTitle}
                 </Typography>
-                <Link href={`/assets/${assetName}/add`}>
+                <Link href={`${pathname}/add`}>
                     <IconButton aria-label="add item">
                         <AddBoxOutlined />
                     </IconButton>
