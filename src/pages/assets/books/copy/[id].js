@@ -41,10 +41,18 @@ const BooksCopy = () => {
     }, []);
 
     const filterRelevantData = (bookData) => {
-        const { title, location, purchaseDate, purchasedFrom, price, history } =
-            bookData;
+        const {
+            title,
+            team,
+            location,
+            purchaseDate,
+            purchasedFrom,
+            price,
+            history,
+        } = bookData;
         return {
             title,
+            team,
             location,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,

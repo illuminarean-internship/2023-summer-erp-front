@@ -45,6 +45,35 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                 <Grid container spacing={2} sx={{ p: 2 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Team</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="team"
+                                label="Auto Fill"
+                                fullWidth
+                                value={bookInfo.team}
+                                onChange={handleChange}
+                                disabled
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 2 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
                             <Typography>Location</Typography>
                         </Box>
                     </Grid>
@@ -75,12 +104,6 @@ const BookForm = ({ handleSubmit, bookInfo, handleChange, locations }) => {
                                         {...params}
                                         label="Location"
                                         required
-                                        InputProps={{
-                                            style: {
-                                                height: '50px',
-                                                padding: '10px',
-                                            },
-                                        }}
                                     />
                                 )}
                             />
