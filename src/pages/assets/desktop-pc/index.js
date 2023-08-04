@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { AddBoxOutlined } from '@mui/icons-material';
 import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
@@ -12,28 +11,24 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
-    // const fetchData = async () => {
-    //     try {
-    //         await axios
-    //             .get('http://43.200.193.130:4040/api/desktop-pc/')
-    //             .then((res) => {
-    //                 setRows(res.data);
-    //             });
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    //     fetchData();
-    // }, [rows]);
+    const fetchData = async () => {
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/desktop-pc/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-    }, []);
+        fetchData();
+    }, [rows]);
 
     const columns = [
         {

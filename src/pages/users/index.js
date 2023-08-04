@@ -15,7 +15,11 @@ const UserPage = ({ setSelectedLink, isOpen }) => {
             await axios
                 .get('http://43.200.193.130:4040/api/users/')
                 .then((res) => {
-                    setRows(res.data);
+                    const filteredData = res.data.filter(
+                        (item) =>
+                            !['Resold', 'Disuse', 'Office'].includes(item.name),
+                    );
+                    setRows(filteredData);
                 });
             setIsLoading(false);
         } catch (error) {

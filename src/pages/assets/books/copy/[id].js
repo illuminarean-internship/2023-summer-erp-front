@@ -94,7 +94,6 @@ const BooksCopy = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(bookInfo);
             const response = await axios.post(
                 'http://43.200.193.130:4040/api/books',
                 bookInfo,

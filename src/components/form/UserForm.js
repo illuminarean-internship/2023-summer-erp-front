@@ -1,29 +1,33 @@
+import { Delete } from '@mui/icons-material';
 import {
     Autocomplete,
     Box,
     Button,
     Container,
     Grid,
+    IconButton,
     TextField,
     Typography,
 } from '@mui/material';
 
-const BookForm = ({
-    handleSubmit,
-    bookInfo,
+const UserForm = ({
+    userInfo,
+    teamList,
+    projectList,
     handleChange,
-    locations: locationsData,
-    handleLocationChange,
+    handleProjectChange,
+    handleSubmit,
+    handleAddProject,
+    handleDeleteProject,
+    handleTeamChange,
 }) => {
-    const locations = locationsData.map((location) => location.name);
-
     return (
         <form onSubmit={handleSubmit}>
             <Container maxWidth="sm">
                 <Grid container spacing={2} sx={{ p: 2 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Title</Typography>
+                            <Typography>Name</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -34,10 +38,10 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="title"
-                                label="Enter Title"
+                                name="name"
+                                label="Enter name"
                                 fullWidth
-                                value={bookInfo.title}
+                                value={userInfo.name}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -62,47 +66,18 @@ const BookForm = ({
                             height="100%"
                             sx={{ width: '100%' }}
                         >
-                            <TextField
-                                name="team"
-                                label="Auto-filled "
-                                fullWidth
-                                value={bookInfo.team}
-                                onChange={handleChange}
-                                disabled
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ p: 2 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Location</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            height="100%"
-                            sx={{ width: '100%' }}
-                        >
                             <Autocomplete
-                                id="location"
-                                name="location"
+                                id="team"
+                                name="team"
                                 fullWidth
-                                value={bookInfo.location}
-                                onChange={handleLocationChange}
-                                options={locations}
+                                value={userInfo.team}
+                                onChange={handleTeamChange}
+                                options={teamList}
                                 getOptionLabel={(option) => option}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="Select Location"
+                                        label="Select team"
                                         required
                                     />
                                 )}
@@ -112,8 +87,72 @@ const BookForm = ({
                 </Grid>
                 <Grid container spacing={2} sx={{ p: 2 }}>
                     <Grid item xs={4}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            sx={{ p: 2, pt: 3 }}
+                        >
+                            <Typography>Project</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            flexDirection="column" // Change the flex direction to column
+                            sx={{ width: '100%' }}
+                        >
+                            {userInfo.projects.map((projectData, index) => (
+                                <Box
+                                    key={index} // Use a unique key for each project input field
+                                    display="flex"
+                                    alignItems="center"
+                                    height="100%"
+                                    sx={{ my: 1 }} // Add some margin between input fields
+                                >
+                                    <Autocomplete
+                                        id={`project-${index}`}
+                                        name={`project-${index}`}
+                                        fullWidth
+                                        value={projectData.project}
+                                        onChange={(event, newValue) =>
+                                            handleProjectChange(index, newValue)
+                                        }
+                                        options={projectList}
+                                        getOptionLabel={(option) => option}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Select project"
+                                                required
+                                            />
+                                        )}
+                                    />
+                                    <IconButton
+                                        color="error"
+                                        onClick={() =>
+                                            handleDeleteProject(index)
+                                        }
+                                        sx={{ ml: 1 }}
+                                        disabled={index === 0}
+                                    >
+                                        <Delete />
+                                    </IconButton>
+                                </Box>
+                            ))}
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                onClick={handleAddProject}
+                            >
+                                Add New Project
+                            </Button>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 2 }}>
+                    <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchase Date</Typography>
+                            <Typography>Field</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -124,10 +163,10 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="purchaseDate"
-                                type="date"
+                                name="field"
+                                label="Enter field"
                                 fullWidth
-                                value={bookInfo.purchaseDate}
+                                value={userInfo.field}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -142,16 +181,21 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 2 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchased From</Typography>
+                            <Typography>Remarks</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <Box display="flex" alignItems="center" height="100%">
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
                             <TextField
-                                name="purchasedFrom"
-                                label="Purchased From"
+                                name="remarks"
+                                label="Enter remarks"
                                 fullWidth
-                                value={bookInfo.purchasedFrom}
+                                value={userInfo.remarks}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -163,31 +207,7 @@ const BookForm = ({
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} sx={{ p: 2 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Price</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box display="flex" alignItems="center" height="100%">
-                            <TextField
-                                name="price"
-                                label="Price"
-                                type="number"
-                                fullWidth
-                                value={bookInfo.price}
-                                onChange={handleChange}
-                                required
-                                InputProps={{
-                                    style: {
-                                        height: '50px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
+
                 <Box display="flex" justifyContent="center" mt={3}>
                     <Button type="submit" variant="contained" color="primary">
                         Save
@@ -198,4 +218,4 @@ const BookForm = ({
     );
 };
 
-export default BookForm;
+export default UserForm;

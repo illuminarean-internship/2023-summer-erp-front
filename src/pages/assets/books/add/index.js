@@ -23,8 +23,6 @@ const BooksAdd = () => {
         purchasedFrom: 'G 마켓',
         price: '',
         history: [],
-        isArchived: false,
-        isUnreserved: false,
     });
 
     const locations = useLocationsData();
@@ -62,7 +60,6 @@ const BooksAdd = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(bookInfo);
             const response = await axios.post(
                 'http://43.200.193.130:4040/api/books',
                 bookInfo,
