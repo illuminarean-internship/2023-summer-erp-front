@@ -8,6 +8,7 @@ import useProjectData from '../../../hooks/useProjectData';
 import UserForm from '../../../components/form/UserForm';
 import Loading from '../../../components/Loading';
 import PageWrapper from '../../../components/form/PageWrapper';
+import { v4 as uuidv4 } from 'uuid';
 
 const UsersEdit = () => {
     const router = useRouter();
@@ -62,6 +63,7 @@ const UsersEdit = () => {
                 const convertedProjects = userData.project.map(
                     (projectName) => ({
                         project: projectName,
+                        key: uuidv4(),
                     }),
                 );
 
@@ -107,7 +109,10 @@ const UsersEdit = () => {
     const handleAddProject = () => {
         setUserInfo((prevUserInfo) => ({
             ...prevUserInfo,
-            projects: [...prevUserInfo.projects, { project: null }],
+            projects: [
+                ...prevUserInfo.projects,
+                { project: null, key: uuidv4() },
+            ],
         }));
     };
 

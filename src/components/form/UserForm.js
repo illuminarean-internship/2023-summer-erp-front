@@ -103,7 +103,7 @@ const UserForm = ({
                         >
                             {userInfo.projects.map((projectData, index) => (
                                 <Box
-                                    key={`${projectData.project}-${index}`} // Use a unique key for each project input field
+                                    key={`${projectData.key}`} // Use a unique key for each project input field
                                     display="flex"
                                     alignItems="center"
                                     height="100%"

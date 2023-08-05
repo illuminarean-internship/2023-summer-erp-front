@@ -7,6 +7,7 @@ import { AddBoxOutlined } from '@mui/icons-material';
 import useProjectData from '../../../hooks/useProjectData';
 import UserForm from '../../../components/form/UserForm';
 import PageWrapper from '../../../components/form/PageWrapper';
+import { v4 as uuidv4 } from 'uuid';
 
 const UsersAdd = () => {
     const router = useRouter();
@@ -14,7 +15,7 @@ const UsersAdd = () => {
         name: '',
         team: null,
         projects: [
-            { project: null }, // projectData will be { project: null } during the first iteration
+            { project: null, key: uuidv4() }, // projectData will be { project: null } during the first iteration
         ],
         field: '',
         remarks: '',
@@ -76,7 +77,10 @@ const UsersAdd = () => {
     const handleAddProject = () => {
         setUserInfo((prevUserInfo) => ({
             ...prevUserInfo,
-            projects: [...prevUserInfo.projects, { project: null }],
+            projects: [
+                ...prevUserInfo.projects,
+                { project: null, key: uuidv4() },
+            ],
         }));
     };
 
