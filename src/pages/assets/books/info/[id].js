@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import InfoPageTemplate from '../../../../components/InfoPageTemplate';
+// import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 
 const BooksInfo = () => {
     const router = useRouter();
@@ -7,7 +7,8 @@ const BooksInfo = () => {
 
     return (
         <div>
-            <InfoPageTemplate id={id} />
+            {id}
+            {/* <InfoPageTemplate id={id} /> */}
         </div>
     );
 };

@@ -7,6 +7,8 @@ import useLocationsData from '../../../../hooks/useLocationsData';
 import moment from 'moment';
 import BookForm from '../../../../components/form/BookForm';
 import PageWrapper from '../../../../components/form/PageWrapper';
+import { v4 as uuidv4 } from 'uuid';
+import { formatDate } from '../../../../utils/stringUtils';
 
 const BooksCopy = () => {
     const router = useRouter();
@@ -21,7 +23,15 @@ const BooksCopy = () => {
         purchaseDate: '',
         purchasedFrom: 'G 마켓',
         price: '',
-        history: [],
+        history: [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ],
     });
 
     useEffect(() => {
@@ -44,6 +54,24 @@ const BooksCopy = () => {
             price,
             history,
         } = bookData;
+
+        const updatedHistory = history.length
+            ? history.map((historyEntry) => ({
+                  ...historyEntry,
+                  id: uuidv4(),
+                  startDate: formatDate(historyEntry.startDate),
+                  endDate: formatDate(historyEntry.endDate),
+              }))
+            : [
+                  {
+                      startDate: '',
+                      endDate: '',
+                      historyLocation: null,
+                      historyRemark: '',
+                      id: uuidv4(),
+                  },
+              ];
+
         return {
             title,
             team,
@@ -51,7 +79,7 @@ const BooksCopy = () => {
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
             price,
-            history,
+            history: updatedHistory,
         };
     };
 
@@ -99,6 +127,68 @@ const BooksCopy = () => {
         }
     };
 
+    const handleHistoryChange = (id, field, value) => {
+        setBookInfo((prevBookInfo) => {
+            const updatedHistory = prevBookInfo.history.map((historyData) => {
+                if (historyData.id === id) {
+                    return { ...historyData, [field]: value };
+                }
+                return historyData;
+            });
+            return { ...prevBookInfo, history: updatedHistory };
+        });
+    };
+
+    const handleDeleteHistory = (index) => {
+        setBookInfo((prevBookInfo) => {
+            const updatedHistory = prevBookInfo.history.filter(
+                (_, i) => i !== index,
+            );
+            return { ...prevBookInfo, history: updatedHistory };
+        });
+    };
+
+    const handleAddHistory = () => {
+        setBookInfo((prevBookInfo) => ({
+            ...prevBookInfo,
+            history: [
+                ...prevBookInfo.history,
+                {
+                    id: uuidv4(),
+                    startDate: '',
+                    endDate: '',
+                    historyLocation: null,
+                    historyRemark: '',
+                },
+            ],
+        }));
+    };
+
+    const handleHistoryLocationChange = (id, newValue) => {
+        setBookInfo((prevBookInfo) => {
+            // Find the index of the history entry with the given id
+            const historyIndex = prevBookInfo.history.findIndex(
+                (historyData) => historyData.id === id,
+            );
+
+            // Create a copy of the history entry and update the historyLocation field
+            const updatedHistoryEntry = {
+                ...prevBookInfo.history[historyIndex],
+                historyLocation: newValue,
+            };
+
+            // Create a copy of the history array and replace the updated history entry
+            const updatedHistory = [...prevBookInfo.history];
+            updatedHistory[historyIndex] = updatedHistoryEntry;
+
+            // Update the bookInfo state with the updated history array
+            return {
+                ...prevBookInfo,
+                history: updatedHistory,
+            };
+        });
+    };
+
     return (
         <PageWrapper title="Copy" icon={<ContentCopy />} href="/assets/books">
             <Typography variant="h5" component="h5">
@@ -111,6 +201,10 @@ const BooksCopy = () => {
                 handleChange={handleChange}
                 locations={locations}
                 handleLocationChange={handleLocationChange}
+                handleHistoryChange={handleHistoryChange}
+                handleDeleteHistory={handleDeleteHistory}
+                handleAddHistory={handleAddHistory}
+                handleHistoryLocationChange={handleHistoryLocationChange}
             />
         </PageWrapper>
     );

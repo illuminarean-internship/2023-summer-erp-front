@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import BookForm from '../../../../components/form/BookForm';
 import PageWrapper from '../../../../components/form/PageWrapper';
+import { v4 as uuidv4 } from 'uuid';
 
 const BooksAdd = () => {
     const router = useRouter();
@@ -16,7 +17,15 @@ const BooksAdd = () => {
         purchaseDate: '',
         purchasedFrom: 'G 마켓',
         price: '',
-        history: [],
+        history: [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ],
     });
 
     const locations = useLocationsData();
@@ -65,6 +74,68 @@ const BooksAdd = () => {
         }
     };
 
+    const handleHistoryChange = (id, field, value) => {
+        setBookInfo((prevBookInfo) => {
+            const updatedHistory = prevBookInfo.history.map((historyData) => {
+                if (historyData.id === id) {
+                    return { ...historyData, [field]: value };
+                }
+                return historyData;
+            });
+            return { ...prevBookInfo, history: updatedHistory };
+        });
+    };
+
+    const handleDeleteHistory = (index) => {
+        setBookInfo((prevBookInfo) => {
+            const updatedHistory = prevBookInfo.history.filter(
+                (_, i) => i !== index,
+            );
+            return { ...prevBookInfo, history: updatedHistory };
+        });
+    };
+
+    const handleAddHistory = () => {
+        setBookInfo((prevBookInfo) => ({
+            ...prevBookInfo,
+            history: [
+                ...prevBookInfo.history,
+                {
+                    id: uuidv4(),
+                    startDate: '',
+                    endDate: '',
+                    historyLocation: null,
+                    historyRemark: '',
+                },
+            ],
+        }));
+    };
+
+    const handleHistoryLocationChange = (id, newValue) => {
+        setBookInfo((prevBookInfo) => {
+            // Find the index of the history entry with the given id
+            const historyIndex = prevBookInfo.history.findIndex(
+                (historyData) => historyData.id === id,
+            );
+
+            // Create a copy of the history entry and update the historyLocation field
+            const updatedHistoryEntry = {
+                ...prevBookInfo.history[historyIndex],
+                historyLocation: newValue,
+            };
+
+            // Create a copy of the history array and replace the updated history entry
+            const updatedHistory = [...prevBookInfo.history];
+            updatedHistory[historyIndex] = updatedHistoryEntry;
+
+            // Update the bookInfo state with the updated history array
+            return {
+                ...prevBookInfo,
+                history: updatedHistory,
+            };
+        });
+    };
+
     return (
         <PageWrapper title="Add" icon={<AddBoxOutlined />} href="/assets/books">
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
@@ -77,6 +148,10 @@ const BooksAdd = () => {
                 handleChange={handleChange}
                 locations={locations}
                 handleLocationChange={handleLocationChange}
+                handleHistoryChange={handleHistoryChange}
+                handleDeleteHistory={handleDeleteHistory}
+                handleAddHistory={handleAddHistory}
+                handleHistoryLocationChange={handleHistoryLocationChange}
             />
         </PageWrapper>
     );
