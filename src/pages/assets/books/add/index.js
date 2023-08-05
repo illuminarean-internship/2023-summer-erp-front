@@ -1,17 +1,11 @@
-import { AddBoxOutlined, DisabledByDefaultOutlined } from '@mui/icons-material';
-import {
-    Box,
-    Container,
-    Divider,
-    IconButton,
-    Paper,
-    Typography,
-} from '@mui/material';
+import { AddBoxOutlined } from '@mui/icons-material';
+import { Divider, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import BookForm from '../../../../components/form/BookForm';
+import PageWrapper from '../../../../components/form/PageWrapper';
 
 const BooksAdd = () => {
     const router = useRouter();
@@ -72,63 +66,19 @@ const BooksAdd = () => {
     };
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                backgroundColor: '#f0f0f0',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={1}
-                sx={{ p: 3 }}
-            >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <AddBoxOutlined />
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ textAlign: 'left', mt: 3, mb: 3, ml: 0.5 }}
-                    >
-                        Add
-                    </Typography>
-                </Box>
-                <IconButton href="/assets/books">
-                    <DisabledByDefaultOutlined />
-                </IconButton>
-            </Box>
-            <Container maxWidth="lg">
-                <Paper
-                    elevation={3}
-                    sx={{
-                        backgroundColor: 'white',
-                        padding: 4,
-                        borderRadius: 3,
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ color: 'gray' }}
-                    >
-                        New Book
-                    </Typography>
-
-                    <Divider sx={{ my: 2, borderColor: 'gray' }} />
-                    <BookForm
-                        handleSubmit={handleSubmit}
-                        bookInfo={bookInfo}
-                        handleChange={handleChange}
-                        locations={locations}
-                        handleLocationChange={handleLocationChange}
-                    />
-                </Paper>
-            </Container>
-        </Box>
+        <PageWrapper title="Add" icon={<AddBoxOutlined />} href="/assets/books">
+            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
+                New Book
+            </Typography>
+            <Divider sx={{ my: 2, borderColor: 'gray' }} />
+            <BookForm
+                handleSubmit={handleSubmit}
+                bookInfo={bookInfo}
+                handleChange={handleChange}
+                locations={locations}
+                handleLocationChange={handleLocationChange}
+            />
+        </PageWrapper>
     );
 };
 

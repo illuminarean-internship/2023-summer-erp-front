@@ -36,7 +36,7 @@ const Action = ({ params, setAlertVisible }) => {
         let url = '';
 
         if (pathParsed[1] === 'assets') {
-            url = `${pathParsed[1]}/item`;
+            url = `${pathParsed[2]}/item`;
             setIsUsersFalse();
         } else {
             url = `${pathParsed[1]}/user`;

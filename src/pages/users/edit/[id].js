@@ -2,18 +2,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useTeamData from '../../../hooks/useTeamData';
-import {
-    Box,
-    Container,
-    Divider,
-    IconButton,
-    Paper,
-    Typography,
-} from '@mui/material';
-import { AddBoxOutlined, DisabledByDefaultOutlined } from '@mui/icons-material';
+import { Divider, Typography } from '@mui/material';
+import { EditNote } from '@mui/icons-material';
 import useProjectData from '../../../hooks/useProjectData';
 import UserForm from '../../../components/form/UserForm';
 import Loading from '../../../components/Loading';
+import PageWrapper from '../../../components/form/PageWrapper';
 
 const UsersEdit = () => {
     const router = useRouter();
@@ -126,70 +120,27 @@ const UsersEdit = () => {
     };
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                backgroundColor: '#f0f0f0',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={1}
-                sx={{ p: 3 }}
-            >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <AddBoxOutlined />
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ textAlign: 'left', mt: 3, mb: 3, ml: 0.5 }}
-                    >
-                        Add
-                    </Typography>
-                </Box>
-                <IconButton href="/users">
-                    <DisabledByDefaultOutlined />
-                </IconButton>
-            </Box>
-            <Container maxWidth="lg">
-                <Paper
-                    elevation={3}
-                    sx={{
-                        backgroundColor: 'white',
-                        padding: 4,
-                        borderRadius: 3,
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ color: 'gray' }}
-                    >
-                        User Name - Team
-                    </Typography>
-                    <Divider sx={{ my: 2, borderColor: 'gray' }} />
-                    {loading ? (
-                        <Loading />
-                    ) : (
-                        <UserForm
-                            userInfo={userInfo}
-                            teamList={teamList}
-                            projectList={projectList}
-                            handleChange={handleChange}
-                            handleProjectChange={handleProjectChange}
-                            handleSubmit={handleSubmit}
-                            handleAddProject={handleAddProject}
-                            handleDeleteProject={handleDeleteProject}
-                            handleTeamChange={handleTeamChange}
-                        />
-                    )}
-                </Paper>
-            </Container>
-        </Box>
+        <PageWrapper title="Edit" icon={<EditNote />} href="/users">
+            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
+                {`${userInfo.name} - ${userInfo.team}`}
+            </Typography>
+            <Divider sx={{ my: 2, borderColor: 'gray' }} />
+            {loading ? (
+                <Loading />
+            ) : (
+                <UserForm
+                    userInfo={userInfo}
+                    teamList={teamList}
+                    projectList={projectList}
+                    handleChange={handleChange}
+                    handleProjectChange={handleProjectChange}
+                    handleSubmit={handleSubmit}
+                    handleAddProject={handleAddProject}
+                    handleDeleteProject={handleDeleteProject}
+                    handleTeamChange={handleTeamChange}
+                />
+            )}
+        </PageWrapper>
     );
 };
 
