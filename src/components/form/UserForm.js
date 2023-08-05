@@ -98,16 +98,16 @@ const UserForm = ({
                     <Grid item xs={8}>
                         <Box
                             display="flex"
-                            flexDirection="column" // Change the flex direction to column
+                            flexDirection="column"
                             sx={{ width: '100%' }}
                         >
                             {userInfo.projects.map((projectData, index) => (
                                 <Box
-                                    key={index} // Use a unique key for each project input field
+                                    key={`${projectData.project}-${index}`} // Use a unique key for each project input field
                                     display="flex"
                                     alignItems="center"
                                     height="100%"
-                                    sx={{ my: 1 }} // Add some margin between input fields
+                                    sx={{ my: 1 }}
                                 >
                                     <Autocomplete
                                         id={`project-${index}`}
