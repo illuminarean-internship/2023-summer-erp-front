@@ -11,24 +11,24 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
-    // const fetchData = async () => {
-    //     try {
-    //         await axios
-    //             .get('http://43.200.193.130:4040/api/books/')
-    //             .then((res) => {
-    //                 setRows(res.data);
-    //             });
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsLoading(false);
-    //     }
-    // };
+    const fetchData = async () => {
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/laptop/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    };
 
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    //     fetchData();
-    // }, [rows]);
+    useEffect(() => {
+        setSelectedLink(router.pathname.slice(1));
+        fetchData();
+    }, [rows]);
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));

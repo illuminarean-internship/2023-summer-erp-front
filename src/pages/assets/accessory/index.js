@@ -11,28 +11,24 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
-    // const fetchData = async () => {
-    //     try {
-    //         await axios
-    //             .get('http://43.200.193.130:4040/api/books/')
-    //             .then((res) => {
-    //                 setRows(res.data);
-    //             });
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    //     fetchData();
-    // }, [rows]);
+    const fetchData = async () => {
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/accessory/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-    }, []);
+        fetchData();
+    }, [rows]);
 
     const columns = [
         { field: 'deviceImage', headerName: 'Device Image', width: 100 },

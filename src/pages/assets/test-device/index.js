@@ -29,10 +29,6 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
         fetchData();
     }, [rows]);
 
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    // }, []);
-
     const columns = [
         { field: 'deviceImage', headerName: 'Device Image', width: 100 },
         { field: 'model', headerName: 'Model', width: 100 },
