@@ -76,10 +76,7 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <Action
-                    params={params}
-                    setAlertVisible={setAlertVisible}
-                ></Action>
+                <Action params={params} setAlertVisible={setAlertVisible} />
             ),
         },
     ];

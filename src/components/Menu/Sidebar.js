@@ -16,7 +16,7 @@ const Sidebar = ({
         <>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={() => handleDrawerClose()}>
+                    <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </DrawerHeader>

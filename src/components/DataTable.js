@@ -1,8 +1,8 @@
 import { AddBoxOutlined } from '@mui/icons-material';
 import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import getPageTitle from '../utils/stringUtils';
 
 const DataTable = ({
     columns,
@@ -16,12 +16,6 @@ const DataTable = ({
     const { pathname } = router;
     const pathParsed = pathname.split('/');
     let pageTitle = '';
-
-    const getPageTitle = (assetName) => {
-        let title = assetName.replace(/-/g, ' '); // Replace hyphens with spaces
-        title = title.charAt(0).toUpperCase() + title.slice(1); // Capitalize the first letter
-        return title;
-    };
 
     if (pathParsed[1] === 'assets') {
         const assetName = pathParsed[2];
@@ -50,11 +44,9 @@ const DataTable = ({
                 >
                     {pageTitle}
                 </Typography>
-                <Link href={`${pathname}/add`}>
-                    <IconButton aria-label="add item">
-                        <AddBoxOutlined />
-                    </IconButton>
-                </Link>
+                <IconButton aria-label="add item" href={`${pathname}/add`}>
+                    <AddBoxOutlined />
+                </IconButton>
             </Box>
 
             <DataGrid
