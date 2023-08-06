@@ -27,7 +27,7 @@ const Sidebar = ({
                     handleDrawerOpen={handleDrawerOpen}
                 />
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1 }}>
                 <DrawerHeader />
                 {/* 내용이 여기 찍힘 */}
                 {children}

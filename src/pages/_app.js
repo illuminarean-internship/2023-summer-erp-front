@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps, session }) {
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 {router.pathname !== '/login-page' ? (
-                    <ProtectLayouts>
+                    <>
                         <Box sx={{ display: 'flex' }}>
                             <Navbar {...{ isOpen, handleDrawerOpen }} />
                             <Sidebar
@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps, session }) {
                                 />
                             </Sidebar>
                         </Box>
-                    </ProtectLayouts>
+                    </>
                 ) : (
                     <>
                         <GlobalStyle />

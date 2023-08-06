@@ -29,7 +29,7 @@ const BooksInfo = () => {
     retreivedInfoStateCopy['purchaseDate'] = dateToString(
         retreivedInfoState['purchaseDate'],
     );
-    //        <div> <InfoPageTemplate retreivedInfoState={retreivedInfoStateCopy} /> </div>
+
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />
@@ -38,3 +38,9 @@ const BooksInfo = () => {
 };
 
 export default BooksInfo;
+
+export async function getServerSideProps(context) {
+    return {
+        props: {},
+    };
+}

@@ -4,14 +4,6 @@ import { styled } from '@mui/material/styles';
 
 //all data guarenteed to have an id, type, and history
 export default function InfoPageTemplate({ dataToRender }) {
-    const dataTypes = {
-        title: 'string',
-        team: 'string',
-        location: 'string',
-        purchaseDate: 'date',
-        price: 'integer',
-    };
-    //FIX THIS, get it to render and then modify the date and money amount.
 
     const renderLabels = Object.keys(dataToRender) //hard coded for now, but eventually will do based on id
         .flat()
@@ -69,6 +61,7 @@ export default function InfoPageTemplate({ dataToRender }) {
                         stroke: '#DBDBDB',
                         borderRadius: 3,
                         border: '1px solid #B9B9B9',
+                        overflow: 'auto'
                     }}
                 >
                     <ItemTitle>{dataToRender['title']}</ItemTitle>
@@ -109,7 +102,7 @@ const InfoGroup = styled('div')(({ theme }) => ({
     fontWeight: theme.fontWeight,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'start',
+    padding: 20
 }));
 
 const InfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({

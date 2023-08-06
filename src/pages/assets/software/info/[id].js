@@ -33,7 +33,6 @@ const SoftwareInfo = () => {
     retreivedInfoStateCopy['reference'] = retreivedInfoState['reference'];
     retreivedInfoStateCopy['user'] = retreivedInfoState['user'];
 
-    //        <div> <InfoPageTemplate retreivedInfoState={retreivedInfoStateCopy} /> </div>
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />
@@ -42,3 +41,9 @@ const SoftwareInfo = () => {
 };
 
 export default SoftwareInfo;
+
+export async function getServerSideProps(context) {
+    return {
+        props: {},
+    };
+}
