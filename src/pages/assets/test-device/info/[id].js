@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import dateToString from '../../../../usefulFunctions/dateToString';
 
 const TestDeviceInfo = () => {
     const router = useRouter();

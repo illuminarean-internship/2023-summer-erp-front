@@ -20,6 +20,7 @@ const DesktopPcInfo = () => {
             });
     }, []);
 
+    //Make hardware page
     const retreivedInfoStateCopy = {};
     retreivedInfoStateCopy['illuminareanSerialNumber'] =
         retreivedInfoState['illuminareanSerialNumber'];
