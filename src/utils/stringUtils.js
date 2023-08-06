@@ -11,3 +11,12 @@ export const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('-');
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
 };
+
+export const getCurrencySymbol = (currencyCode) => {
+    const currencySymbols = {
+        KRW: '₩',
+        USD: '$',
+        JPY: '￥',
+    };
+    return currencySymbols[currencyCode] || currencyCode;
+};
