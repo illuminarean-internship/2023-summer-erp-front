@@ -15,7 +15,7 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
     // const fetchData = async () => {
     //     try {
     //         await axios
-    //             .get('http://43.200.193.130:4040/api/books/')
+    //             .get('http://43.200.193.130:4040/api/desktop-pc/')
     //             .then((res) => {
     //                 setRows(res.data);
     //             });

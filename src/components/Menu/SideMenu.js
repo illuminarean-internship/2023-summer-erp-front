@@ -19,18 +19,10 @@ import Link from 'next/link';
 
 const SideMenu = ({ open, selectedLink, handleDrawerOpen }) => {
     const [assetsOpen, setAssetsOpen] = useState(true);
-    const [userOpen, setUserOpen] = useState(false);
 
     const assetsHandleClick = () => {
         handleDrawerOpen();
         setAssetsOpen(!assetsOpen);
-        setUserOpen(false);
-    };
-
-    const userHandleClick = () => {
-        handleDrawerOpen();
-        setAssetsOpen(false);
-        setUserOpen(!userOpen);
     };
 
     const assetsList = [
@@ -40,14 +32,6 @@ const SideMenu = ({ open, selectedLink, handleDrawerOpen }) => {
         { title: 'Laptop', link: 'assets/laptop' },
         { title: 'Software', link: 'assets/software' },
         { title: 'Test Device', link: 'assets/test-device' },
-    ];
-
-    const usersList = [
-        { title: 'Operation Team', link: 'users/operation-team' },
-        { title: 'Development Team', link: 'users/develop-team' },
-        { title: 'Product Team', link: 'users/product-team' },
-        { title: 'Design Team', link: 'users/design-team' },
-        { title: 'QA Team', link: 'users/qa-team' },
     ];
 
     return (
@@ -97,47 +81,31 @@ const SideMenu = ({ open, selectedLink, handleDrawerOpen }) => {
                         </Collapse>
                     )}
                 </ListItem>
-                <ListItem disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
-                        onClick={userHandleClick}
-                    >
-                        <ListItemIcon
+                <Link href={'/users'}>
+                    <ListItem disablePadding sx={{ display: 'block' }}>
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Person />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary="Users"
-                            sx={{ opacity: open ? 1 : 0 }}
-                        />
-                        {open && (userOpen ? <ExpandLess /> : <ExpandMore />)}
-                    </ListItemButton>
-                    {open && (
-                        <Collapse in={userOpen} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                {usersList.map(({ title, link }) => (
-                                    <Link key={title} href={`/${link}`}>
-                                        <ListItemButton sx={{ pl: 4 }}>
-                                            <ListItemIcon>
-                                                <FiberManualRecord fontSize="sm" />
-                                            </ListItemIcon>
-                                            <ListItemText primary={title} />
-                                        </ListItemButton>
-                                    </Link>
-                                ))}
-                            </List>
-                        </Collapse>
-                    )}
-                </ListItem>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Person />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Users"
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
                 <Link href={'/settings'}>
                     <ListItem disablePadding sx={{ display: 'block' }}>
                         <ListItemButton

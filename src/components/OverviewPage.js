@@ -35,7 +35,7 @@ export default function OverviewPage() {
 
     return (
         <div>
-            <Container>
+            <Container sx={{ p: 3 }}>
                 <Box
                     display="flex"
                     justifyContent="center"
