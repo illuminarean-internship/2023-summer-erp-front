@@ -32,9 +32,9 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
 
     const columns = [
         {
-            field: 'illuminareanSerialNumber',
+            field: 'illumiSerial',
             headerName: 'Illuminarean Serial #',
-            width: 300,
+            width: 250,
         },
         {
             field: 'purchaseDate',
@@ -44,6 +44,11 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
+            field: 'purchasedFrom',
+            headerName: 'Purchased From',
+            width: 250,
+        },
+        {
             field: 'purpose',
             headerName: 'Purpose',
             width: 250,
@@ -51,7 +56,12 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
         {
             field: 'location',
             headerName: 'Location',
-            width: 250,
+            width: 200,
+        },
+        {
+            field: 'remarks',
+            headerName: 'Remarks',
+            width: 200,
         },
         {
             field: 'Actions',
