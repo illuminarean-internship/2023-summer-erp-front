@@ -17,6 +17,7 @@ const BooksAdd = () => {
         purchaseDate: '',
         purchasedFrom: 'G 마켓',
         price: '',
+        currency: '₩',
         history: [
             {
                 startDate: '',

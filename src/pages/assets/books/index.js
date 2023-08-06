@@ -36,16 +36,6 @@ const Books = ({ setSelectedLink, isOpen }) => {
             field: 'team',
             headerName: 'Team',
             width: 170,
-            type: 'singleSelect',
-            valueOptions: [
-                'HR Team',
-                'Flow Team',
-                'Dev Team',
-                'Product Team',
-                'Design Team',
-                'QA Team',
-            ],
-            editable: true,
         },
         { field: 'location', headerName: 'Location', width: 170 },
         {
@@ -65,7 +55,8 @@ const Books = ({ setSelectedLink, isOpen }) => {
             field: 'price',
             headerName: 'Price',
             width: 150,
-            renderCell: (params) => '₩' + params.row.price,
+            renderCell: (params) =>
+                `${params.row.currency}  ${params.row.price}`,
         },
         {
             field: 'Actions',

@@ -6,6 +6,9 @@ import {
     Container,
     Grid,
     IconButton,
+    InputAdornment,
+    MenuItem,
+    Select,
     TextField,
     Typography,
 } from '@mui/material';
@@ -24,6 +27,12 @@ const BookForm = ({
 }) => {
     const locations = locationsData.map((location) => location.name);
     const [showHistory, setShowHistory] = useState(true);
+
+    const currencyOptions = [
+        { value: '₩', label: '₩ (KRW)' },
+        { value: '$', label: '$ (USD)' },
+        { value: '￥', label: '￥ (JPY)' },
+    ];
 
     return (
         <form onSubmit={handleSubmit}>
@@ -191,13 +200,33 @@ const BookForm = ({
                                     style: {
                                         height: '50px',
                                     },
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Select
+                                                variant="standard"
+                                                id="currency-select"
+                                                name="currency"
+                                                value={bookInfo.currency}
+                                                onChange={handleChange}
+                                            >
+                                                {currencyOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option.value}
+                                                            value={option.value}
+                                                        >
+                                                            {option.label}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </InputAdornment>
+                                    ),
                                 }}
                             />
                         </Box>
                     </Grid>
                 </Grid>
-            </Container>
-            <Container maxWidth="md">
                 <Box display="flex" justifyContent="left" mt={3}>
                     <Button
                         variant="standard"

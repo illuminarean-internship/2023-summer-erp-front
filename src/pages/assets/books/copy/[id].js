@@ -23,6 +23,7 @@ const BooksCopy = () => {
         purchaseDate: '',
         purchasedFrom: 'G 마켓',
         price: '',
+        currency: '₩',
         history: [
             {
                 startDate: '',
@@ -52,6 +53,7 @@ const BooksCopy = () => {
             purchaseDate,
             purchasedFrom,
             price,
+            currency,
             history,
         } = bookData;
 
@@ -79,6 +81,7 @@ const BooksCopy = () => {
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
             price,
+            currency,
             history: updatedHistory,
         };
     };
