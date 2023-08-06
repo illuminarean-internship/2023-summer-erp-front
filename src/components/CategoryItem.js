@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 import { Button, Typography } from '@mui/material';
 import { OpenInBrowserOutlined } from '@mui/icons-material';
 
@@ -14,15 +13,14 @@ export default function CategoryItem({ item }) {
                 </ButtonStyleTextWrapper>
             </ButtonStyleTop>
             <ButtonStyleBottom>
-                <Link href={`/assets/${item.link}`}>
-                    <Button
-                        variant="text"
-                        color="inherit"
-                        endIcon={<OpenInBrowserOutlined />}
-                    >
-                        View All
-                    </Button>
-                </Link>
+                <Button
+                    variant="text"
+                    color="inherit"
+                    endIcon={<OpenInBrowserOutlined />}
+                    href={`/assets/${item.link}`}
+                >
+                    View All
+                </Button>
             </ButtonStyleBottom>
         </ButtonStyle>
     );

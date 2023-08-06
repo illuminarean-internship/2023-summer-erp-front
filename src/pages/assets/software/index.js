@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import BookAction from '../../../components/actions/BookAction';
+import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 
@@ -65,10 +65,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <BookAction
-                    params={params}
-                    setAlertVisible={setAlertVisible}
-                ></BookAction>
+                <Action params={params} setAlertVisible={setAlertVisible} />
             ),
         },
     ];

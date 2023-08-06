@@ -14,10 +14,36 @@ import {
     Tooltip,
 } from '@mui/material';
 import axios from 'axios';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import useBoolean from '../../hooks/useBoolean';
 
-const BookAction = ({ params, setAlertVisible }) => {
+const Action = ({ params, setAlertVisible }) => {
     const [open, setOpen] = useState(false);
+    const [deleteUrl, setDeleteUrl] = useState('');
+
+    const {
+        value: isUsers,
+        setTrue: setIsUsersTrue,
+        setFalse: setIsUsersFalse,
+    } = useBoolean(false);
+
+    const router = useRouter();
+    const { pathname } = router;
+
+    useEffect(() => {
+        const pathParsed = pathname.split('/');
+        let url = '';
+
+        if (pathParsed[1] === 'assets') {
+            url = `${pathParsed[2]}/item`;
+            setIsUsersFalse();
+        } else {
+            url = `${pathParsed[1]}/user`;
+            setIsUsersTrue();
+        }
+        setDeleteUrl(url);
+    }, [pathname, setIsUsersTrue, setIsUsersFalse]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,7 +56,7 @@ const BookAction = ({ params, setAlertVisible }) => {
     const deleteItem = () => {
         axios
             .delete(
-                `http://43.200.193.130:4040/api/books/item/${params.row._id}`,
+                `http://43.200.193.130:4040/api/${deleteUrl}/${params.row._id}`,
             )
             .then(() => {
                 setOpen(false);
@@ -43,18 +69,20 @@ const BookAction = ({ params, setAlertVisible }) => {
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title="Copy item">
-                <IconButton href={`/assets/books/copy/${params.row._id}`}>
-                    <ContentCopy />
-                </IconButton>
-            </Tooltip>
+            {!isUsers && (
+                <Tooltip title="Copy item">
+                    <IconButton href={`${pathname}/copy/${params.row._id}`}>
+                        <ContentCopy />
+                    </IconButton>
+                </Tooltip>
+            )}
             <Tooltip title="Item info">
-                <IconButton href={`/assets/books/info/${params.row._id}`}>
+                <IconButton href={`${pathname}/info/${params.row._id}`}>
                     <InfoOutlined />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Item edit">
-                <IconButton href={`/assets/books/edit/${params.row._id}`}>
+                <IconButton href={`${pathname}/edit/${params.row._id}`}>
                     <EditNoteOutlined />
                 </IconButton>
             </Tooltip>
@@ -74,7 +102,7 @@ const BookAction = ({ params, setAlertVisible }) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {'Are you sure you want to delete this item?'}
+                    {'Are you sure you want to delete?'}
                 </DialogTitle>
                 <DialogActions>
                     <Button onClick={deleteItem}>Delete</Button>
@@ -87,4 +115,4 @@ const BookAction = ({ params, setAlertVisible }) => {
     );
 };
 
-export default BookAction;
+export default Action;

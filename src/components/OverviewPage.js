@@ -2,7 +2,6 @@ import CategoryItem from './CategoryItem';
 import { useSession } from 'next-auth/react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-// import { useState } from 'react';
 
 //const startingList = [] //import from DB
 const sampleStartingList = [
@@ -44,7 +43,7 @@ export default function OverviewPage() {
                     sx={{ ml: -28 }}
                 >
                     <Typography variant="h5" align="center">
-                        Welcome &quot;{session.user.name}&quot;
+                        {`Welcome "${session.user.name}"`}
                     </Typography>
                     <Box
                         sx={{

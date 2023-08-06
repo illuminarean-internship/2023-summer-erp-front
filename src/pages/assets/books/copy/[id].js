@@ -1,18 +1,12 @@
-import { ContentCopy, DisabledByDefaultOutlined } from '@mui/icons-material';
-import {
-    Box,
-    Container,
-    Divider,
-    IconButton,
-    Paper,
-    Typography,
-} from '@mui/material';
+import { ContentCopy } from '@mui/icons-material';
+import { Divider, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import moment from 'moment';
 import BookForm from '../../../../components/form/BookForm';
+import PageWrapper from '../../../../components/form/PageWrapper';
 
 const BooksCopy = () => {
     const router = useRouter();
@@ -94,7 +88,6 @@ const BooksCopy = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(bookInfo);
             const response = await axios.post(
                 'http://43.200.193.130:4040/api/books',
                 bookInfo,
@@ -107,58 +100,19 @@ const BooksCopy = () => {
     };
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                backgroundColor: '#f0f0f0',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={1}
-                sx={{ p: 3 }}
-            >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <ContentCopy />
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ textAlign: 'left', mt: 3, mb: 3, ml: 0.5 }}
-                    >
-                        Copy
-                    </Typography>
-                </Box>
-                <IconButton href="/assets/books">
-                    <DisabledByDefaultOutlined />
-                </IconButton>
-            </Box>
-            <Container maxWidth="lg">
-                <Paper
-                    elevation={3}
-                    sx={{
-                        backgroundColor: 'white',
-                        padding: 4,
-                        borderRadius: 3,
-                    }}
-                >
-                    <Typography variant="h5" component="h5">
-                        {bookInfo.title}
-                    </Typography>
-                    <Divider sx={{ my: 2, borderColor: 'gray' }} />
-                    <BookForm
-                        handleSubmit={handleSubmit}
-                        bookInfo={bookInfo}
-                        handleChange={handleChange}
-                        locations={locations}
-                        handleLocationChange={handleLocationChange}
-                    />
-                </Paper>
-            </Container>
-        </Box>
+        <PageWrapper title="Copy" icon={<ContentCopy />} href="/assets/books">
+            <Typography variant="h5" component="h5">
+                {bookInfo.title}
+            </Typography>
+            <Divider sx={{ my: 2, borderColor: 'gray' }} />
+            <BookForm
+                handleSubmit={handleSubmit}
+                bookInfo={bookInfo}
+                handleChange={handleChange}
+                locations={locations}
+                handleLocationChange={handleLocationChange}
+            />
+        </PageWrapper>
     );
 };
 

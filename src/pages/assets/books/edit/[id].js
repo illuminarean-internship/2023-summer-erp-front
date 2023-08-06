@@ -1,18 +1,12 @@
-import { DisabledByDefaultOutlined, EditNote } from '@mui/icons-material';
-import {
-    Box,
-    Container,
-    Divider,
-    IconButton,
-    Paper,
-    Typography,
-} from '@mui/material';
+import { EditNote } from '@mui/icons-material';
+import { Divider, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import moment from 'moment';
 import BookForm from '../../../../components/form/BookForm';
+import PageWrapper from '../../../../components/form/PageWrapper';
 
 const BooksEdit = () => {
     const router = useRouter();
@@ -106,58 +100,19 @@ const BooksEdit = () => {
     };
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                backgroundColor: '#f0f0f0',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={1}
-                sx={{ p: 3 }}
-            >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <EditNote />
-                    <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{ textAlign: 'left', mt: 3, mb: 3, ml: 0.5 }}
-                    >
-                        Edit
-                    </Typography>
-                </Box>
-                <IconButton href="/assets/books">
-                    <DisabledByDefaultOutlined />
-                </IconButton>
-            </Box>
-            <Container maxWidth="lg">
-                <Paper
-                    elevation={3}
-                    sx={{
-                        backgroundColor: 'white',
-                        padding: 4,
-                        borderRadius: 3,
-                    }}
-                >
-                    <Typography variant="h5" component="h5">
-                        {bookInfo.title}
-                    </Typography>
-                    <Divider sx={{ my: 2, borderColor: 'gray' }} />
-                    <BookForm
-                        handleSubmit={handleSubmit}
-                        bookInfo={bookInfo}
-                        handleChange={handleChange}
-                        locations={locations}
-                        handleLocationChange={handleLocationChange}
-                    />
-                </Paper>
-            </Container>
-        </Box>
+        <PageWrapper title="Edit" icon={<EditNote />} href="/assets/books">
+            <Typography variant="h5" component="h5">
+                {bookInfo.title}
+            </Typography>
+            <Divider sx={{ my: 2, borderColor: 'gray' }} />
+            <BookForm
+                handleSubmit={handleSubmit}
+                bookInfo={bookInfo}
+                handleChange={handleChange}
+                locations={locations}
+                handleLocationChange={handleLocationChange}
+            />
+        </PageWrapper>
     );
 };
 
