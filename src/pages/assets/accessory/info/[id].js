@@ -40,6 +40,7 @@ const AccessoryInfo = () => {
     );
     retreivedInfoStateCopy['purchasedFrom'] =
         retreivedInfoState['purchasedFrom'];
+    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
 
     return (
         <div>

@@ -1,48 +1,59 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Box, Container, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Unstable_Grid2';
+import moment from 'moment';
 
 //all data guarenteed to have an id, type, and history
 export default function InfoPageTemplate({ dataToRender }) {
-
+    dataToRender['history'].map((v) => {
+        return {
+            startDate: moment(v.startDate).format('YYYY-MM-DD'),
+            endDate: v.endDate ? moment(v.endDate).format('YYYY-MM-DD') : '',
+            historyLocation: v.historyLocation,
+            historyRemark: v.historyRemark,
+        };
+    }); //temporary hardcode
     const renderLabels = Object.keys(dataToRender) //hard coded for now, but eventually will do based on id
         .flat()
-        .map((v) => (
-            <LabelInfoWrapper key={v}>
-                <LabelContainer>
-                    <Label>
-                        {v
-                            .replace(/([A-Z])/g, ' $1')
-                            .replace(/^./, function (str) {
-                                return str.toUpperCase(); //converts camelCase to Label
-                            })}
-                    </Label>
-                </LabelContainer>
-                <InfoContainer key={dataToRender[v]}>
-                    <Info>{dataToRender[v]}</Info>
-                </InfoContainer>
-            </LabelInfoWrapper>
-        ));
+        .map(
+            (v) =>
+                v != 'history' && (
+                    <LabelInfoWrapper key={v}>
+                        <LabelContainer>
+                            <Label>
+                                {v
+                                    .replace(/([A-Z])/g, ' $1')
+                                    .replace(/^./, function (str) {
+                                        return str.toUpperCase(); //converts camelCase to Label
+                                    })}
+                            </Label>
+                        </LabelContainer>
+                        <InfoContainer key={dataToRender[v]}>
+                            <Info>{dataToRender[v]}</Info>
+                        </InfoContainer>
+                    </LabelInfoWrapper>
+                ),
+        );
 
-    const history = [
-        '07 / 10 / 2019 - 10 / 28 / 2020      Jonghyun Lee ',
-        '10 / 29 / 2020 -                             Office ',
-    ];
-
-    const historyRenderer = history.map(
-        (v) =>
-            v !== history[0] && (
-                <HistoryContainer
-                    sx={{
-                        width: 281,
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <Info style={{ whiteSpace: 'pre' }}>{v}</Info>
-                </HistoryContainer>
-            ),
-    );
+    const historyRenderer = dataToRender['history'].map((v) => (
+        <Grid
+            container
+            rowSpacing={3}
+            columnSpacing={1}
+            justifyContent={'center'}
+        >
+            <Grid item xs="auto">
+                <DateBox>{v.startDate} -</DateBox>
+            </Grid>
+            <Grid item xs={1.5}>
+                <DateBox>{v.endDate}</DateBox>
+            </Grid>
+            <Grid item xs={2}>
+                <DateBox justifyContent={'left'}>{v.historyLocation}</DateBox>
+            </Grid>
+        </Grid>
+    ));
 
     return (
         <PageDiv>
@@ -61,29 +72,16 @@ export default function InfoPageTemplate({ dataToRender }) {
                         stroke: '#DBDBDB',
                         borderRadius: 3,
                         border: '1px solid #B9B9B9',
-                        overflow: 'auto'
+                        overflow: 'auto',
                     }}
                 >
                     <ItemTitle>{dataToRender['title']}</ItemTitle>
                     <TitleDivider />
                     <InfoWrapper>
                         {renderLabels}
-                        <LabelInfoWrapper sx={{ marginBottom: 1.25 }}>
-                            <LabelContainer>
-                                <Label>History</Label>
-                            </LabelContainer>
-                            <InfoContainer
-                                sx={{
-                                    width: 281,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Info style={{ whiteSpace: 'pre' }}>
-                                    {history[0]}
-                                </Info>
-                            </InfoContainer>
-                        </LabelInfoWrapper>
+                        <LabelContainer>
+                            <Label>History</Label>
+                        </LabelContainer>
                         {historyRenderer}
                     </InfoWrapper>
                 </Box>
@@ -91,6 +89,14 @@ export default function InfoPageTemplate({ dataToRender }) {
         </PageDiv>
     );
 }
+const DateBox = styled(Box)(() => ({
+    color: '#000',
+    fontFamily: 'Source Sans Pro',
+    fontSize: '15px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+}));
 
 const PageDiv = styled('div')(({ theme }) => ({
     backgroundColor: 'rgba(244, 244, 244, 0.63);',
@@ -102,7 +108,7 @@ const InfoGroup = styled('div')(({ theme }) => ({
     fontWeight: theme.fontWeight,
     display: 'flex',
     flexDirection: 'row',
-    padding: 20
+    padding: 20,
 }));
 
 const InfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({

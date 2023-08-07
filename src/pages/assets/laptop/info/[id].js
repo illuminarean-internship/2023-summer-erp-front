@@ -48,6 +48,7 @@ const LaptopInfo = () => {
     retreivedInfoStateCopy['availableDate'] = dateToString(
         retreivedInfoState['availableDate'],
     );
+    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />

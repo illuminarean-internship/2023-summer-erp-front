@@ -46,6 +46,7 @@ const DesktopPcInfo = () => {
         '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
 
     retreivedInfoStateCopy['color'] = retreivedInfoState['color'];
+    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
 
     return (
         <div>

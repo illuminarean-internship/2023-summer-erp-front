@@ -38,7 +38,8 @@ const TestDeviceInfo = () => {
         '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
     retreivedInfoStateCopy['purchasedFrom'] =
         retreivedInfoState['purchasedFrom'];
-    
+    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
+
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />

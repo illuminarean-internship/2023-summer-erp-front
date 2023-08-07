@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import dateToString from '../../../../usefulFunctions/dateToString';
+import moment from 'moment';
 
 const BooksInfo = () => {
     const router = useRouter();
@@ -26,10 +26,23 @@ const BooksInfo = () => {
     retreivedInfoStateCopy['location'] = retreivedInfoState['location'];
     retreivedInfoStateCopy['price'] =
         '₩' + JSON.stringify(retreivedInfoState['price']);
-    retreivedInfoStateCopy['purchaseDate'] = dateToString(
+    retreivedInfoStateCopy['purchaseDate'] = moment(
         retreivedInfoState['purchaseDate'],
-    );
-
+    ).format('YYYY-MM-DD');
+    retreivedInfoStateCopy['history'] = [
+        {
+            startDate: '2023-8-3',
+            endDate: '2023-8-4',
+            historyLocation: 'Office',
+            historyRemark: 'here',
+        },
+        {
+            startDate: '2023-8-6',
+            endDate: null,
+            historyLocation: 'Dev team',
+            historyRemark: '',
+        },
+    ]
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />

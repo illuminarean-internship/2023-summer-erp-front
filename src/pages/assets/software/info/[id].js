@@ -32,6 +32,7 @@ const SoftwareInfo = () => {
     retreivedInfoStateCopy['currency'] = 'KRW';
     retreivedInfoStateCopy['reference'] = retreivedInfoState['reference'];
     retreivedInfoStateCopy['user'] = retreivedInfoState['user'];
+    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
 
     return (
         <div>
