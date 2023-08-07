@@ -1,37 +1,24 @@
-import React from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Box, Container, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2';
+import moment from 'moment';
 
 //all data guarenteed to have an id, type, and history
-
-export default function InfoPageTemplate({ id }) {
-    const [retreivedInfoState, setRetreivedInfoState] = useState(null);
-    const sampleData = {
-        _id: 'first',
-        type: 'book',
-        title: 'UI/UX 디자인 이론과 실습',
-        team: 'Design Team',
-        location: 'Office',
-        purchaseDate: '07 / 10 / 2019',
-        price: '₩27,000',
-    };
-
-    useEffect(() => {
-        axios.get(`http://43.200.193.130:4040/api/books/${id}`).then((res) => {
-            setRetreivedInfoState(res.data);
-        });
-    }, []);
-
-    const renderLabels = Object.keys(retreivedInfoState) //hard coded for now, but eventually will do based on id
+export default function InfoPageTemplate({ dataToRender }) {
+    dataToRender['history'].map((v) => {
+        return {
+            startDate: moment(v.startDate).format('YYYY-MM-DD'),
+            endDate: v.endDate ? moment(v.endDate).format('YYYY-MM-DD') : '',
+            historyLocation: v.historyLocation,
+            historyRemark: v.historyRemark,
+        };
+    }); //temporary hardcode
+    const renderLabels = Object.keys(dataToRender) //hard coded for now, but eventually will do based on id
         .flat()
         .map(
             (v) =>
-                v !== 'type' &&
-                v !== '_id' &&
-                v !== 'history' && (
+                v != 'history' && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
                             <Label>
@@ -42,33 +29,31 @@ export default function InfoPageTemplate({ id }) {
                                     })}
                             </Label>
                         </LabelContainer>
-                        <InfoContainer key={retreivedInfoState[v]}>
-
-                            <Info>{retreivedInfoState[v]}</Info>
+                        <InfoContainer key={dataToRender[v]}>
+                            <Info>{dataToRender[v]}</Info>
                         </InfoContainer>
                     </LabelInfoWrapper>
                 ),
         );
 
-    const history = [
-        '07 / 10 / 2019 - 10 / 28 / 2020      Jonghyun Lee ',
-        '10 / 29 / 2020 -                             Office ',
-    ];
-
-    const historyRenderer = history.map(
-        (v) =>
-            v !== history[0] && (
-                <HistoryContainer
-                    sx={{
-                        width: 281,
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <Info style={{ whiteSpace: 'pre' }}>{v}</Info>
-                </HistoryContainer>
-            ),
-    );
+    const historyRenderer = dataToRender['history'].map((v) => (
+        <Grid
+            container
+            rowSpacing={3}
+            columnSpacing={1}
+            justifyContent={'center'}
+        >
+            <Grid item xs="auto">
+                <DateBox>{v.startDate} -</DateBox>
+            </Grid>
+            <Grid item xs={1.5}>
+                <DateBox>{v.endDate}</DateBox>
+            </Grid>
+            <Grid item xs={2}>
+                <DateBox justifyContent={'left'}>{v.historyLocation}</DateBox>
+            </Grid>
+        </Grid>
+    ));
 
     return (
         <PageDiv>
@@ -87,28 +72,16 @@ export default function InfoPageTemplate({ id }) {
                         stroke: '#DBDBDB',
                         borderRadius: 3,
                         border: '1px solid #B9B9B9',
+                        overflow: 'auto',
                     }}
                 >
-                    <ItemTitle>UI/UX 디자인 이론과 실습</ItemTitle>
+                    <ItemTitle>{dataToRender['title']}</ItemTitle>
                     <TitleDivider />
                     <InfoWrapper>
                         {renderLabels}
-                        <LabelInfoWrapper sx={{ marginBottom: 1.25 }}>
-                            <LabelContainer>
-                                <Label>History</Label>
-                            </LabelContainer>
-                            <InfoContainer
-                                sx={{
-                                    width: 281,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Info style={{ whiteSpace: 'pre' }}>
-                                    {history[0]}
-                                </Info>
-                            </InfoContainer>
-                        </LabelInfoWrapper>
+                        <LabelContainer>
+                            <Label>History</Label>
+                        </LabelContainer>
                         {historyRenderer}
                     </InfoWrapper>
                 </Box>
@@ -116,6 +89,14 @@ export default function InfoPageTemplate({ id }) {
         </PageDiv>
     );
 }
+const DateBox = styled(Box)(() => ({
+    color: '#000',
+    fontFamily: 'Source Sans Pro',
+    fontSize: '15px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal',
+}));
 
 const PageDiv = styled('div')(({ theme }) => ({
     backgroundColor: 'rgba(244, 244, 244, 0.63);',
@@ -127,7 +108,7 @@ const InfoGroup = styled('div')(({ theme }) => ({
     fontWeight: theme.fontWeight,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'start',
+    padding: 20,
 }));
 
 const InfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({
@@ -155,7 +136,7 @@ const InfoIconText = styled('div')(({ theme }) => ({
 
 const ItemTitle = styled('text')(() => ({
     display: 'flex',
-    width: 420,
+    width: 842,
     height: 44,
     flexDirection: 'column',
     justifyContent: 'center',
