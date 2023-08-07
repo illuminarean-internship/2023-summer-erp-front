@@ -4,21 +4,21 @@ import {
     Box,
     Button,
     Container,
-    Divider,
+    FormControl,
     Grid,
     IconButton,
     InputAdornment,
+    InputLabel,
     MenuItem,
     Select,
     TextField,
     Typography,
-    useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
-const DesktopForm = ({
+const TestDeviceForm = ({
     handleSubmit,
-    desktopInfo,
+    testDeviceInfo,
     handleChange,
     locations: locationsData,
     handleLocationChange,
@@ -26,20 +26,21 @@ const DesktopForm = ({
     handleDeleteHistory,
     handleAddHistory,
     handleHistoryLocationChange,
-    handleDetailChange,
-    handleDetailDelete,
-    handleDetailAdd,
 }) => {
     const locations = locationsData.map((location) => location.name);
     const [showHistory, setShowHistory] = useState(true);
-    const [showCategory, setShowCategory] = useState(true);
-    const theme = useTheme();
 
     const currencyOptions = [
-        { value: '₩', label: '₩' },
-        { value: '$', label: '$' },
-        { value: '￥', label: '￥' },
+        { value: 'KRW', label: '₩ (KRW)' },
+        { value: 'USD', label: '$ (USD)' },
+        { value: 'JPY', label: '￥ (JPY)' },
     ];
+
+    const categoryOptions = ['Android', 'iOS', 'Galaxy Note', 'iPad', 'Others'];
+
+    const ramOptions = ['3G', '4G', '6G', '8G', '12G', '16G'];
+
+    const memoryOptions = ['32G', '64G', '128G', '256G', '512G', '1TB'];
 
     return (
         <form onSubmit={handleSubmit}>
@@ -47,7 +48,7 @@ const DesktopForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Illuminaran Serial Number</Typography>
+                            <Typography>Model</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -58,10 +59,10 @@ const DesktopForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="illumiSerial"
-                                label="Enter Illuminaran Serial Number"
+                                name="model"
+                                label="Enter Model"
                                 fullWidth
-                                value={desktopInfo.illumiSerial}
+                                value={testDeviceInfo.model}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -76,7 +77,127 @@ const DesktopForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchase Date</Typography>
+                            <Typography>Category</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-category-label">
+                                    Select Category
+                                </InputLabel>
+                                <Select
+                                    labelId="select-category-label"
+                                    variant="outlined"
+                                    id="category-select"
+                                    name="category"
+                                    label="Select Category"
+                                    value={testDeviceInfo.category}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {categoryOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>RAM</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-RAM-label">
+                                    Select Memory
+                                </InputLabel>
+                                <Select
+                                    labelId="select-RAM-label"
+                                    variant="outlined"
+                                    label="Select RAM"
+                                    id="RAM-select"
+                                    name="RAM"
+                                    value={testDeviceInfo.RAM}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {ramOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Memory</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-memory-label">
+                                    Select Memory
+                                </InputLabel>
+                                <Select
+                                    labelId="select-memory-label"
+                                    variant="outlined"
+                                    label="Select Memory"
+                                    id="memory-select"
+                                    name="memory"
+                                    value={testDeviceInfo.memory}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {memoryOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Team</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -87,65 +208,12 @@ const DesktopForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="purchaseDate"
-                                type="date"
+                                name="team"
+                                label="Auto-filled "
                                 fullWidth
-                                value={desktopInfo.purchaseDate}
+                                value={testDeviceInfo.team}
                                 onChange={handleChange}
-                                required
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ p: 1 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchased From</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box display="flex" alignItems="center" height="100%">
-                            <TextField
-                                name="purchasedFrom"
-                                label="Purchased From"
-                                fullWidth
-                                value={desktopInfo.purchasedFrom}
-                                onChange={handleChange}
-                                required
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ p: 1 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purpose</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            height="100%"
-                            sx={{ width: '100%' }}
-                        >
-                            <TextField
-                                name="purpose"
-                                label="Enter Purpose"
-                                fullWidth
-                                value={desktopInfo.purpose}
-                                onChange={handleChange}
-                                required
+                                disabled
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -172,7 +240,7 @@ const DesktopForm = ({
                                 id="location"
                                 name="location"
                                 fullWidth
-                                value={desktopInfo.location}
+                                value={testDeviceInfo.location}
                                 onChange={handleLocationChange}
                                 options={locations}
                                 getOptionLabel={(option) => option}
@@ -187,149 +255,94 @@ const DesktopForm = ({
                         </Box>
                     </Grid>
                 </Grid>
-                <Divider sx={{ my: 2, borderColor: theme.palette.grey[300] }} />
-                <Box display="flex" justifyContent="left" mt={3}>
-                    <Button
-                        variant="standard"
-                        color="primary"
-                        onClick={() =>
-                            setShowCategory(
-                                (prevShowCategory) => !prevShowCategory,
-                            )
-                        }
-                    >
-                        Category
-                        {showCategory ? <ArrowDropDown /> : <ArrowDropUp />}
-                    </Button>
-                </Box>
-                {showCategory && (
-                    <>
-                        {desktopInfo.details.map((detail, index) => (
-                            <Box
-                                key={detail.id}
-                                display="flex"
-                                flexDirection="column"
-                                my={2}
-                            >
-                                <Grid container spacing={1} sx={{ ml: 0.5 }}>
-                                    <Grid item xs={3}>
-                                        <TextField
-                                            name="category"
-                                            label="Enter Category"
-                                            fullWidth
-                                            value={detail.category}
-                                            onChange={(e) =>
-                                                handleDetailChange(
-                                                    detail.id,
-                                                    'category',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            required
-                                            size="small"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={5.78}>
-                                        <TextField
-                                            name="name"
-                                            label="Enter Name"
-                                            fullWidth
-                                            value={detail.name}
-                                            onChange={(e) =>
-                                                handleDetailChange(
-                                                    detail.id,
-                                                    'name',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            required
-                                            size="small"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={2.5}>
-                                        <TextField
-                                            name="price"
-                                            label="Price"
-                                            type="number"
-                                            fullWidth
-                                            value={detail.price}
-                                            onChange={(e) =>
-                                                handleDetailChange(
-                                                    detail.id,
-                                                    'price',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            required
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <Select
-                                                            variant="standard"
-                                                            id="currency-select"
-                                                            name="currency"
-                                                            value={
-                                                                detail.currency
-                                                            }
-                                                            onChange={(e) =>
-                                                                handleDetailChange(
-                                                                    detail.id,
-                                                                    'currency',
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            }
-                                                        >
-                                                            {currencyOptions.map(
-                                                                (option) => (
-                                                                    <MenuItem
-                                                                        key={
-                                                                            option.value
-                                                                        }
-                                                                        value={
-                                                                            option.value
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            option.label
-                                                                        }
-                                                                    </MenuItem>
-                                                                ),
-                                                            )}
-                                                        </Select>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                            size="small"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={0.5}>
-                                        <IconButton
-                                            onClick={() =>
-                                                handleDetailDelete(detail.id)
-                                            }
-                                            size="small"
-                                            color="error"
-                                            disabled={index === 0}
-                                        >
-                                            <Delete />
-                                        </IconButton>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        ))}
-                        <Box display="flex" justifyContent="right" mt={3}>
-                            <Button
-                                variant="standard"
-                                color="primary"
-                                onClick={handleDetailAdd}
-                            >
-                                Add New Category
-                            </Button>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Serial Number</Typography>
                         </Box>
-                    </>
-                )}
-                <Grid container spacing={2} sx={{ p: 1, pl: 0 }}>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="serialNumber"
+                                label="Enter Serial Number"
+                                fullWidth
+                                value={testDeviceInfo.serialNumber}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Condition</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="condition"
+                                label="Enter Condition"
+                                fullWidth
+                                value={testDeviceInfo.condition}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Color</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="color"
+                                label="Enter Color"
+                                fullWidth
+                                value={testDeviceInfo.color}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
                             <Typography>Total Price</Typography>
@@ -339,20 +352,72 @@ const DesktopForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="totalPrice"
-                                label="Total Price"
+                                label="Enter Total Price"
+                                type="number"
                                 fullWidth
-                                value={desktopInfo.totalPrice}
-                                disabled
+                                value={testDeviceInfo.totalPrice}
+                                onChange={handleChange}
+                                required
                                 InputProps={{
                                     style: {
                                         height: '50px',
+                                    },
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Select
+                                                variant="standard"
+                                                id="currency-select"
+                                                name="currency"
+                                                value={testDeviceInfo.currency}
+                                                onChange={handleChange}
+                                            >
+                                                {currencyOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option.value}
+                                                            value={option.value}
+                                                        >
+                                                            {option.label}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Purchased From</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="purchasedFrom"
+                                label="Enter Purchase Location"
+                                fullWidth
+                                value={testDeviceInfo.purchasedFrom}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
                                     },
                                 }}
                             />
                         </Box>
                     </Grid>
                 </Grid>
-
                 <Box display="flex" justifyContent="left" mt={3}>
                     <Button
                         variant="standard"
@@ -369,7 +434,7 @@ const DesktopForm = ({
                 </Box>
                 {showHistory && (
                     <>
-                        {desktopInfo.history.map((historyData, index) => (
+                        {testDeviceInfo.history.map((historyData, index) => (
                             <Box
                                 key={historyData.id}
                                 display="flex"
@@ -463,7 +528,7 @@ const DesktopForm = ({
                                     </Grid>
                                     <Grid
                                         item
-                                        xs={3.6}
+                                        xs={3.5}
                                         container
                                         alignItems="center"
                                         sx={{ ml: 1 }}
@@ -514,7 +579,7 @@ const DesktopForm = ({
                         </Box>
                     </>
                 )}
-                <Grid container spacing={2} sx={{ p: 1, pl: 0 }}>
+                <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
                             <Typography>Remarks</Typography>
@@ -529,9 +594,9 @@ const DesktopForm = ({
                         >
                             <TextField
                                 name="remarks"
-                                label="Enter remarks"
+                                label="Enter Remarks"
                                 fullWidth
-                                value={desktopInfo.remarks}
+                                value={testDeviceInfo.remarks}
                                 onChange={handleChange}
                                 inputProps={{
                                     style: {
@@ -552,4 +617,4 @@ const DesktopForm = ({
     );
 };
 
-export default DesktopForm;
+export default TestDeviceForm;

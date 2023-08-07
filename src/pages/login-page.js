@@ -11,7 +11,7 @@ const Login = () => {
     const router = useRouter();
 
     if (status === 'loading') {
-        <Loading />;
+        return <Loading />;
     }
 
     if (session) {
