@@ -69,7 +69,7 @@ const TestDeviceInfo = () => {
                 title={
                     `(${testDeviceInfo.serialNumber}) - ` + testDeviceInfo.model
                 }
-                type="testDevice"
+                type="test-device"
             />
         </div>
     );
