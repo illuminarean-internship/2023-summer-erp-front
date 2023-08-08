@@ -22,13 +22,13 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
                 v != 'history' && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
-                            <Label>
+                            <Typography>
                                 {v
                                     .replace(/([A-Z])/g, ' $1')
                                     .replace(/^./, function (str) {
                                         return str.toUpperCase(); //converts camelCase to Label
                                     })}
-                            </Label>
+                            </Typography>
                         </LabelContainer>
                         <InfoContainer key={dataToRender[v]}>
                             <Info>{dataToRender[v]}</Info>
@@ -44,13 +44,15 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
             justifyContent={'center'}
         >
             <Grid item xs="auto">
-                <DateBox>{v.startDate} -</DateBox>
+                <Typography>{v.startDate} -</Typography>
             </Grid>
             <Grid item xs={1.5}>
-                <DateBox>{v.endDate}</DateBox>
+                <Typography>{v.endDate}</Typography>
             </Grid>
             <Grid item xs={2}>
-                <DateBox justifyContent={'left'}>{v.historyLocation}</DateBox>
+                <Typography justifyContent={'left'}>
+                    {v.historyLocation}
+                </Typography>
             </Grid>
         </Grid>
     ));
@@ -58,7 +60,7 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
     const historyRenderer = type != 'software' && (
         <>
             <LabelContainer sx={{ marginBottom: 2 }}>
-                <Label>History</Label>
+                <Typography>History</Typography>
             </LabelContainer>
             {historyLoader}
         </>
@@ -77,6 +79,7 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
             <InfoWrapper>
                 {renderLabels}
                 {historyRenderer}
+                
             </InfoWrapper>
         </PageWrapper>
     );
@@ -129,24 +132,18 @@ const Label = styled(Typography)(() => ({
 
 const InfoContainer = styled('div')(() => ({
     width: 491,
-    marginLeft: 49,
+    marginLeft: 100,
     display: 'flex',
     height: 22,
     justifyContent: 'left',
     flexShrink: 0,
 }));
 
-const Info = styled('text')(() => ({
+const Info = styled(Typography)(() => ({
     width: 491,
     height: 22,
     flexShrink: 0,
-    color: '#000',
     textAlign: 'left',
-    fontFamily: 'Source Sans Pro',
-    fontSize: 15,
-    fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: 'normal',
 }));
 
 const HistoryContainer = styled('div')(() => ({
