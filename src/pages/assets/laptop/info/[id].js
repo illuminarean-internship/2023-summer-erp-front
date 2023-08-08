@@ -94,7 +94,7 @@ const LaptopInfo = () => {
 
 export default LaptopInfo;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         props: {},
     };

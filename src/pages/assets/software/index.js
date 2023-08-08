@@ -4,6 +4,7 @@ import moment from 'moment';
 import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { getCurrencySymbol } from '../../../utils/stringUtils';
 
 const Software = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -31,7 +32,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 300 },
+        { field: 'name', headerName: 'Name', width: 150 },
 
         {
             field: 'purchaseDate',
@@ -41,23 +42,39 @@ const Software = ({ setSelectedLink, isOpen }) => {
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
+            field: 'remarks',
+            headerName: 'Remarks',
+            width: 150,
+        },
+        {
             field: 'unitPrice',
             headerName: 'Unit Price',
-            width: 170,
-            renderCell: (params) => '₩' + params.row.price,
+            width: 150,
+            renderCell: (params) =>
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.unitPrice
+                }`,
+        },
+        {
+            field: 'quantity',
+            headerName: 'Quantity',
+            width: 130,
         },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
             width: 170,
-            renderCell: (params) => '₩' + params.row.price,
+            renderCell: (params) =>
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.totalPrice
+                }`,
         },
         {
             field: 'currency',
             headerName: 'Currency',
-            width: 170,
+            width: 150,
         },
-        { field: 'reference', headerName: 'Reference', width: 170 },
+        { field: 'reference', headerName: 'Reference', width: 250 },
         { field: 'user', headerName: 'User', width: 170 },
         {
             field: 'Actions',

@@ -12,7 +12,6 @@ const SoftwareInfo = () => {
         purchaseDate: '',
         unitPrice: '',
         remarks: '',
-        unitPrice: '',
         quantity: '',
         totalPrice: '',
         currency: '',
@@ -73,7 +72,7 @@ const SoftwareInfo = () => {
 
 export default SoftwareInfo;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         props: {},
     };

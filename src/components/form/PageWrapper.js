@@ -16,7 +16,6 @@ const PageWrapper = ({ title, icon, href, children }) => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                mb={1}
                 sx={{ p: 3 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

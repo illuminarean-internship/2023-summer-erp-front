@@ -4,9 +4,11 @@ import {
     Box,
     Button,
     Container,
+    FormControl,
     Grid,
     IconButton,
     InputAdornment,
+    InputLabel,
     MenuItem,
     Select,
     TextField,
@@ -14,9 +16,9 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-const BookForm = ({
+const TestDeviceForm = ({
     handleSubmit,
-    bookInfo,
+    testDeviceInfo,
     handleChange,
     locations: locationsData,
     handleLocationChange,
@@ -29,10 +31,16 @@ const BookForm = ({
     const [showHistory, setShowHistory] = useState(true);
 
     const currencyOptions = [
-        { value: '₩', label: '₩ (KRW)' },
-        { value: '$', label: '$ (USD)' },
-        { value: '￥', label: '￥ (JPY)' },
+        { value: 'KRW', label: '₩ (KRW)' },
+        { value: 'USD', label: '$ (USD)' },
+        { value: 'JPY', label: '￥ (JPY)' },
     ];
+
+    const categoryOptions = ['Android', 'iOS', 'Galaxy Note', 'iPad', 'Others'];
+
+    const ramOptions = ['3G', '4G', '6G', '8G', '12G', '16G'];
+
+    const memoryOptions = ['32G', '64G', '128G', '256G', '512G', '1TB'];
 
     return (
         <form onSubmit={handleSubmit}>
@@ -40,7 +48,7 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Title</Typography>
+                            <Typography>Model</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -51,10 +59,10 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="title"
-                                label="Enter Title"
+                                name="model"
+                                label="Enter Model"
                                 fullWidth
-                                value={bookInfo.title}
+                                value={testDeviceInfo.model}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -63,6 +71,126 @@ const BookForm = ({
                                     },
                                 }}
                             />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Category</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-category-label">
+                                    Select Category
+                                </InputLabel>
+                                <Select
+                                    labelId="select-category-label"
+                                    variant="outlined"
+                                    id="category-select"
+                                    name="category"
+                                    label="Select Category"
+                                    value={testDeviceInfo.category}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {categoryOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>RAM</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-RAM-label">
+                                    Select Memory
+                                </InputLabel>
+                                <Select
+                                    labelId="select-RAM-label"
+                                    variant="outlined"
+                                    label="Select RAM"
+                                    id="RAM-select"
+                                    name="RAM"
+                                    value={testDeviceInfo.RAM}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {ramOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Memory</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-memory-label">
+                                    Select Memory
+                                </InputLabel>
+                                <Select
+                                    labelId="select-memory-label"
+                                    variant="outlined"
+                                    label="Select Memory"
+                                    id="memory-select"
+                                    name="memory"
+                                    value={testDeviceInfo.memory}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {memoryOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Box>
                     </Grid>
                 </Grid>
@@ -83,7 +211,7 @@ const BookForm = ({
                                 name="team"
                                 label="Auto-filled "
                                 fullWidth
-                                value={bookInfo.team}
+                                value={testDeviceInfo.team}
                                 onChange={handleChange}
                                 disabled
                                 inputProps={{
@@ -112,7 +240,7 @@ const BookForm = ({
                                 id="location"
                                 name="location"
                                 fullWidth
-                                value={bookInfo.location}
+                                value={testDeviceInfo.location}
                                 onChange={handleLocationChange}
                                 options={locations}
                                 getOptionLabel={(option) => option}
@@ -130,7 +258,7 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchase Date</Typography>
+                            <Typography>Serial Number</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -141,10 +269,10 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="purchaseDate"
-                                type="date"
+                                name="serialNumber"
+                                label="Enter Serial Number"
                                 fullWidth
-                                value={bookInfo.purchaseDate}
+                                value={testDeviceInfo.serialNumber}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -159,16 +287,21 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchased From</Typography>
+                            <Typography>Condition</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <Box display="flex" alignItems="center" height="100%">
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
                             <TextField
-                                name="purchasedFrom"
-                                label="Purchased From"
+                                name="condition"
+                                label="Enter Condition"
                                 fullWidth
-                                value={bookInfo.purchasedFrom}
+                                value={testDeviceInfo.condition}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -183,17 +316,46 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Price</Typography>
+                            <Typography>Color</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="color"
+                                label="Enter Color"
+                                fullWidth
+                                value={testDeviceInfo.color}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Total Price</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
-                                name="price"
-                                label="Price"
+                                name="totalPrice"
+                                label="Enter Total Price"
                                 type="number"
                                 fullWidth
-                                value={bookInfo.price}
+                                value={testDeviceInfo.totalPrice}
                                 onChange={handleChange}
                                 required
                                 InputProps={{
@@ -206,7 +368,7 @@ const BookForm = ({
                                                 variant="standard"
                                                 id="currency-select"
                                                 name="currency"
-                                                value={bookInfo.currency}
+                                                value={testDeviceInfo.currency}
                                                 onChange={handleChange}
                                             >
                                                 {currencyOptions.map(
@@ -222,6 +384,35 @@ const BookForm = ({
                                             </Select>
                                         </InputAdornment>
                                     ),
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Purchased From</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="purchasedFrom"
+                                label="Enter Purchase Location"
+                                fullWidth
+                                value={testDeviceInfo.purchasedFrom}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
                                 }}
                             />
                         </Box>
@@ -243,7 +434,7 @@ const BookForm = ({
                 </Box>
                 {showHistory && (
                     <>
-                        {bookInfo.history.map((historyData, index) => (
+                        {testDeviceInfo.history.map((historyData, index) => (
                             <Box
                                 key={historyData.id}
                                 display="flex"
@@ -388,6 +579,34 @@ const BookForm = ({
                         </Box>
                     </>
                 )}
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Remarks</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="remarks"
+                                label="Enter Remarks"
+                                fullWidth
+                                value={testDeviceInfo.remarks}
+                                onChange={handleChange}
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
                     <Button type="submit" variant="contained" color="primary">
                         Save
@@ -398,4 +617,4 @@ const BookForm = ({
     );
 };
 
-export default BookForm;
+export default TestDeviceForm;
