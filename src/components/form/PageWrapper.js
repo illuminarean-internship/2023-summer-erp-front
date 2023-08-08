@@ -36,6 +36,7 @@ const PageWrapper = ({ title, icon, href, children }) => {
                 <Paper
                     elevation={3}
                     sx={{
+                        overflow: 'scroll',
                         backgroundColor: 'white',
                         padding: 4,
                         borderRadius: 3,

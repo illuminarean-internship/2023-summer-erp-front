@@ -124,3 +124,4 @@ const Info = styled(Typography)(() => ({
     flexShrink: 0,
     textAlign: 'left',
 }));
+
