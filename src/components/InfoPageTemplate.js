@@ -6,7 +6,12 @@ import moment from 'moment';
 import PageWrapper from './form/PageWrapper';
 
 //all data guarenteed to have an id, type, and history
-export default function InfoPageTemplate({ dataToRender, title, type }) {
+export default function InfoPageTemplate({
+    dataToRender,
+    title,
+    type,
+    children = null,
+}) {
     dataToRender['history'] = dataToRender['history'].map((v) => {
         return {
             startDate: moment(v.startDate).format('YYYY-MM-DD'),
@@ -15,11 +20,14 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
             historyRemark: v.historyRemark,
         };
     }); //temporary hardcode
-    const renderLabels = Object.keys(dataToRender) //hard coded for now, but eventually will do based on id
+
+    const renderLabels = Object.keys(dataToRender)
         .flat()
         .map(
             (v) =>
-                v != 'history' && (
+                v != 'history' &&
+                v != 'details' &&
+                v != 'summedCost' && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
                             <Typography>
@@ -36,12 +44,15 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
                     </LabelInfoWrapper>
                 ),
         );
+
     const historyLoader = dataToRender['history'].map((v) => (
         <Grid
             container
             rowSpacing={3}
             columnSpacing={1}
             justifyContent={'center'}
+            textAlign={'center'}
+            id={v.id}
         >
             <Grid item xs="auto">
                 <Typography>{v.startDate} -</Typography>
@@ -78,8 +89,8 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <InfoWrapper>
                 {renderLabels}
+                {children}
                 {historyRenderer}
-                
             </InfoWrapper>
         </PageWrapper>
     );
@@ -94,13 +105,13 @@ const DateBox = styled(Box)(() => ({
 }));
 
 const InfoWrapper = styled('div')(() => ({
-    width: 842,
+    width: 1100,
     height: 417,
     marginTop: 70,
 }));
 
 const LabelInfoWrapper = styled('div')(() => ({
-    width: 842,
+    width: 1100,
     height: 20,
     marginBottom: 26,
     alignItems: 'flex-start',

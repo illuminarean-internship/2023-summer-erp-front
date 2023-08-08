@@ -80,7 +80,7 @@ const LaptopInfo = () => {
             history,
         };
     };
-    console.log(laptopInfo.model);
+
     return (
         <div>
             <InfoPageTemplate

@@ -72,7 +72,6 @@ const AccessoryInfo = () => {
             history,
         };
     };
-
     return (
         <div>
             <InfoPageTemplate
