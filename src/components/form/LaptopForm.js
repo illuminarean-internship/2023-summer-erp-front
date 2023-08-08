@@ -15,9 +15,9 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-const AccessoryForm = ({
+const LaptopForm = ({
     handleSubmit,
-    accessoryInfo,
+    laptopInfo,
     handleChange,
     locations: locationsData,
     handleLocationChange,
@@ -37,46 +37,13 @@ const AccessoryForm = ({
         { value: 'JPY', label: '￥ (JPY)' },
     ];
 
-    const categoryOptions = [
-        'Keyboard',
-        'Mouse',
-        'USB-C Hub',
-        'Laptop Acc',
-        'Others',
-    ];
+    const categoryOptions = ['Macbook', 'LG Gram', 'Samsung', 'Others'];
+    const ramOptions = ['8G', '16G', '32G', '64G', '128G'];
+    const ssdOptions = ['128G', '256G', '512G', '1TB', '2TB'];
 
     return (
         <form onSubmit={handleSubmit}>
             <Container maxWidth="md">
-                <Grid container spacing={2} sx={{ p: 1 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Model</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            height="100%"
-                            sx={{ width: '100%' }}
-                        >
-                            <TextField
-                                name="model"
-                                label="Enter Model"
-                                fullWidth
-                                value={accessoryInfo.model}
-                                onChange={handleChange}
-                                required
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
@@ -100,7 +67,7 @@ const AccessoryForm = ({
                                     id="category-select"
                                     name="category"
                                     label="Select Category"
-                                    value={accessoryInfo.category}
+                                    value={laptopInfo.category}
                                     onChange={handleChange}
                                     displayEmpty
                                     sx={{
@@ -108,6 +75,144 @@ const AccessoryForm = ({
                                     }}
                                 >
                                     {categoryOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Model</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="model"
+                                label="Enter Model"
+                                fullWidth
+                                value={laptopInfo.model}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>CPU</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="CPU"
+                                label="Enter CPU"
+                                fullWidth
+                                value={laptopInfo.CPU}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>RAM</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-ram-label">
+                                    Select RAM
+                                </InputLabel>
+                                <Select
+                                    labelId="select-ram-label"
+                                    variant="outlined"
+                                    id="ram-select"
+                                    name="RAM"
+                                    label="Select RAM"
+                                    value={laptopInfo.RAM}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {ramOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>SSD</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel id="select-ssd-label">
+                                    Select SSD
+                                </InputLabel>
+                                <Select
+                                    labelId="select-ssd-label"
+                                    variant="outlined"
+                                    id="ssd-select"
+                                    name="SSD"
+                                    label="Select SSD"
+                                    value={laptopInfo.SSD}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                    sx={{
+                                        height: '50px',
+                                    }}
+                                >
+                                    {ssdOptions.map((option) => (
                                         <MenuItem key={option} value={option}>
                                             {option}
                                         </MenuItem>
@@ -134,7 +239,7 @@ const AccessoryForm = ({
                                 name="serialNumber"
                                 label="Enter Serial Number"
                                 fullWidth
-                                value={accessoryInfo.serialNumber}
+                                value={laptopInfo.serialNumber}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -163,7 +268,7 @@ const AccessoryForm = ({
                                 id="location"
                                 name="location"
                                 fullWidth
-                                value={accessoryInfo.location}
+                                value={laptopInfo.location}
                                 onChange={handleLocationChange}
                                 options={locations}
                                 getOptionLabel={(option) => option}
@@ -181,6 +286,35 @@ const AccessoryForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Warranty</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="warranty"
+                                type="date"
+                                fullWidth
+                                value={laptopInfo.warranty}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
                             <Typography>Currency</Typography>
                         </Box>
                     </Grid>
@@ -190,7 +324,7 @@ const AccessoryForm = ({
                                 variant="outlined"
                                 id="currency-select"
                                 name="currency"
-                                value={accessoryInfo.currency}
+                                value={laptopInfo.currency}
                                 onChange={handleChange}
                                 sx={{ height: '43px' }}
                             >
@@ -219,7 +353,7 @@ const AccessoryForm = ({
                                 label="Enter Price"
                                 type="number"
                                 fullWidth
-                                value={accessoryInfo.price}
+                                value={laptopInfo.price}
                                 onChange={handlePriceChange}
                                 required
                                 InputProps={{
@@ -244,7 +378,7 @@ const AccessoryForm = ({
                                 label="Enter Surtax"
                                 type="number"
                                 fullWidth
-                                value={accessoryInfo.surtax}
+                                value={laptopInfo.surtax}
                                 onChange={handleSurtaxChange}
                                 required
                                 InputProps={{
@@ -269,7 +403,7 @@ const AccessoryForm = ({
                                 label="Total Price"
                                 type="number"
                                 fullWidth
-                                value={accessoryInfo.totalPrice}
+                                value={laptopInfo.totalPrice}
                                 onChange={handleChange}
                                 required
                                 InputProps={{
@@ -296,10 +430,10 @@ const AccessoryForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="illuSerialNumber"
+                                name="illumiSerial"
                                 label="Enter Illuminaran Serial Number"
                                 fullWidth
-                                value={accessoryInfo.illuSerialNumber}
+                                value={laptopInfo.illumiSerial}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -328,7 +462,7 @@ const AccessoryForm = ({
                                 name="color"
                                 label="Enter Color"
                                 fullWidth
-                                value={accessoryInfo.color}
+                                value={laptopInfo.color}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -357,7 +491,7 @@ const AccessoryForm = ({
                                 name="purchaseDate"
                                 type="date"
                                 fullWidth
-                                value={accessoryInfo.purchaseDate}
+                                value={laptopInfo.purchaseDate}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -381,7 +515,7 @@ const AccessoryForm = ({
                                 name="purchasedFrom"
                                 label="Purchased From"
                                 fullWidth
-                                value={accessoryInfo.purchasedFrom}
+                                value={laptopInfo.purchasedFrom}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -409,7 +543,7 @@ const AccessoryForm = ({
                 </Box>
                 {showHistory && (
                     <>
-                        {accessoryInfo.history.map((historyData, index) => (
+                        {laptopInfo.history.map((historyData, index) => (
                             <Box
                                 key={historyData.id}
                                 display="flex"
@@ -571,7 +705,7 @@ const AccessoryForm = ({
                                 name="remarks"
                                 label="Enter Remarks"
                                 fullWidth
-                                value={accessoryInfo.remarks}
+                                value={laptopInfo.remarks}
                                 onChange={handleChange}
                                 inputProps={{
                                     style: {
@@ -592,4 +726,4 @@ const AccessoryForm = ({
     );
 };
 
-export default AccessoryForm;
+export default LaptopForm;

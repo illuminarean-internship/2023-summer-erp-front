@@ -300,3 +300,9 @@ const DesktopPcCopy = () => {
 };
 
 export default DesktopPcCopy;
+
+export async function getServerSideProps() {
+    return {
+        props: {},
+    };
+}

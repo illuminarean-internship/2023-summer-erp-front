@@ -320,7 +320,7 @@ const DesktopForm = ({
                         ))}
                         <Box display="flex" justifyContent="right" mt={3}>
                             <Button
-                                variant="standard"
+                                variant="outlined"
                                 color="primary"
                                 onClick={handleDetailAdd}
                             >
@@ -352,7 +352,7 @@ const DesktopForm = ({
                         </Box>
                     </Grid>
                 </Grid>
-
+                <Divider sx={{ my: 2, borderColor: theme.palette.grey[300] }} />
                 <Box display="flex" justifyContent="left" mt={3}>
                     <Button
                         variant="standard"
@@ -364,7 +364,7 @@ const DesktopForm = ({
                         }
                     >
                         History
-                        {showHistory ? <ArrowDropDown /> : <ArrowDropUp />}
+                        {showHistory ? <ArrowDropUp /> : <ArrowDropDown />}
                     </Button>
                 </Box>
                 {showHistory && (
@@ -470,7 +470,7 @@ const DesktopForm = ({
                                     >
                                         <TextField
                                             fullWidth
-                                            label="Remark"
+                                            label="Remarks"
                                             value={historyData.historyRemark}
                                             onChange={(e) =>
                                                 handleHistoryChange(
@@ -505,7 +505,7 @@ const DesktopForm = ({
                         ))}
                         <Box display="flex" justifyContent="right" mt={3}>
                             <Button
-                                variant="standard"
+                                variant="outlined"
                                 color="primary"
                                 onClick={handleAddHistory}
                             >

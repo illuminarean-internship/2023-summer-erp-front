@@ -429,7 +429,7 @@ const TestDeviceForm = ({
                         }
                     >
                         History
-                        {showHistory ? <ArrowDropDown /> : <ArrowDropUp />}
+                        {showHistory ? <ArrowDropUp /> : <ArrowDropDown />}
                     </Button>
                 </Box>
                 {showHistory && (
@@ -535,7 +535,7 @@ const TestDeviceForm = ({
                                     >
                                         <TextField
                                             fullWidth
-                                            label="Remark"
+                                            label="Remarks"
                                             value={historyData.historyRemark}
                                             onChange={(e) =>
                                                 handleHistoryChange(
@@ -570,7 +570,7 @@ const TestDeviceForm = ({
                         ))}
                         <Box display="flex" justifyContent="right" mt={3}>
                             <Button
-                                variant="standard"
+                                variant="outlined"
                                 color="primary"
                                 onClick={handleAddHistory}
                             >

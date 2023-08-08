@@ -296,3 +296,9 @@ const DesktopPcEdit = () => {
 };
 
 export default DesktopPcEdit;
+
+export async function getServerSideProps() {
+    return {
+        props: {},
+    };
+}

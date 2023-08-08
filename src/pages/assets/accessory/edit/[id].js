@@ -47,7 +47,6 @@ const AccessoryEdit = () => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);
                 setAccessoryInfo(filteredData);
-                console.log(filteredData);
             });
     }, []);
 
