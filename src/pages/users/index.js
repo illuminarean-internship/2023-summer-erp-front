@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import { useRouter } from 'next/router';
-import DataTable from '../../../components/DataTable';
-import Action from '../../../components/actions/Action';
+import DataTable from '../../components/DataTable';
+import Action from '../../components/actions/Action';
 
-const Books = ({ setSelectedLink, isOpen }) => {
+const UserPage = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
@@ -14,9 +13,13 @@ const Books = ({ setSelectedLink, isOpen }) => {
     const fetchData = async () => {
         try {
             await axios
-                .get('http://43.200.193.130:4040/api/books/')
+                .get('http://43.200.193.130:4040/api/users/')
                 .then((res) => {
-                    setRows(res.data);
+                    const filteredData = res.data.filter(
+                        (item) =>
+                            !['Resold', 'Disuse', 'Office'].includes(item.name),
+                    );
+                    setRows(filteredData);
                 });
             setIsLoading(false);
         } catch (error) {
@@ -31,33 +34,10 @@ const Books = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'title', headerName: 'Title', width: 500 },
-        {
-            field: 'team',
-            headerName: 'Team',
-            width: 170,
-        },
-        { field: 'location', headerName: 'Location', width: 170 },
-        {
-            field: 'purchaseDate',
-            headerName: 'Purchase Date',
-            width: 200,
-
-            renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
-        },
-        {
-            field: 'purchasedFrom',
-            headerName: 'Purchased From',
-            width: 200,
-        },
-        {
-            field: 'price',
-            headerName: 'Price',
-            width: 150,
-            renderCell: (params) =>
-                `${params.row.currency}  ${params.row.price}`,
-        },
+        { field: 'name', headerName: 'Name', width: 300 },
+        { field: 'team', headerName: 'Team', width: 280 },
+        { field: 'project', headerName: 'Project', width: 350 },
+        { field: 'field', headerName: 'Field', width: 300 },
         {
             field: 'Actions',
             headerName: 'Actions',
@@ -81,4 +61,4 @@ const Books = ({ setSelectedLink, isOpen }) => {
     );
 };
 
-export default Books;
+export default UserPage;

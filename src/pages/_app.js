@@ -33,26 +33,28 @@ function MyApp({ Component, pageProps, session }) {
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 {router.pathname !== '/login-page' ? (
-                    <ProtectLayouts>
-                        <Box sx={{ display: 'flex' }}>
-                            <Navbar {...{ isOpen, handleDrawerOpen }} />
-                            <Sidebar
-                                {...{
-                                    isOpen,
-                                    handleDrawerClose,
-                                    handleDrawerOpen,
-                                    selectedLink,
-                                }}
-                            >
-                                <Component
-                                    {...pageProps}
-                                    selectedLink={selectedLink}
-                                    setSelectedLink={setSelectedLink}
-                                    isOpen={isOpen}
-                                />
-                            </Sidebar>
-                        </Box>
-                    </ProtectLayouts>
+                    <>
+                        <ProtectLayouts>
+                            <Box sx={{ display: 'flex' }}>
+                                <Navbar {...{ isOpen, handleDrawerOpen }} />
+                                <Sidebar
+                                    {...{
+                                        isOpen,
+                                        handleDrawerClose,
+                                        handleDrawerOpen,
+                                        selectedLink,
+                                    }}
+                                >
+                                    <Component
+                                        {...pageProps}
+                                        selectedLink={selectedLink}
+                                        setSelectedLink={setSelectedLink}
+                                        isOpen={isOpen}
+                                    />
+                                </Sidebar>
+                            </Box>
+                        </ProtectLayouts>
+                    </>
                 ) : (
                     <>
                         <GlobalStyle />

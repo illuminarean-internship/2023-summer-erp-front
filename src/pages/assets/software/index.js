@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import BookAction from '../../../components/actions/BookAction';
+import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { getCurrencySymbol } from '../../../utils/stringUtils';
 
 const Software = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -11,31 +12,27 @@ const Software = ({ setSelectedLink, isOpen }) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
-    // const fetchData = async () => {
-    //     try {
-    //         await axios
-    //             .get('http://43.200.193.130:4040/api/books/')
-    //             .then((res) => {
-    //                 setRows(res.data);
-    //             });
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    //     fetchData();
-    // }, [rows]);
+    const fetchData = async () => {
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/software/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-    }, []);
+        fetchData();
+    }, [rows]);
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 300 },
+        { field: 'name', headerName: 'Name', width: 150 },
 
         {
             field: 'purchaseDate',
@@ -45,23 +42,39 @@ const Software = ({ setSelectedLink, isOpen }) => {
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
+            field: 'remarks',
+            headerName: 'Remarks',
+            width: 150,
+        },
+        {
             field: 'unitPrice',
             headerName: 'Unit Price',
-            width: 170,
-            renderCell: (params) => '₩' + params.row.price,
+            width: 150,
+            renderCell: (params) =>
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.unitPrice
+                }`,
+        },
+        {
+            field: 'quantity',
+            headerName: 'Quantity',
+            width: 130,
         },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
             width: 170,
-            renderCell: (params) => '₩' + params.row.price,
+            renderCell: (params) =>
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.totalPrice
+                }`,
         },
         {
             field: 'currency',
             headerName: 'Currency',
-            width: 170,
+            width: 150,
         },
-        { field: 'reference', headerName: 'Reference', width: 170 },
+        { field: 'reference', headerName: 'Reference', width: 250 },
         { field: 'user', headerName: 'User', width: 170 },
         {
             field: 'Actions',
@@ -69,10 +82,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <BookAction
-                    params={params}
-                    setAlertVisible={setAlertVisible}
-                ></BookAction>
+                <Action params={params} setAlertVisible={setAlertVisible} />
             ),
         },
     ];

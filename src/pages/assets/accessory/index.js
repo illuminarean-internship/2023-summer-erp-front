@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import BookAction from '../../../components/actions/BookAction';
+import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { getCurrencySymbol } from '../../../utils/stringUtils';
 
 const Accessory = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -11,49 +12,40 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     const [alertVisible, setAlertVisible] = useState(false);
     const router = useRouter();
 
-    // const fetchData = async () => {
-    //     try {
-    //         await axios
-    //             .get('http://43.200.193.130:4040/api/books/')
-    //             .then((res) => {
-    //                 setRows(res.data);
-    //             });
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     setSelectedLink(router.pathname.slice(1));
-    //     fetchData();
-    // }, [rows]);
+    const fetchData = async () => {
+        try {
+            await axios
+                .get('http://43.200.193.130:4040/api/accessory/')
+                .then((res) => {
+                    setRows(res.data);
+                });
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-    }, []);
+        fetchData();
+    }, [rows]);
 
     const columns = [
-        { field: 'deviceImage', headerName: 'Device Image', width: 100 },
-        { field: 'model', headerName: 'Model', width: 100 },
-        { field: 'category', headerName: 'Category', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
-        { field: 'location', headerName: 'Location', width: 100 },
+        { field: 'model', headerName: 'Model', width: 200 },
+        { field: 'category', headerName: 'Category', width: 150 },
+        { field: 'serialNumber', headerName: 'Serial #', width: 150 },
+        { field: 'location', headerName: 'Location', width: 150 },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
-            width: 100,
-            renderCell: (params) => '₩' + params.row.price,
-        },
-        {
-            field: 'availableDate',
-            headerName: 'Available Date',
-            width: 200,
+            width: 150,
             renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.totalPrice
+                }`,
         },
-        { field: 'color', headerName: 'Color', width: 100 },
+        { field: 'color', headerName: 'Color', width: 150 },
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
@@ -64,7 +56,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
         {
             field: 'purchasedFrom',
             headerName: 'Purchased From',
-            width: 200,
+            width: 150,
         },
         {
             field: 'Actions',
@@ -72,10 +64,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <BookAction
-                    params={params}
-                    setAlertVisible={setAlertVisible}
-                ></BookAction>
+                <Action params={params} setAlertVisible={setAlertVisible} />
             ),
         },
     ];
