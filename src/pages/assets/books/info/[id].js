@@ -84,7 +84,7 @@ const BooksInfo = () => {
 
 export default BooksInfo;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         props: {},
     };

@@ -4,6 +4,7 @@ import moment from 'moment';
 import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { getCurrencySymbol } from '../../../utils/stringUtils';
 
 const Accessory = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -31,25 +32,20 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'deviceImage', headerName: 'Device Image', width: 100 },
-        { field: 'model', headerName: 'Model', width: 100 },
-        { field: 'category', headerName: 'Category', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
-        { field: 'location', headerName: 'Location', width: 100 },
+        { field: 'model', headerName: 'Model', width: 200 },
+        { field: 'category', headerName: 'Category', width: 150 },
+        { field: 'serialNumber', headerName: 'Serial #', width: 150 },
+        { field: 'location', headerName: 'Location', width: 150 },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
-            width: 100,
-            renderCell: (params) => '₩' + params.row.price,
-        },
-        {
-            field: 'availableDate',
-            headerName: 'Available Date',
-            width: 200,
+            width: 150,
             renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.totalPrice
+                }`,
         },
-        { field: 'color', headerName: 'Color', width: 100 },
+        { field: 'color', headerName: 'Color', width: 150 },
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
@@ -60,7 +56,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
         {
             field: 'purchasedFrom',
             headerName: 'Purchased From',
-            width: 200,
+            width: 150,
         },
         {
             field: 'Actions',

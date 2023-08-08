@@ -1,5 +1,5 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, Container, Divider, Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
@@ -36,12 +36,13 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
                     </LabelInfoWrapper>
                 ),
         );
-    const historyLoader = dataToRender['history'].map((v) => (
+    const historyLoader = dataToRender['history'].map((v, index) => (
         <Grid
             container
             rowSpacing={3}
             columnSpacing={1}
             justifyContent={'center'}
+            key={index}
         >
             <Grid item xs="auto">
                 <Typography>{v.startDate} -</Typography>
@@ -79,19 +80,10 @@ export default function InfoPageTemplate({ dataToRender, title, type }) {
             <InfoWrapper>
                 {renderLabels}
                 {historyRenderer}
-                
             </InfoWrapper>
         </PageWrapper>
     );
 }
-const DateBox = styled(Box)(() => ({
-    color: '#000',
-    fontFamily: 'Source Sans Pro',
-    fontSize: 15,
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal',
-}));
 
 const InfoWrapper = styled('div')(() => ({
     width: 842,
@@ -117,19 +109,6 @@ const LabelContainer = styled('div')(() => ({
     flexShrink: 0,
 }));
 
-const Label = styled(Typography)(() => ({
-    width: 402,
-    height: 22,
-    flexShrink: 0,
-    color: '#000',
-    textAlign: 'right',
-    fontFamily: 'Source Sans Pro',
-    fontSize: 15,
-    fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: 'normal',
-}));
-
 const InfoContainer = styled('div')(() => ({
     width: 491,
     marginLeft: 100,
@@ -146,11 +125,3 @@ const Info = styled(Typography)(() => ({
     textAlign: 'left',
 }));
 
-const HistoryContainer = styled('div')(() => ({
-    width: 491,
-    marginLeft: 351,
-    display: 'flex',
-    height: 22,
-    justifyContent: 'left',
-    flexShrink: 0,
-}));

@@ -7,6 +7,7 @@ import moment from 'moment';
 const AccessoryInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+  
     const [accessoryInfo, setAccessoryInfo] = useState({
         model: '',
         category: '',
@@ -85,7 +86,7 @@ const AccessoryInfo = () => {
 };
 
 export default AccessoryInfo;
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         props: {},
     };

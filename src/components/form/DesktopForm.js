@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     Container,
+    Divider,
     Grid,
     IconButton,
     InputAdornment,
@@ -11,12 +12,13 @@ import {
     Select,
     TextField,
     Typography,
+    useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
-const BookForm = ({
+const DesktopForm = ({
     handleSubmit,
-    bookInfo,
+    desktopInfo,
     handleChange,
     locations: locationsData,
     handleLocationChange,
@@ -24,14 +26,19 @@ const BookForm = ({
     handleDeleteHistory,
     handleAddHistory,
     handleHistoryLocationChange,
+    handleDetailChange,
+    handleDetailDelete,
+    handleDetailAdd,
 }) => {
     const locations = locationsData.map((location) => location.name);
     const [showHistory, setShowHistory] = useState(true);
+    const [showCategory, setShowCategory] = useState(true);
+    const theme = useTheme();
 
     const currencyOptions = [
-        { value: '₩', label: '₩ (KRW)' },
-        { value: '$', label: '$ (USD)' },
-        { value: '￥', label: '￥ (JPY)' },
+        { value: '₩', label: '₩' },
+        { value: '$', label: '$' },
+        { value: '￥', label: '￥' },
     ];
 
     return (
@@ -40,7 +47,7 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Title</Typography>
+                            <Typography>Illuminaran Serial Number</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -51,10 +58,10 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="title"
-                                label="Enter Title"
+                                name="illumiSerial"
+                                label="Enter Illuminaran Serial Number"
                                 fullWidth
-                                value={bookInfo.title}
+                                value={desktopInfo.illumiSerial}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
@@ -69,7 +76,7 @@ const BookForm = ({
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Team</Typography>
+                            <Typography>Purchase Date</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
@@ -80,12 +87,65 @@ const BookForm = ({
                             sx={{ width: '100%' }}
                         >
                             <TextField
-                                name="team"
-                                label="Auto-filled "
+                                name="purchaseDate"
+                                type="date"
                                 fullWidth
-                                value={bookInfo.team}
+                                value={desktopInfo.purchaseDate}
                                 onChange={handleChange}
-                                disabled
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Purchased From</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box display="flex" alignItems="center" height="100%">
+                            <TextField
+                                name="purchasedFrom"
+                                label="Purchased From"
+                                fullWidth
+                                value={desktopInfo.purchasedFrom}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 1 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Purpose</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="purpose"
+                                label="Enter Purpose"
+                                fullWidth
+                                value={desktopInfo.purpose}
+                                onChange={handleChange}
+                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -112,7 +172,7 @@ const BookForm = ({
                                 id="location"
                                 name="location"
                                 fullWidth
-                                value={bookInfo.location}
+                                value={desktopInfo.location}
                                 onChange={handleLocationChange}
                                 options={locations}
                                 getOptionLabel={(option) => option}
@@ -127,106 +187,172 @@ const BookForm = ({
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} sx={{ p: 1 }}>
+                <Divider sx={{ my: 2, borderColor: theme.palette.grey[300] }} />
+                <Box display="flex" justifyContent="left" mt={3}>
+                    <Button
+                        variant="standard"
+                        color="primary"
+                        onClick={() =>
+                            setShowCategory(
+                                (prevShowCategory) => !prevShowCategory,
+                            )
+                        }
+                    >
+                        Category
+                        {showCategory ? <ArrowDropDown /> : <ArrowDropUp />}
+                    </Button>
+                </Box>
+                {showCategory && (
+                    <>
+                        {desktopInfo.details.map((detail, index) => (
+                            <Box
+                                key={detail.id}
+                                display="flex"
+                                flexDirection="column"
+                                my={2}
+                            >
+                                <Grid container spacing={1} sx={{ ml: 0.5 }}>
+                                    <Grid item xs={3}>
+                                        <TextField
+                                            name="category"
+                                            label="Enter Category"
+                                            fullWidth
+                                            value={detail.category}
+                                            onChange={(e) =>
+                                                handleDetailChange(
+                                                    detail.id,
+                                                    'category',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            required
+                                            size="small"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={5.78}>
+                                        <TextField
+                                            name="name"
+                                            label="Enter Name"
+                                            fullWidth
+                                            value={detail.name}
+                                            onChange={(e) =>
+                                                handleDetailChange(
+                                                    detail.id,
+                                                    'name',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            required
+                                            size="small"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={2.5}>
+                                        <TextField
+                                            name="price"
+                                            label="Price"
+                                            type="number"
+                                            fullWidth
+                                            value={detail.price}
+                                            onChange={(e) =>
+                                                handleDetailChange(
+                                                    detail.id,
+                                                    'price',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            required
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Select
+                                                            variant="standard"
+                                                            id="currency-select"
+                                                            name="currency"
+                                                            value={
+                                                                detail.currency
+                                                            }
+                                                            onChange={(e) =>
+                                                                handleDetailChange(
+                                                                    detail.id,
+                                                                    'currency',
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                        >
+                                                            {currencyOptions.map(
+                                                                (option) => (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            option.value
+                                                                        }
+                                                                        value={
+                                                                            option.value
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            option.label
+                                                                        }
+                                                                    </MenuItem>
+                                                                ),
+                                                            )}
+                                                        </Select>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            size="small"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={0.5}>
+                                        <IconButton
+                                            onClick={() =>
+                                                handleDetailDelete(detail.id)
+                                            }
+                                            size="small"
+                                            color="error"
+                                            disabled={index === 0}
+                                        >
+                                            <Delete />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ))}
+                        <Box display="flex" justifyContent="right" mt={3}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                onClick={handleDetailAdd}
+                            >
+                                Add New Category
+                            </Button>
+                        </Box>
+                    </>
+                )}
+                <Grid container spacing={2} sx={{ p: 1, pl: 0 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchase Date</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            height="100%"
-                            sx={{ width: '100%' }}
-                        >
-                            <TextField
-                                name="purchaseDate"
-                                type="date"
-                                fullWidth
-                                value={bookInfo.purchaseDate}
-                                onChange={handleChange}
-                                required
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ p: 1 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Purchased From</Typography>
+                            <Typography>Total Price</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
-                                name="purchasedFrom"
-                                label="Purchased From"
+                                name="totalPrice"
+                                label="Total Price"
                                 fullWidth
-                                value={bookInfo.purchasedFrom}
-                                onChange={handleChange}
-                                required
-                                inputProps={{
-                                    style: {
-                                        height: '16px',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ p: 1 }}>
-                    <Grid item xs={4}>
-                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
-                            <Typography>Price</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box display="flex" alignItems="center" height="100%">
-                            <TextField
-                                name="price"
-                                label="Price"
-                                type="number"
-                                fullWidth
-                                value={bookInfo.price}
-                                onChange={handleChange}
-                                required
+                                value={desktopInfo.totalPrice}
+                                disabled
                                 InputProps={{
                                     style: {
                                         height: '50px',
                                     },
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Select
-                                                variant="standard"
-                                                id="currency-select"
-                                                name="currency"
-                                                value={bookInfo.currency}
-                                                onChange={handleChange}
-                                            >
-                                                {currencyOptions.map(
-                                                    (option) => (
-                                                        <MenuItem
-                                                            key={option.value}
-                                                            value={option.value}
-                                                        >
-                                                            {option.label}
-                                                        </MenuItem>
-                                                    ),
-                                                )}
-                                            </Select>
-                                        </InputAdornment>
-                                    ),
                                 }}
                             />
                         </Box>
                     </Grid>
                 </Grid>
+                <Divider sx={{ my: 2, borderColor: theme.palette.grey[300] }} />
                 <Box display="flex" justifyContent="left" mt={3}>
                     <Button
                         variant="standard"
@@ -243,7 +369,7 @@ const BookForm = ({
                 </Box>
                 {showHistory && (
                     <>
-                        {bookInfo.history.map((historyData, index) => (
+                        {desktopInfo.history.map((historyData, index) => (
                             <Box
                                 key={historyData.id}
                                 display="flex"
@@ -337,7 +463,7 @@ const BookForm = ({
                                     </Grid>
                                     <Grid
                                         item
-                                        xs={3.5}
+                                        xs={3.6}
                                         container
                                         alignItems="center"
                                         sx={{ ml: 1 }}
@@ -388,6 +514,34 @@ const BookForm = ({
                         </Box>
                     </>
                 )}
+                <Grid container spacing={2} sx={{ p: 1, pl: 0 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Remarks</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="remarks"
+                                label="Enter remarks"
+                                fullWidth
+                                value={desktopInfo.remarks}
+                                onChange={handleChange}
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
                     <Button type="submit" variant="contained" color="primary">
                         Save
@@ -398,4 +552,4 @@ const BookForm = ({
     );
 };
 
-export default BookForm;
+export default DesktopForm;

@@ -197,7 +197,6 @@ const UserForm = ({
                                 fullWidth
                                 value={userInfo.remarks}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

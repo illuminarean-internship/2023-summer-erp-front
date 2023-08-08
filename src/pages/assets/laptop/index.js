@@ -4,6 +4,7 @@ import moment from 'moment';
 import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { getCurrencySymbol } from '../../../utils/stringUtils';
 
 const Laptop = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -35,27 +36,28 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
     }, []);
 
     const columns = [
-        { field: 'deviceImage', headerName: 'Device Image', width: 100 },
         { field: 'category', headerName: 'Category', width: 100 },
         { field: 'model', headerName: 'Model', width: 100 },
-        { field: 'cpu', headerName: 'CPU', width: 100 },
-        { field: 'ram', headerName: 'RAM', width: 100 },
-        { field: 'ssd', headerName: 'SSD', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
-        { field: 'location', headerName: 'Location', width: 100 },
-        { field: 'warranty', headerName: 'Warranty', width: 100 },
+        { field: 'CPU', headerName: 'CPU', width: 100 },
+        { field: 'RAM', headerName: 'RAM', width: 100 },
+        { field: 'SSD', headerName: 'SSD', width: 100 },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
             width: 170,
-            renderCell: (params) => '₩' + params.row.price,
-        },
-        {
-            field: 'availableDate',
-            headerName: 'Available Date',
-            width: 200,
             renderCell: (params) =>
-                moment(params.row.purchaseDate).format('YYYY-MM-DD'),
+                `${getCurrencySymbol(params.row.currency)}  ${
+                    params.row.totalPrice
+                }`,
+        },
+        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
+        { field: 'location', headerName: 'Location', width: 100 },
+        {
+            field: 'warranty',
+            headerName: 'Warranty',
+            width: 150,
+            renderCell: (params) =>
+                moment(params.row.warranty).format('YYYY-MM-DD'),
         },
         { field: 'color', headerName: 'Color', width: 100 },
         {

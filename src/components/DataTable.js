@@ -2,7 +2,7 @@ import { AddBoxOutlined } from '@mui/icons-material';
 import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
-import getPageTitle from '../utils/stringUtils';
+import { getPageTitle } from '../utils/stringUtils';
 
 const DataTable = ({
     columns,
