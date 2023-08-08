@@ -70,7 +70,7 @@ const DesktopPcInfo = () => {
 
 export default DesktopPcInfo;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         props: {},
     };
