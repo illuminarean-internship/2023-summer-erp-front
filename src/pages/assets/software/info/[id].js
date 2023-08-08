@@ -2,41 +2,71 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import dateToString from '../../../../usefulFunctions/dateToString';
+import moment from 'moment';
 
 const SoftwareInfo = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [retreivedInfoState, setRetreivedInfoState] = useState({});
+    const [softwareInfo, setSoftwareInfo] = useState({
+        name: '',
+        purchaseDate: '',
+        unitPrice: '',
+        remarks: '',
+        unitPrice: '',
+        quantity: '',
+        totalPrice: '',
+        currency: '',
+        reference: '',
+        user: '',
+        history: [],
+    });
+
     useEffect(() => {
-        // Fetch the dictionary using Axios with custom "transformResponse" function
         axios
             .get(`http://43.200.193.130:4040/api/software/item/${id}`)
-            .then((response) => {
-                setRetreivedInfoState(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching the dictionary:', error);
+            .then((res) => {
+                const softwareData = res.data;
+                const filteredData = filterRelevantData(softwareData);
+                setSoftwareInfo(filteredData);
             });
     }, []);
 
-    const retreivedInfoStateCopy = {};
-    retreivedInfoStateCopy['name'] = retreivedInfoState['name'];
-    retreivedInfoStateCopy['purchaseDate'] = dateToString(
-        retreivedInfoState['purchaseDate'],
-    );
-    retreivedInfoStateCopy['unitPrice'] =
-        '₩' + JSON.stringify(retreivedInfoState['unitPrice']);
-    retreivedInfoStateCopy['totalPrice'] =
-        '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
-    retreivedInfoStateCopy['currency'] = 'KRW';
-    retreivedInfoStateCopy['reference'] = retreivedInfoState['reference'];
-    retreivedInfoStateCopy['user'] = retreivedInfoState['user'];
-    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
+    const filterRelevantData = (softwareData) => {
+        const {
+            name,
+            purchaseDate,
+            remarks,
+            unitPrice,
+            quantity,
+            totalPrice,
+            currency,
+            reference,
+            user,
+            history,
+        } = softwareData;
+        return {
+            name,
+            purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
+            remarks,
+            unitPrice: '₩' + unitPrice,
+            quantity,
+            totalPrice: '₩' + totalPrice,
+            currency,
+            reference,
+            user,
+            history,
+        };
+    };
+
+    console.log(softwareInfo);
 
     return (
         <div>
-            <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />
+            <InfoPageTemplate
+                dataToRender={softwareInfo}
+                title={softwareInfo.name}
+                type="software"
+            />
         </div>
     );
 };

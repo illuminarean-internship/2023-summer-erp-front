@@ -27,10 +27,10 @@ const DesktopPcInfo = () => {
     retreivedInfoStateCopy['purchaseDate'] = dateToString(
         retreivedInfoState['purchaseDate'],
     );
-    retreivedInfoStateCopy['purchasedFrom'] = retreivedInfoState['purchasedFrom'];
+    retreivedInfoStateCopy['purchasedFrom'] =
+        retreivedInfoState['purchasedFrom'];
     retreivedInfoStateCopy['purpose'] = retreivedInfoState['purpose'];
     retreivedInfoStateCopy['location'] = retreivedInfoState['location'];
-
 
     retreivedInfoStateCopy['CPU'] = JSON.stringify(
         retreivedInfoState['CPU'] + 'G',
@@ -46,8 +46,21 @@ const DesktopPcInfo = () => {
         '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
 
     retreivedInfoStateCopy['color'] = retreivedInfoState['color'];
-    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
-
+    //retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
+    retreivedInfoStateCopy['history'] = [
+        {
+            startDate: '2023-8-3',
+            endDate: '2023-8-4',
+            historyLocation: 'Office',
+            historyRemark: 'here',
+        },
+        {
+            startDate: '2023-8-6',
+            endDate: null,
+            historyLocation: 'Dev team',
+            historyRemark: '',
+        },
+    ];
     return (
         <div>
             <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />

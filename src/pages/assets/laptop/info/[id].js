@@ -2,56 +2,92 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import dateToString from '../../../../usefulFunctions/dateToString';
+import moment from 'moment';
 
 const LaptopInfo = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [retreivedInfoState, setRetreivedInfoState] = useState({});
+    const [laptopInfo, setLaptopInfo] = useState({
+        category: '',
+        model: '',
+        CPU: '',
+        RAM: '',
+        SSD: '',
+        serialNumber: '',
+        location: '',
+        price: '',
+        surtax: '',
+        totalPrice: '',
+        illuminareanSerialNumber: '',
+        color: '',
+        purchaseDate: '',
+        availableDate: '',
+        history: [],
+    });
+
     useEffect(() => {
-        // Fetch the dictionary using Axios with custom "transformResponse" function
         axios
-            .get(`http://43.200.193.130:4040/api/software/item/${id}`)
-            .then((response) => {
-                setRetreivedInfoState(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching the dictionary:', error);
+            .get(`http://43.200.193.130:4040/api/laptop/item/${id}`)
+            .then((res) => {
+                const laptopData = res.data;
+                const filteredData = filterRelevantData(laptopData);
+                setLaptopInfo(filteredData);
             });
     }, []);
 
-    const retreivedInfoStateCopy = {};
-    retreivedInfoStateCopy['deviceImage'] = retreivedInfoState['deviceImage']; //convert string to img later
-    retreivedInfoStateCopy['category'] = retreivedInfoState['category'];
-    retreivedInfoStateCopy['model'] = retreivedInfoState['model'];
-    retreivedInfoStateCopy['CPU'] = JSON.stringify(
-        retreivedInfoState['CPU'] + 'G',
-    );
-    retreivedInfoStateCopy['RAM'] = JSON.stringify(
-        retreivedInfoState['RAM'] + 'G',
-    );
-    retreivedInfoStateCopy['SSD'] = JSON.stringify(
-        retreivedInfoState['SSD'] + 'G',
-    );
-    retreivedInfoStateCopy['location'] = retreivedInfoState['location'];
-    retreivedInfoStateCopy['warranty'] = retreivedInfoState['warranty'];
-    retreivedInfoStateCopy['totalPrice'] =
-        '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
-    retreivedInfoStateCopy['illuminareanSerialNumber'] =
-        retreivedInfoState['illuminareanSerialNumber'];
-    retreivedInfoStateCopy['color'] = retreivedInfoState['color'];
-    retreivedInfoStateCopy['purchaseDate'] = dateToString(
-        retreivedInfoState['purchaseDate'],
-    );
-
-    //Might have to modify this later to track time from present date
-    retreivedInfoStateCopy['availableDate'] = dateToString(
-        retreivedInfoState['availableDate'],
-    );
-    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
+    const filterRelevantData = (laptopData) => {
+        const {
+            category,
+            model,
+            CPU,
+            RAM,
+            SSD,
+            serialNumber,
+            location,
+            price,
+            surtax,
+            totalPrice,
+            illumiSerial,
+            color,
+            purchaseDate,
+            dateAvail,
+            daysLeft,
+            history,
+        } = laptopData;
+        return {
+            category,
+            model,
+            CPU,
+            RAM,
+            SSD,
+            serialNumber,
+            location,
+            price: '₩' + price,
+            surtax: '₩' + surtax,
+            totalPrice: '₩' + totalPrice,
+            illuminareanSerialNumber: illumiSerial,
+            color,
+            purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
+            availableDate:
+                moment(dateAvail).format('YYYY-MM-DD') +
+                ' - ' +
+                (daysLeft <= 0
+                    ? 'Error'
+                    : Math.floor(daysLeft / 360) +
+                      ' year(s) ' +
+                      (daysLeft % 360) +
+                      ' days '),
+            history,
+        };
+    };
+    console.log(laptopInfo.model);
     return (
         <div>
-            <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />
+            <InfoPageTemplate
+                dataToRender={laptopInfo}
+                title={`(${laptopInfo.serialNumber}) - ` + laptopInfo.model}
+                type="laptop"
+            />
         </div>
     );
 };

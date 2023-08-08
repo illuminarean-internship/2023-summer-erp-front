@@ -6,43 +6,71 @@ import React, { useEffect, useState } from 'react';
 const TestDeviceInfo = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [retreivedInfoState, setRetreivedInfoState] = useState({});
+    const [testDeviceInfo, setTestDeviceInfo] = useState({
+        category: '',
+        model: '',
+        RAM: '',
+        memory: '',
+        team: '',
+        location: '',
+        serialNumber: '',
+        condition: '',
+        color: '',
+        totalPrice: '',
+        purchasedFrom: 'G 마켓',
+        history: [],
+    });
+
     useEffect(() => {
-        // Fetch the dictionary using Axios with custom "transformResponse" function
         axios
-            .get(`http://43.200.193.130:4040/api/software/item/${id}`)
-            .then((response) => {
-                setRetreivedInfoState(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching the dictionary:', error);
+            .get(`http://43.200.193.130:4040/api/test-device/item/${id}`)
+            .then((res) => {
+                const testDeviceData = res.data;
+                const filteredData = filterRelevantData(testDeviceData);
+                setTestDeviceInfo(filteredData);
             });
     }, []);
 
-    const retreivedInfoStateCopy = {};
-    retreivedInfoStateCopy['deviceImage'] = retreivedInfoState['deviceImage']; //convert string to img later
-    retreivedInfoStateCopy['category'] = retreivedInfoState['category'];
-    retreivedInfoStateCopy['model'] = retreivedInfoState['model'];
-    retreivedInfoStateCopy['RAM'] = JSON.stringify(
-        retreivedInfoState['RAM'] + 'G',
-    );
-    retreivedInfoStateCopy['SSD'] = JSON.stringify(
-        retreivedInfoState['SSD'] + 'G',
-    );
-    retreivedInfoStateCopy['team'] = retreivedInfoState['team'];
-    retreivedInfoStateCopy['location'] = retreivedInfoState['location'];
-    retreivedInfoStateCopy['serialNumber'] = retreivedInfoState['serialNumber'];
-    retreivedInfoStateCopy['condition'] = retreivedInfoState['condition'];
-    retreivedInfoStateCopy['color'] = retreivedInfoState['color'];
-    retreivedInfoStateCopy['totalPrice'] =
-        '₩' + JSON.stringify(retreivedInfoState['totalPrice']);
-    retreivedInfoStateCopy['purchasedFrom'] =
-        retreivedInfoState['purchasedFrom'];
-    retreivedInfoStateCopy['history'] = retreivedInfoState['history'];
-
+    const filterRelevantData = (testDeviceData) => {
+        const {
+            category,
+            model,
+            RAM,
+            memory,
+            team,
+            location,
+            serialNumber,
+            condition,
+            color,
+            totalPrice,
+            purchasedFrom,
+            history,
+        } = testDeviceData;
+        return {
+            category,
+            model,
+            RAM,
+            memory,
+            team,
+            location,
+            serialNumber,
+            condition,
+            color,
+            totalPrice: '₩' + totalPrice,
+            purchasedFrom,
+            history,
+        };
+    };
+    console.log(testDeviceInfo.model);
     return (
         <div>
-            <InfoPageTemplate dataToRender={retreivedInfoStateCopy} />
+            <InfoPageTemplate
+                dataToRender={testDeviceInfo}
+                title={
+                    `(${testDeviceInfo.serialNumber}) - ` + testDeviceInfo.model
+                }
+                type="testDevice"
+            />
         </div>
     );
 };

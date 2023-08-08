@@ -1,12 +1,13 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, Container, Divider } from '@mui/material';
+import { Box, Container, Divider, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
+import PageWrapper from './form/PageWrapper';
 
 //all data guarenteed to have an id, type, and history
-export default function InfoPageTemplate({ dataToRender }) {
-    dataToRender['history'].map((v) => {
+export default function InfoPageTemplate({ dataToRender, title, type }) {
+    dataToRender['history'] = dataToRender['history'].map((v) => {
         return {
             startDate: moment(v.startDate).format('YYYY-MM-DD'),
             endDate: v.endDate ? moment(v.endDate).format('YYYY-MM-DD') : '',
@@ -21,13 +22,13 @@ export default function InfoPageTemplate({ dataToRender }) {
                 v != 'history' && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
-                            <Label>
+                            <Typography>
                                 {v
                                     .replace(/([A-Z])/g, ' $1')
                                     .replace(/^./, function (str) {
                                         return str.toUpperCase(); //converts camelCase to Label
                                     })}
-                            </Label>
+                            </Typography>
                         </LabelContainer>
                         <InfoContainer key={dataToRender[v]}>
                             <Info>{dataToRender[v]}</Info>
@@ -35,8 +36,7 @@ export default function InfoPageTemplate({ dataToRender }) {
                     </LabelInfoWrapper>
                 ),
         );
-
-    const historyRenderer = dataToRender['history'].map((v) => (
+    const historyLoader = dataToRender['history'].map((v) => (
         <Grid
             container
             rowSpacing={3}
@@ -44,120 +44,53 @@ export default function InfoPageTemplate({ dataToRender }) {
             justifyContent={'center'}
         >
             <Grid item xs="auto">
-                <DateBox>{v.startDate} -</DateBox>
+                <Typography>{v.startDate} -</Typography>
             </Grid>
             <Grid item xs={1.5}>
-                <DateBox>{v.endDate}</DateBox>
+                <Typography>{v.endDate}</Typography>
             </Grid>
             <Grid item xs={2}>
-                <DateBox justifyContent={'left'}>{v.historyLocation}</DateBox>
+                <Typography justifyContent={'left'}>
+                    {v.historyLocation}
+                </Typography>
             </Grid>
         </Grid>
     ));
 
+    const historyRenderer = type != 'software' && (
+        <>
+            <LabelContainer sx={{ marginBottom: 2 }}>
+                <Typography>History</Typography>
+            </LabelContainer>
+            {historyLoader}
+        </>
+    );
+
     return (
-        <PageDiv>
-            <InfoGroup>
-                <InfoIcon />
-                <InfoIconText>Info</InfoIconText>
-            </InfoGroup>
-            <Container fixed>
-                <Box
-                    sx={{
-                        width: 842,
-                        height: 547,
-                        flexShrink: 0,
-                        bgcolor: '#FFF',
-                        strokWidth: 1,
-                        stroke: '#DBDBDB',
-                        borderRadius: 3,
-                        border: '1px solid #B9B9B9',
-                        overflow: 'auto',
-                    }}
-                >
-                    <ItemTitle>{dataToRender['title']}</ItemTitle>
-                    <TitleDivider />
-                    <InfoWrapper>
-                        {renderLabels}
-                        <LabelContainer>
-                            <Label>History</Label>
-                        </LabelContainer>
-                        {historyRenderer}
-                    </InfoWrapper>
-                </Box>
-            </Container>
-        </PageDiv>
+        <PageWrapper
+            title="Info"
+            icon={<InfoOutlinedIcon />}
+            href={`/assets/${type}`}
+        >
+            <Typography variant="h5" component="h5">
+                {title}
+            </Typography>
+            <Divider sx={{ my: 2, borderColor: 'gray' }} />
+            <InfoWrapper>
+                {renderLabels}
+                {historyRenderer}
+                
+            </InfoWrapper>
+        </PageWrapper>
     );
 }
 const DateBox = styled(Box)(() => ({
     color: '#000',
     fontFamily: 'Source Sans Pro',
-    fontSize: '15px',
+    fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal',
-}));
-
-const PageDiv = styled('div')(({ theme }) => ({
-    backgroundColor: 'rgba(244, 244, 244, 0.63);',
-    width: '100vw',
-    height: '100vh',
-}));
-
-const InfoGroup = styled('div')(({ theme }) => ({
-    fontWeight: theme.fontWeight,
-    display: 'flex',
-    flexDirection: 'row',
-    padding: 20,
-}));
-
-const InfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({
-    display: 'flex',
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 5,
-}));
-
-const InfoIconText = styled('div')(({ theme }) => ({
-    display: 'flex',
-    width: 106,
-    height: 52,
-    flexDirection: 'column',
-    color: theme.color,
-    fontFamily: 'Source Sans Pro',
-    fontSize: 22,
-    fontStyle: 'normal',
-    fontWeight: 600,
-    lineHeight: 'normal',
-    letterSpacing: 0.22,
-}));
-
-const ItemTitle = styled('text')(() => ({
-    display: 'flex',
-    width: 842,
-    height: 44,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    flexShrink: 0,
-    color: '#000',
-    fontFamily: 'Source Sans Pro',
-    fontSize: 20,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontHeight: 600,
-    lineHeight: 'normal',
-    letterSpacing: 0.2,
-    marginLeft: 30,
-    marginTop: 10,
-    marginBottom: 10,
-}));
-
-const TitleDivider = styled(Divider)(() => ({
-    width: 842,
-    height: 1,
-    background: '#DBDBDB',
 }));
 
 const InfoWrapper = styled('div')(() => ({
@@ -176,7 +109,7 @@ const LabelInfoWrapper = styled('div')(() => ({
 }));
 
 const LabelContainer = styled('div')(() => ({
-    width: 302,
+    width: 402,
     display: 'flex',
     height: 22,
     justifyContent: 'right',
@@ -184,8 +117,8 @@ const LabelContainer = styled('div')(() => ({
     flexShrink: 0,
 }));
 
-const Label = styled('text')(() => ({
-    width: 302,
+const Label = styled(Typography)(() => ({
+    width: 402,
     height: 22,
     flexShrink: 0,
     color: '#000',
@@ -199,24 +132,18 @@ const Label = styled('text')(() => ({
 
 const InfoContainer = styled('div')(() => ({
     width: 491,
-    marginLeft: 49,
+    marginLeft: 100,
     display: 'flex',
     height: 22,
     justifyContent: 'left',
     flexShrink: 0,
 }));
 
-const Info = styled('text')(() => ({
+const Info = styled(Typography)(() => ({
     width: 491,
     height: 22,
     flexShrink: 0,
-    color: '#000',
     textAlign: 'left',
-    fontFamily: 'Source Sans Pro',
-    fontSize: 15,
-    fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: 'normal',
 }));
 
 const HistoryContainer = styled('div')(() => ({
