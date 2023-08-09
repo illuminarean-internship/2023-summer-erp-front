@@ -31,13 +31,13 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'model', headerName: 'Model', width: 100 },
+        { field: 'model', headerName: 'Model', width: 300 },
         { field: 'category', headerName: 'Category', width: 100 },
         { field: 'RAM', headerName: 'RAM', width: 100 },
         { field: 'memory', headerName: 'Memory', width: 100 },
-        { field: 'team', headerName: 'Team', width: 100 },
+        { field: 'team', headerName: 'Team', width: 150 },
         { field: 'location', headerName: 'Location', width: 100 },
-        { field: 'serialNumber', headerName: 'Serial #', width: 100 },
+        { field: 'serialNumber', headerName: 'Serial #', width: 200 },
         { field: 'condition', headerName: 'Condition', width: 100 },
         { field: 'color', headerName: 'Color', width: 100 },
         {

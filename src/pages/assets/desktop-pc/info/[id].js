@@ -77,7 +77,7 @@ const DesktopPcInfo = () => {
     };
 
     const detailsToRender = desktopPcInfo.details.map((v) => (
-        <Grid container spacing={5} justifyContent={'center'} id={v.id}>
+        <Grid container spacing={5} justifyContent={'center'} key={v.id}>
             <Grid item xs={2}>
                 <Typography justifyContent={'center'}>{v.category}</Typography>
             </Grid>
@@ -159,9 +159,10 @@ const DesktopPcInfo = () => {
                     'Desktop PC'
                 }
                 type="desktop-pc"
-                children={detailRenderer}
                 pathname={pathname.replace('info', 'edit').replace('[id]', id)}
-            />
+            >
+                {detailRenderer}
+            </InfoPageTemplate>
         </div>
     );
 };
