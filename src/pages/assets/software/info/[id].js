@@ -7,6 +7,8 @@ import moment from 'moment';
 const SoftwareInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [softwareInfo, setSoftwareInfo] = useState({
         name: '',
         purchaseDate: '',
@@ -30,6 +32,24 @@ const SoftwareInfo = () => {
             });
     }, []);
 
+    const currency_symbols = {
+        USD: '$', // US Dollar
+        EUR: '€', // Euro
+        CRC: '₡', // Costa Rican Colón
+        GBP: '£', // British Pound Sterling
+        ILS: '₪', // Israeli New Sheqel
+        INR: '₹', // Indian Rupee
+        JPY: '¥', // Japanese Yen
+        KRW: '₩', // South Korean Won
+        NGN: '₦', // Nigerian Naira
+        PHP: '₱', // Philippine Peso
+        PLN: 'zł', // Polish Zloty
+        PYG: '₲', // Paraguayan Guarani
+        THB: '฿', // Thai Baht
+        UAH: '₴', // Ukrainian Hryvnia
+        VND: '₫', // Vietnamese Dong
+    };
+
     const filterRelevantData = (softwareData) => {
         const {
             name,
@@ -47,9 +67,9 @@ const SoftwareInfo = () => {
             name,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             remarks,
-            unitPrice: '₩' + unitPrice,
+            unitPrice: currency_symbols[currency] + unitPrice,
             quantity,
-            totalPrice: '₩' + totalPrice,
+            totalPrice: currency_symbols[currency] + totalPrice,
             currency,
             reference,
             user,
@@ -65,6 +85,7 @@ const SoftwareInfo = () => {
                 dataToRender={softwareInfo}
                 title={softwareInfo.name}
                 type="software"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

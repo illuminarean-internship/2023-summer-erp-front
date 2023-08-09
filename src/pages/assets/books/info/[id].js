@@ -7,6 +7,8 @@ import moment from 'moment';
 const BooksInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [bookInfo, setBookInfo] = useState({
         title: '',
         team: '',
@@ -15,6 +17,7 @@ const BooksInfo = () => {
         purchasedFrom: 'G 마켓',
         price: '',
         history: [],
+        remarks: '',
     });
 
     useEffect(() => {
@@ -27,6 +30,24 @@ const BooksInfo = () => {
             });
     }, []);
 
+    const currency_symbols = {
+        USD: '$', // US Dollar
+        EUR: '€', // Euro
+        CRC: '₡', // Costa Rican Colón
+        GBP: '£', // British Pound Sterling
+        ILS: '₪', // Israeli New Sheqel
+        INR: '₹', // Indian Rupee
+        JPY: '¥', // Japanese Yen
+        KRW: '₩', // South Korean Won
+        NGN: '₦', // Nigerian Naira
+        PHP: '₱', // Philippine Peso
+        PLN: 'zł', // Polish Zloty
+        PYG: '₲', // Paraguayan Guarani
+        THB: '฿', // Thai Baht
+        UAH: '₴', // Ukrainian Hryvnia
+        VND: '₫', // Vietnamese Dong
+    };
+
     const filterRelevantData = (bookData) => {
         const {
             title,
@@ -36,6 +57,8 @@ const BooksInfo = () => {
             purchasedFrom,
             price,
             history,
+            remarks,
+            currency,
         } = bookData;
         return {
             title,
@@ -43,8 +66,9 @@ const BooksInfo = () => {
             location,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
-            price: '₩' + price,
+            price: currency_symbols[currency] + price,
             history,
+            remarks,
         };
     };
 
@@ -77,6 +101,7 @@ const BooksInfo = () => {
                 dataToRender={bookInfo}
                 title={bookInfo.title}
                 type="books"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );
