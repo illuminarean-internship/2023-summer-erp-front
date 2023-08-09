@@ -21,7 +21,7 @@ const LaptopAdd = () => {
         currency: 'KRW',
         price: '',
         surtax: '',
-        totalPrice: '',
+        totalPrice: '0',
         illumiSerial: '',
         color: '',
         purchaseDate: '',

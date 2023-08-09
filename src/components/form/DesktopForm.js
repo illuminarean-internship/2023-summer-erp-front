@@ -543,7 +543,12 @@ const DesktopForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

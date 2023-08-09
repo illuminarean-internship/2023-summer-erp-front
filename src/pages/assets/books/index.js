@@ -4,21 +4,29 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 import Action from '../../../components/actions/Action';
+import { Button } from '@mui/material';
+import { FolderOpen } from '@mui/icons-material';
 
 const Books = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
+    const [isArchived, setIsArchived] = useState(false);
+
     const router = useRouter();
 
-    const fetchData = async () => {
+    const fetchData = async (queryParams = {}) => {
+        setIsLoading(true);
         try {
-            await axios
-                .get('http://43.200.193.130:4040/api/books/')
-                .then((res) => {
-                    setRows(res.data);
-                });
+            const response = await axios.get(
+                'http://43.200.193.130:4040/api/books/',
+                {
+                    params: queryParams,
+                },
+            );
+
             setIsLoading(false);
+            setRows(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
             setIsLoading(false);
@@ -27,8 +35,27 @@ const Books = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        fetchData();
-    }, [rows]);
+        const queryParams = {};
+
+        if (isArchived) {
+            queryParams.isArchived = true;
+        }
+
+        if (!isArchived) {
+            // If both are false, fetch default data
+            fetchData();
+        } else {
+            fetchData(queryParams);
+        }
+    }, [isArchived]);
+
+    const handleArchivedClick = () => {
+        if (isArchived) {
+            setIsArchived(false);
+        } else {
+            setIsArchived(true);
+        }
+    };
 
     const columns = [
         { field: 'title', headerName: 'Title', width: 500 },
@@ -64,7 +91,11 @@ const Books = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <Action params={params} setAlertVisible={setAlertVisible} />
+                <Action
+                    params={params}
+                    setAlertVisible={setAlertVisible}
+                    fetchData={fetchData}
+                />
             ),
         },
     ];
@@ -77,7 +108,17 @@ const Books = ({ setSelectedLink, isOpen }) => {
             isOpen={isOpen}
             alertVisible={alertVisible}
             setAlertVisible={setAlertVisible}
-        />
+        >
+            <Button
+                variant={isArchived ? 'contained' : 'outlined'}
+                color="secondary"
+                sx={{ ml: 2 }}
+                startIcon={<FolderOpen />}
+                onClick={handleArchivedClick}
+            >
+                Archived
+            </Button>
+        </DataTable>
     );
 };
 

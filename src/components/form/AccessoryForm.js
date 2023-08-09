@@ -42,6 +42,8 @@ const AccessoryForm = ({
         'Mouse',
         'USB-C Hub',
         'Laptop Acc',
+        'Monitor',
+        'VGA',
         'Others',
     ];
 
@@ -136,7 +138,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.serialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -301,7 +302,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.illuSerialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -330,7 +330,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.color}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -383,7 +382,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -583,7 +581,12 @@ const AccessoryForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

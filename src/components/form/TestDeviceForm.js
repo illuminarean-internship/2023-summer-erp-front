@@ -303,7 +303,6 @@ const TestDeviceForm = ({
                                 fullWidth
                                 value={testDeviceInfo.condition}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -332,7 +331,6 @@ const TestDeviceForm = ({
                                 fullWidth
                                 value={testDeviceInfo.color}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -408,7 +406,6 @@ const TestDeviceForm = ({
                                 fullWidth
                                 value={testDeviceInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -608,7 +605,12 @@ const TestDeviceForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

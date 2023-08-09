@@ -132,7 +132,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.CPU}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -241,7 +240,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.serialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -434,7 +432,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.illumiSerial}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -463,7 +460,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.color}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -516,7 +512,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -716,7 +711,12 @@ const LaptopForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

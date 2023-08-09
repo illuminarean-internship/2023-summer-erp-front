@@ -4,21 +4,29 @@ import moment from 'moment';
 import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
+import { Button } from '@mui/material';
+import { FolderOpen } from '@mui/icons-material';
 
 const DesktopPc = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
+    const [isArchived, setIsArchived] = useState(false);
+
     const router = useRouter();
 
-    const fetchData = async () => {
+    const fetchData = async (queryParams = {}) => {
+        setIsLoading(true);
         try {
-            await axios
-                .get('http://43.200.193.130:4040/api/desktop-pc/')
-                .then((res) => {
-                    setRows(res.data);
-                });
+            const response = await axios.get(
+                'http://43.200.193.130:4040/api/desktop-pc/',
+                {
+                    params: queryParams,
+                },
+            );
+
             setIsLoading(false);
+            setRows(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
             setIsLoading(false);
@@ -27,8 +35,26 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        fetchData();
-    }, [rows]);
+        const queryParams = {};
+
+        if (isArchived) {
+            queryParams.isArchived = true;
+        }
+
+        if (!isArchived) {
+            fetchData();
+        } else {
+            fetchData(queryParams);
+        }
+    }, [isArchived]);
+
+    const handleArchivedClick = () => {
+        if (isArchived) {
+            setIsArchived(false);
+        } else {
+            setIsArchived(true);
+        }
+    };
 
     const columns = [
         {
@@ -69,7 +95,11 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <Action params={params} setAlertVisible={setAlertVisible} />
+                <Action
+                    params={params}
+                    setAlertVisible={setAlertVisible}
+                    fetchData={fetchData}
+                />
             ),
         },
     ];
@@ -81,7 +111,17 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
             isOpen={isOpen}
             alertVisible={alertVisible}
             setAlertVisible={setAlertVisible}
-        />
+        >
+            <Button
+                variant={isArchived ? 'contained' : 'outlined'}
+                color="secondary"
+                sx={{ ml: 2 }}
+                startIcon={<FolderOpen />}
+                onClick={handleArchivedClick}
+            >
+                Archived
+            </Button>
+        </DataTable>
     );
 };
 

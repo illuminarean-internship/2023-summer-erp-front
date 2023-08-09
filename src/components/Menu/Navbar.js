@@ -63,7 +63,6 @@ export default function Navbar({ isOpen: open, handleDrawerOpen }) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             <MenuItem onClick={() => signOut()}>Logout</MenuItem>
         </Menu>
