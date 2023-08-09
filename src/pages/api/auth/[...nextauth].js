@@ -17,11 +17,7 @@ export default NextAuth({
                     `http://43.200.193.130:4040/api/users/check?email=${user.user.email}`,
                 ); // Adjust the API endpoint
                 const { isAdmin } = response.data; // Assuming the response structure has an isAdmin field
-                if (isAdmin) {
-                    return true; // Allow sign in for admin
-                } else {
-                    return false; // Deny sign in for non-admin
-                }
+                return isAdmin ? true : false;
             } catch (error) {
                 console.error('Error fetching admin data:', error);
                 return false; // Deny sign in on error
