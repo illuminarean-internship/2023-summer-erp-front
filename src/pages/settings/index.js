@@ -14,10 +14,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import PageWrapper from '../components/form/PageWrapper';
+import PageWrapper from '../../components/form/PageWrapper';
 import { SettingsOutlined } from '@mui/icons-material';
-import SettingAction from '../components/actions/SettingAction';
-const settings = () => {
+import SettingAction from '../../components/actions/SettingAction';
+const Settings = () => {
     const [adminList, setAdminList] = useState([]);
     const [newAdminEmail, setNewAdminEmail] = useState('');
     const { data: session } = useSession();
@@ -147,4 +147,4 @@ const settings = () => {
     );
 };
 
-export default settings;
+export default Settings;
