@@ -32,7 +32,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'model', headerName: 'Model', width: 200 },
+        { field: 'model', headerName: 'Model', width: 300 },
         { field: 'category', headerName: 'Category', width: 150 },
         { field: 'serialNumber', headerName: 'Serial #', width: 150 },
         { field: 'location', headerName: 'Location', width: 150 },

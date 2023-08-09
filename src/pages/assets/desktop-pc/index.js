@@ -44,23 +44,23 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
         {
+            field: 'remarks',
+            headerName: 'Remarks',
+            width: 300,
+        },
+        {
             field: 'purchasedFrom',
             headerName: 'Purchased From',
-            width: 250,
+            width: 150,
         },
         {
             field: 'purpose',
             headerName: 'Purpose',
-            width: 250,
+            width: 150,
         },
         {
             field: 'location',
             headerName: 'Location',
-            width: 200,
-        },
-        {
-            field: 'remarks',
-            headerName: 'Remarks',
             width: 200,
         },
         {

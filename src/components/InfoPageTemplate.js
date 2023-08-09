@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
 import PageWrapper from './form/PageWrapper';
-import { useRouter } from 'next/router';
 
 //all data guarenteed to have an id, type, and history
 export default function InfoPageTemplate({
