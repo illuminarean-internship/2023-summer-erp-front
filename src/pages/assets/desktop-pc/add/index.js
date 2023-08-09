@@ -197,7 +197,7 @@ const DesktopPcAdd = () => {
             href="/assets/desktop-pc"
         >
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                (Illuminarean Serial Number) - Desktop PC
+                New Desktop PC
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <DesktopForm

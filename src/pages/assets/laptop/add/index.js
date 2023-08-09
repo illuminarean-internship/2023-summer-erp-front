@@ -162,7 +162,7 @@ const LaptopAdd = () => {
             href="/assets/laptop"
         >
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                (Serial Number) - Category Model
+                New Laptop
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <LaptopForm

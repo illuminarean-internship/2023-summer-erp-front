@@ -379,7 +379,7 @@ const AccessoryForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="purchasedFrom"
-                                label="Purchased From"
+                                label="Enter Purchase Location"
                                 fullWidth
                                 value={accessoryInfo.purchasedFrom}
                                 onChange={handleChange}

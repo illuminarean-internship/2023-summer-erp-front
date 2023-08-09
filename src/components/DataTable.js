@@ -26,7 +26,7 @@ const DataTable = ({
     }
 
     return (
-        <Box sx={{ height: 650, width: '100%', overflowX: 'auto', p: 3 }}>
+        <Box sx={{ height: 800, width: '100%', overflowX: 'auto', p: 3 }}>
             <div>
                 {alertVisible && (
                     <Stack sx={{ width: '100%' }} spacing={2}>

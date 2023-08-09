@@ -65,6 +65,7 @@ const LaptopEdit = () => {
             location,
             currency,
             price,
+            warranty,
             surtax,
             totalPrice,
             illumiSerial,
@@ -100,7 +101,7 @@ const LaptopEdit = () => {
             SSD,
             serialNumber,
             location,
-            warranty: moment(purchaseDate).format('YYYY-MM-DD'),
+            warranty,
             currency,
             price,
             surtax,
@@ -233,8 +234,7 @@ const LaptopEdit = () => {
     return (
         <PageWrapper title="Edit" icon={<EditNote />} href="/assets/laptop">
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                ({laptopInfo.serialNumber}) - {laptopInfo.category}{' '}
-                {laptopInfo.model}
+                ({laptopInfo.serialNumber}) -{laptopInfo.model}
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <LaptopForm
