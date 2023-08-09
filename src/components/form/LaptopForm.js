@@ -298,11 +298,10 @@ const LaptopForm = ({
                         >
                             <TextField
                                 name="warranty"
-                                type="date"
+                                label="Enter Warranty"
                                 fullWidth
                                 value={laptopInfo.warranty}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -513,7 +512,7 @@ const LaptopForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="purchasedFrom"
-                                label="Purchased From"
+                                label="Enter Purchase Location"
                                 fullWidth
                                 value={laptopInfo.purchasedFrom}
                                 onChange={handleChange}

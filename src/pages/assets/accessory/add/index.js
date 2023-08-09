@@ -148,7 +148,7 @@ const AccessoryAdd = () => {
             href="/assets/accessory"
         >
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                Model - Category
+                New Accessory
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <AccessoryForm
