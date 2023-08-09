@@ -1,9 +1,10 @@
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Divider, Typography } from '@mui/material';
+import { Button, Divider, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
 import PageWrapper from './form/PageWrapper';
+import { useRouter } from 'next/router';
 
 //all data guarenteed to have an id, type, and history
 export default function InfoPageTemplate({
@@ -11,23 +12,15 @@ export default function InfoPageTemplate({
     title,
     type,
     children = null,
+    pathname = '',
 }) {
-    dataToRender['history'] = dataToRender['history'].map((v) => {
-        return {
-            startDate: moment(v.startDate).format('YYYY-MM-DD'),
-            endDate: v.endDate ? moment(v.endDate).format('YYYY-MM-DD') : '',
-            historyLocation: v.historyLocation,
-            historyRemark: v.historyRemark,
-        };
-    }); //temporary hardcode
-
     const renderLabels = Object.keys(dataToRender)
         .flat()
         .map(
             (v) =>
-                v != 'history' &&
-                v != 'details' &&
-                v != 'summedCost' && (
+                !['history', 'details', 'summedCost', 'remarks'].includes(
+                    v,
+                ) && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
                             <Typography>
@@ -44,7 +37,7 @@ export default function InfoPageTemplate({
                     </LabelInfoWrapper>
                 ),
         );
-    const historyLoader = dataToRender['history'].map((v, index) => (
+    const historyLoader = dataToRender['history'].map((history, index) => (
         <Grid
             container
             rowSpacing={3}
@@ -53,20 +46,26 @@ export default function InfoPageTemplate({
             key={index}
         >
             <Grid item xs="auto">
-                <Typography>{v.startDate} -</Typography>
+                <Typography>
+                    {moment(history.startDate).format('YYYY-MM-DD')} -
+                </Typography>
             </Grid>
             <Grid item xs={1.5}>
-                <Typography>{v.endDate}</Typography>
+                <Typography>
+                    {history.endDate
+                        ? moment(history.endDate).format('YYYY-MM-DD')
+                        : null}
+                </Typography>
             </Grid>
             <Grid item xs={2}>
                 <Typography justifyContent={'left'}>
-                    {v.historyLocation}
+                    {history.historyLocation}
                 </Typography>
             </Grid>
         </Grid>
     ));
 
-    const historyRenderer = type != 'software' && (
+    const historyRenderer = type !== 'software' && (
         <>
             <LabelContainer sx={{ marginBottom: 2 }}>
                 <Typography>History</Typography>
@@ -89,6 +88,22 @@ export default function InfoPageTemplate({
                 {renderLabels}
                 {children}
                 {historyRenderer}
+                <LabelInfoWrapper sx={{ marginTop: 5 }}>
+                    <LabelContainer>
+                        <Typography>Remarks</Typography>
+                    </LabelContainer>
+                    <InfoContainer>
+                        <Info>{dataToRender['remarks']}</Info>
+                    </InfoContainer>
+                </LabelInfoWrapper>
+                <Grid
+                    container
+                    sx={{ justifyContent: 'center', display: 'flex' }}
+                >
+                    <Button variant="outlined" href={pathname}>
+                        Edit
+                    </Button>
+                </Grid>
             </InfoWrapper>
         </PageWrapper>
     );
@@ -133,4 +148,3 @@ const Info = styled(Typography)(() => ({
     flexShrink: 0,
     textAlign: 'left',
 }));
-

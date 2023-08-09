@@ -7,6 +7,8 @@ import moment from 'moment';
 const LaptopInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [laptopInfo, setLaptopInfo] = useState({
         category: '',
         model: '',
@@ -23,6 +25,7 @@ const LaptopInfo = () => {
         purchaseDate: '',
         availableDate: '',
         history: [],
+        remarks: '',
     });
 
     useEffect(() => {
@@ -34,6 +37,24 @@ const LaptopInfo = () => {
                 setLaptopInfo(filteredData);
             });
     }, []);
+
+    const currency_symbols = {
+        USD: '$', // US Dollar
+        EUR: '€', // Euro
+        CRC: '₡', // Costa Rican Colón
+        GBP: '£', // British Pound Sterling
+        ILS: '₪', // Israeli New Sheqel
+        INR: '₹', // Indian Rupee
+        JPY: '¥', // Japanese Yen
+        KRW: '₩', // South Korean Won
+        NGN: '₦', // Nigerian Naira
+        PHP: '₱', // Philippine Peso
+        PLN: 'zł', // Polish Zloty
+        PYG: '₲', // Paraguayan Guarani
+        THB: '฿', // Thai Baht
+        UAH: '₴', // Ukrainian Hryvnia
+        VND: '₫', // Vietnamese Dong
+    };
 
     const filterRelevantData = (laptopData) => {
         const {
@@ -53,6 +74,8 @@ const LaptopInfo = () => {
             dateAvail,
             daysLeft,
             history,
+            currency,
+            remarks,
         } = laptopData;
         return {
             category,
@@ -62,9 +85,9 @@ const LaptopInfo = () => {
             SSD,
             serialNumber,
             location,
-            price: '₩' + price,
-            surtax: '₩' + surtax,
-            totalPrice: '₩' + totalPrice,
+            price: currency_symbols[currency] + price,
+            surtax: currency_symbols[currency] + surtax,
+            totalPrice: currency_symbols[currency] + totalPrice,
             illuminareanSerialNumber: illumiSerial,
             color,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
@@ -78,6 +101,7 @@ const LaptopInfo = () => {
                       (daysLeft % 360) +
                       ' days '),
             history,
+            remarks,
         };
     };
 
@@ -87,6 +111,7 @@ const LaptopInfo = () => {
                 dataToRender={laptopInfo}
                 title={`(${laptopInfo.serialNumber}) - ` + laptopInfo.model}
                 type="laptop"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

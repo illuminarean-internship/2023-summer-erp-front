@@ -8,6 +8,8 @@ import { Grid, Typography, Divider } from '@mui/material';
 const DesktopPcInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [desktopPcInfo, setdesktopPcInfo] = useState({
         illuminareanSerialNumber: '',
         purchaseDate: '',
@@ -17,6 +19,7 @@ const DesktopPcInfo = () => {
         details: [],
         history: [],
         summedCost: '',
+        remarks: '',
     });
 
     useEffect(() => {
@@ -29,6 +32,24 @@ const DesktopPcInfo = () => {
             });
     }, []);
 
+    const currency_symbols = {
+        USD: '$', // US Dollar
+        EUR: '€', // Euro
+        CRC: '₡', // Costa Rican Colón
+        GBP: '£', // British Pound Sterling
+        ILS: '₪', // Israeli New Sheqel
+        INR: '₹', // Indian Rupee
+        JPY: '¥', // Japanese Yen
+        KRW: '₩', // South Korean Won
+        NGN: '₦', // Nigerian Naira
+        PHP: '₱', // Philippine Peso
+        PLN: 'zł', // Polish Zloty
+        PYG: '₲', // Paraguayan Guarani
+        THB: '฿', // Thai Baht
+        UAH: '₴', // Ukrainian Hryvnia
+        VND: '₫', // Vietnamese Dong
+    };
+
     const filterRelevantData = (desktopPcData) => {
         const {
             illumiSerial,
@@ -36,9 +57,11 @@ const DesktopPcInfo = () => {
             purchasedFrom,
             purpose,
             location,
+            currency,
             details,
             history,
             totalPrice,
+            remarks,
         } = desktopPcData;
         return {
             illuminareanSerialNumber: illumiSerial,
@@ -48,7 +71,8 @@ const DesktopPcInfo = () => {
             location,
             details,
             history,
-            summedCost: totalPrice,
+            summedCost: currency_symbols[currency] + totalPrice,
+            remarks,
         };
     };
 
@@ -136,6 +160,7 @@ const DesktopPcInfo = () => {
                 }
                 type="desktop-pc"
                 children={detailRenderer}
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

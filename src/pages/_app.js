@@ -34,26 +34,24 @@ function MyApp({ Component, pageProps, session }) {
                 <GlobalStyle />
                 {router.pathname !== '/login-page' ? (
                     <>
-                        <ProtectLayouts>
-                            <Box sx={{ display: 'flex' }}>
-                                <Navbar {...{ isOpen, handleDrawerOpen }} />
-                                <Sidebar
-                                    {...{
-                                        isOpen,
-                                        handleDrawerClose,
-                                        handleDrawerOpen,
-                                        selectedLink,
-                                    }}
-                                >
-                                    <Component
-                                        {...pageProps}
-                                        selectedLink={selectedLink}
-                                        setSelectedLink={setSelectedLink}
-                                        isOpen={isOpen}
-                                    />
-                                </Sidebar>
-                            </Box>
-                        </ProtectLayouts>
+                        <Box sx={{ display: 'flex' }}>
+                            <Navbar {...{ isOpen, handleDrawerOpen }} />
+                            <Sidebar
+                                {...{
+                                    isOpen,
+                                    handleDrawerClose,
+                                    handleDrawerOpen,
+                                    selectedLink,
+                                }}
+                            >
+                                <Component
+                                    {...pageProps}
+                                    selectedLink={selectedLink}
+                                    setSelectedLink={setSelectedLink}
+                                    isOpen={isOpen}
+                                />
+                            </Sidebar>
+                        </Box>
                     </>
                 ) : (
                     <>
