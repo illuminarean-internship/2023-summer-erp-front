@@ -8,7 +8,7 @@ const sampleStartingList = [
     { name: 'Accessory', link: 'accessory', size: 197 },
     { name: 'Books', link: 'books', size: 90 },
     { name: 'Desktop PC', link: 'desktop-pc', size: 6 },
-    { name: 'Laptops', link: 'laptop', size: 99 },
+    { name: 'Laptop', link: 'laptop', size: 99 },
     { name: 'Software', link: 'software', size: 9 },
     { name: 'Test Device', link: 'test-device', size: 10 },
 ];
