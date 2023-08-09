@@ -166,7 +166,7 @@ const BookForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="purchasedFrom"
-                                label="Purchased From"
+                                label="Enter Purchase Location"
                                 fullWidth
                                 value={bookInfo.purchasedFrom}
                                 onChange={handleChange}

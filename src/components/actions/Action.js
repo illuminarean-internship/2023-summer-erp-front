@@ -43,7 +43,7 @@ const Action = ({ params, setAlertVisible }) => {
             setIsUsersTrue();
         }
         setDeleteUrl(url);
-    }, [pathname, setIsUsersTrue, setIsUsersFalse]);
+    }, [pathname]);
 
     const handleClickOpen = () => {
         setOpen(true);

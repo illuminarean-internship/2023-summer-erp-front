@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 const TestDeviceInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [testDeviceInfo, setTestDeviceInfo] = useState({
         category: '',
         model: '',
@@ -19,6 +21,7 @@ const TestDeviceInfo = () => {
         totalPrice: '',
         purchasedFrom: 'G 마켓',
         history: [],
+        remarks: '',
     });
 
     useEffect(() => {
@@ -30,6 +33,24 @@ const TestDeviceInfo = () => {
                 setTestDeviceInfo(filteredData);
             });
     }, []);
+
+    const currency_symbols = {
+        USD: '$', // US Dollar
+        EUR: '€', // Euro
+        CRC: '₡', // Costa Rican Colón
+        GBP: '£', // British Pound Sterling
+        ILS: '₪', // Israeli New Sheqel
+        INR: '₹', // Indian Rupee
+        JPY: '¥', // Japanese Yen
+        KRW: '₩', // South Korean Won
+        NGN: '₦', // Nigerian Naira
+        PHP: '₱', // Philippine Peso
+        PLN: 'zł', // Polish Zloty
+        PYG: '₲', // Paraguayan Guarani
+        THB: '฿', // Thai Baht
+        UAH: '₴', // Ukrainian Hryvnia
+        VND: '₫', // Vietnamese Dong
+    };
 
     const filterRelevantData = (testDeviceData) => {
         const {
@@ -44,7 +65,9 @@ const TestDeviceInfo = () => {
             color,
             totalPrice,
             purchasedFrom,
+            currency,
             history,
+            remarks,
         } = testDeviceData;
         return {
             category,
@@ -56,9 +79,10 @@ const TestDeviceInfo = () => {
             serialNumber,
             condition,
             color,
-            totalPrice: '₩' + totalPrice,
+            totalPrice: currency_symbols[currency] + totalPrice,
             purchasedFrom,
             history,
+            remarks,
         };
     };
     console.log(testDeviceInfo.model);
@@ -70,6 +94,7 @@ const TestDeviceInfo = () => {
                     `(${testDeviceInfo.serialNumber}) - ` + testDeviceInfo.model
                 }
                 type="test-device"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

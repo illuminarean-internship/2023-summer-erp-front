@@ -37,7 +37,7 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
 
     const columns = [
         { field: 'category', headerName: 'Category', width: 100 },
-        { field: 'model', headerName: 'Model', width: 100 },
+        { field: 'model', headerName: 'Model', width: 200 },
         { field: 'CPU', headerName: 'CPU', width: 100 },
         { field: 'RAM', headerName: 'RAM', width: 100 },
         { field: 'SSD', headerName: 'SSD', width: 100 },
@@ -56,8 +56,6 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             field: 'warranty',
             headerName: 'Warranty',
             width: 150,
-            renderCell: (params) =>
-                moment(params.row.warranty).format('YYYY-MM-DD'),
         },
         { field: 'color', headerName: 'Color', width: 100 },
         {

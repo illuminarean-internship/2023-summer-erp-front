@@ -146,7 +146,7 @@ const TestDeviceAdd = () => {
             href="/assets/test-device"
         >
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                (Serial Number) - Category Model
+                New Test Device
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <TestDeviceForm
