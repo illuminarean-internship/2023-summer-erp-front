@@ -34,12 +34,12 @@ const UserPage = ({ setSelectedLink, isOpen }) => {
     }, [rows]);
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 300 },
+        { field: 'name', headerName: 'Name', width: 280 },
         { field: 'team', headerName: 'Team', width: 280 },
         {
             field: 'project',
             headerName: 'Project',
-            width: 350,
+            width: 500,
             valueGetter: (params) => params.row.project.join(', '),
         },
         { field: 'field', headerName: 'Field', width: 300 },

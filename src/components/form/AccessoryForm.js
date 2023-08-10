@@ -365,7 +365,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

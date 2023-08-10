@@ -495,7 +495,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

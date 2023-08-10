@@ -101,8 +101,8 @@ export default function InfoPageTemplate({
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <InfoWrapper>
                 {renderLabels}
-                {children}
                 {historyRenderer}
+                {children}
                 <Grid
                     container
                     sx={{ justifyContent: 'center', display: 'flex' }}

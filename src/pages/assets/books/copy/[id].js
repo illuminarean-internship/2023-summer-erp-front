@@ -8,7 +8,6 @@ import moment from 'moment';
 import BookForm from '../../../../components/form/BookForm';
 import PageWrapper from '../../../../components/form/PageWrapper';
 import { v4 as uuidv4 } from 'uuid';
-import { formatDate } from '../../../../utils/stringUtils';
 
 const BooksCopy = () => {
     const router = useRouter();
@@ -46,38 +45,23 @@ const BooksCopy = () => {
     }, []);
 
     const filterRelevantData = (bookData) => {
-        const {
-            title,
-            team,
-            location,
-            purchaseDate,
-            purchasedFrom,
-            price,
-            currency,
-            history,
-        } = bookData;
+        const { title, team, purchaseDate, purchasedFrom, price, currency } =
+            bookData;
 
-        const updatedHistory = history.length
-            ? history.map((historyEntry) => ({
-                  ...historyEntry,
-                  id: uuidv4(),
-                  startDate: formatDate(historyEntry.startDate),
-                  endDate: formatDate(historyEntry.endDate),
-              }))
-            : [
-                  {
-                      startDate: '',
-                      endDate: '',
-                      historyLocation: null,
-                      historyRemark: '',
-                      id: uuidv4(),
-                  },
-              ];
+        const updatedHistory = [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ];
 
         return {
             title,
             team,
-            location,
+            location: null,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
             price,

@@ -146,7 +146,6 @@ const BookForm = ({
                                 fullWidth
                                 value={bookInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -170,7 +169,6 @@ const BookForm = ({
                                 fullWidth
                                 value={bookInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

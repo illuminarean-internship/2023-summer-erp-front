@@ -72,7 +72,6 @@ const UserForm = ({
                                 fullWidth
                                 value={userInfo.email}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -152,7 +151,6 @@ const UserForm = ({
                                             <TextField
                                                 {...params}
                                                 label="Select project"
-                                                required
                                             />
                                         )}
                                     />

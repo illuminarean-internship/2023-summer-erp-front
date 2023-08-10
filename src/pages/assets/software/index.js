@@ -23,6 +23,8 @@ const Software = ({ setSelectedLink, isOpen }) => {
 
             if (isArchived) {
                 queryParams.isArchived = true;
+            } else {
+                queryParams.isArchived = false;
             }
 
             const response = await axios.get(
