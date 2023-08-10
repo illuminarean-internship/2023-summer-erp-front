@@ -11,13 +11,5 @@ cd $FULL_LOCATION
 sudo pm2 list | grep $PROJECT
 sudo yarn install
 sudo yarn build
-sudo yarn start
-PM2_LIST_RESULT=$?
-echo "PM2_LIST_RESULT diff a b result :  ${PM2_LIST_RESULT}"
-if [ ${PM2_LIST_RESULT} -eq "0" ]
-then
-	sudo pm2 reload ecosystem.config.js
-else
-	sudo pm2 start ecosystem.config.js
-	sudo pm2 save
-fi
+sudo pm2 delete 2023-internship-front-1 2023-internship-front-2
+sudo pm2 reload ecosystem.config.js
