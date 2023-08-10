@@ -18,6 +18,11 @@ const BooksInfo = () => {
         price: '',
         history: [],
         remarks: '',
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -59,6 +64,7 @@ const BooksInfo = () => {
             history,
             remarks,
             currency,
+            
         } = bookData;
         return {
             title,

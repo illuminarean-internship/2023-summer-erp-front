@@ -20,6 +20,11 @@ const DesktopPcInfo = () => {
         history: [],
         summedCost: '',
         remarks: '',
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -61,6 +66,7 @@ const DesktopPcInfo = () => {
             details,
             history,
             totalPrice,
+
             remarks,
         } = desktopPcData;
         return {
@@ -74,6 +80,7 @@ const DesktopPcInfo = () => {
             summedCost: currency_symbols[currency]
                 ? currency_symbols[currency] + totalPrice
                 : currency + totalPrice,
+
             remarks,
         };
     };

@@ -26,6 +26,11 @@ const LaptopInfo = () => {
         availableDate: '',
         history: [],
         remarks: '',
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -76,6 +81,11 @@ const LaptopInfo = () => {
             history,
             currency,
             remarks,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
         } = laptopData;
         return {
             category,
@@ -86,14 +96,14 @@ const LaptopInfo = () => {
             serialNumber,
             location,
             price: currency_symbols[currency]
-            ? currency_symbols[currency] + price
-            : currency + price,
+                ? currency_symbols[currency] + price
+                : currency + price,
             surtax: currency_symbols[currency]
-            ? currency_symbols[currency] + surtax
-            : currency + surtax,
+                ? currency_symbols[currency] + surtax
+                : currency + surtax,
             totalPrice: currency_symbols[currency]
-            ? currency_symbols[currency] + totalPrice
-            : currency + totalPrice,
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             illuminareanSerialNumber: illumiSerial,
             color,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
@@ -107,6 +117,11 @@ const LaptopInfo = () => {
                       (daysLeft % 360) +
                       ' days '),
             history,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
             remarks,
         };
     };

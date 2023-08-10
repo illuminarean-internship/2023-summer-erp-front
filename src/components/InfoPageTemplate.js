@@ -17,9 +17,20 @@ export default function InfoPageTemplate({
         .flat()
         .map(
             (v) =>
-                !['history', 'details', 'summedCost', 'remarks'].includes(
-                    v,
-                ) && (
+                ![
+                    'history',
+                    'details',
+                    'summedCost',
+                    'remarks',
+                    'isRepair',
+                    'issues',
+                    'replace',
+                    'request',
+                    'repairPrice',
+                    'repairDetails',
+                    'resellPrice',
+                    'karrotPrice',
+                ].includes(v) && (
                     <LabelInfoWrapper key={v}>
                         <LabelContainer>
                             <Typography>
@@ -82,10 +93,54 @@ export default function InfoPageTemplate({
                 <InfoContainer
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography>Remarks</Typography>
+                    <Typography>History Remarks</Typography>
                 </InfoContainer>
             </LabelInfoWrapper>
             {historyLoader}
+        </>
+    );
+
+    const renderRepairDetails = ({ details }) => {
+        return (
+            <div>
+                {details.map((detail, index) => (
+                    <Typography key={index}>{detail}</Typography>
+                ))}
+            </div>
+        );
+    };
+
+    const repairRender = dataToRender['isRepair'] && (
+        <>
+            <LabelInfoWrapper sx={{ mt: 2 }}>
+                <LabelContainer>
+                    <Typography>Issues</Typography>
+                </LabelContainer>
+                <InfoContainer>
+                    <Info>{dataToRender['issues']}</Info>
+                </InfoContainer>
+            </LabelInfoWrapper>
+            <LabelInfoWrapper sx={{ mt: 10, textDecoration: 'underline' }}>
+                <LabelContainer>
+                    <Typography>Repair & Replace</Typography>
+                </LabelContainer>
+            </LabelInfoWrapper>
+            {['request', 'replace', 'repairPrice', 'repairDetails'].map((v) => (
+                <LabelInfoWrapper key={v}>
+                    <LabelContainer>
+                        <Typography>
+                            {v
+                                .replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, function (str) {
+                                    return str.toUpperCase(); //converts camelCase to Label
+                                })}
+                        </Typography>
+                    </LabelContainer>
+                    <InfoContainer key={dataToRender[v]}>
+                        <Info>{dataToRender[v]}</Info>
+                    </InfoContainer>
+                </LabelInfoWrapper>
+            ))}
         </>
     );
 
@@ -103,6 +158,15 @@ export default function InfoPageTemplate({
                 {renderLabels}
                 {historyRenderer}
                 {children}
+                {repairRender}
+                <LabelInfoWrapper sx={{ marginTop: 3 }}>
+                    <LabelContainer>
+                        <Typography>{type != 'books' && 'Remarks'}</Typography>
+                    </LabelContainer>
+                    <InfoContainer>
+                        <Info>{dataToRender['remarks']}</Info>
+                    </InfoContainer>
+                </LabelInfoWrapper>
                 <Grid
                     container
                     sx={{ justifyContent: 'center', display: 'flex' }}
@@ -122,7 +186,7 @@ export default function InfoPageTemplate({
 
 const InfoWrapper = styled('div')(() => ({
     width: 1100,
-    height: 417,
+    height: 617,
     marginTop: 70,
 }));
 

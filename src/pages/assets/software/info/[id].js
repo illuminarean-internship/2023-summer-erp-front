@@ -3,6 +3,8 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import { styled } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 
 const SoftwareInfo = () => {
     const router = useRouter();
@@ -20,6 +22,11 @@ const SoftwareInfo = () => {
         reference: '',
         user: '',
         history: [],
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -99,3 +106,30 @@ export async function getServerSideProps() {
         props: {},
     };
 }
+
+const LabelInfoWrapper = styled('div')(() => ({
+    width: 1100,
+    height: 20,
+    marginBottom: 26,
+    alignitems: 'flex-start',
+    flexShrink: 0,
+    display: 'flex',
+}));
+
+const LabelContainer = styled('div')(() => ({
+    width: 402,
+    display: 'flex',
+    height: 22,
+    justifyContent: 'right',
+    flexDirection: 'row',
+    flexShrink: 0,
+}));
+
+const InfoContainer = styled('div')(() => ({
+    width: 491,
+    marginLeft: 100,
+    display: 'flex',
+    height: 22,
+    justifyContent: 'left',
+    flexShrink: 0,
+}));

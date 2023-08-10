@@ -22,6 +22,11 @@ const TestDeviceInfo = () => {
         purchasedFrom: 'G 마켓',
         history: [],
         remarks: '',
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -67,6 +72,11 @@ const TestDeviceInfo = () => {
             purchasedFrom,
             currency,
             history,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
             remarks,
         } = testDeviceData;
         return {
@@ -84,6 +94,11 @@ const TestDeviceInfo = () => {
                 : currency + totalPrice,
             purchasedFrom,
             history,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
             remarks,
         };
     };

@@ -3,6 +3,7 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import { Typography } from '@mui/material';
 
 const AccessoryInfo = () => {
     const router = useRouter();
@@ -24,6 +25,11 @@ const AccessoryInfo = () => {
         purchasedFrom: 'G 마켓',
         history: [],
         remarks: '',
+        isRepair: false,
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -71,6 +77,11 @@ const AccessoryInfo = () => {
             purchaseDate,
             purchasedFrom,
             history,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
             remarks,
         } = accessoryData;
         return {
@@ -99,9 +110,15 @@ const AccessoryInfo = () => {
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
             history,
+            isRepair,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
             remarks,
         };
     };
+
     return (
         <div>
             <InfoPageTemplate
