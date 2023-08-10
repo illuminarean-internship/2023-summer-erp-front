@@ -54,7 +54,7 @@ const Books = ({ setSelectedLink, isOpen }) => {
     };
 
     const columns = [
-        { field: 'title', headerName: 'Title', width: 500 },
+        { field: 'title', headerName: 'Title', width: 550 },
         {
             field: 'team',
             headerName: 'Team',
