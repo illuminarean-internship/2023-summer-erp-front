@@ -1,5 +1,4 @@
 import CategoryItem from './CategoryItem';
-import { useRouter } from 'next/router';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
