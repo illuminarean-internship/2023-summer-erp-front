@@ -66,7 +66,9 @@ const BooksInfo = () => {
             location,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
-            price: currency_symbols[currency] + price,
+            price: currency_symbols[currency]
+                ? currency_symbols[currency] + price
+                : currency + price,
             history,
             remarks,
         };

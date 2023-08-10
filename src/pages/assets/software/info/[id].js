@@ -67,9 +67,13 @@ const SoftwareInfo = () => {
             name,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             remarks,
-            unitPrice: currency_symbols[currency] + unitPrice,
+            unitPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + unitPrice
+                : currency + unitPrice,
             quantity,
-            totalPrice: currency_symbols[currency] + totalPrice,
+            totalPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             currency,
             reference,
             user,

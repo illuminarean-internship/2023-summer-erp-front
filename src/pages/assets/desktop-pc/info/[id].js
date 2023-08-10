@@ -71,7 +71,9 @@ const DesktopPcInfo = () => {
             location,
             details,
             history,
-            summedCost: currency_symbols[currency] + totalPrice,
+            summedCost: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             remarks,
         };
     };
