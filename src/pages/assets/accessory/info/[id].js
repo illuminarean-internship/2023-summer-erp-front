@@ -78,9 +78,15 @@ const AccessoryInfo = () => {
             category,
             serialNumber,
             location,
-            price: currency_symbols[currency] + price,
-            surtax: currency_symbols[currency] + surtax,
-            totalPrice: currency_symbols[currency] + totalPrice,
+            price: currency_symbols[currency]
+                ? currency_symbols[currency] + price
+                : currency + price,
+            surtax: currency_symbols[currency]
+                ? currency_symbols[currency] + surtax
+                : currency + surtax,
+            totalPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             illuminareanSerialNumber: illuSerialNumber,
             availableDate:
                 moment(dateAvail).format('YYYY-MM-DD') +

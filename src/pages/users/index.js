@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import DataTable from '../../components/DataTable';
-import Action from '../../components/actions/Action';
+import UserAction from '../../components/actions/UserAction';
 
 const UserPage = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
@@ -49,7 +49,7 @@ const UserPage = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <Action params={params} setAlertVisible={setAlertVisible} />
+                <UserAction params={params} setAlertVisible={setAlertVisible} />
             ),
         },
     ];

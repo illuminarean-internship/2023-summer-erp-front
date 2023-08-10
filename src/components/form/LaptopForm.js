@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     Container,
+    Divider,
     FormControl,
     Grid,
     IconButton,
@@ -12,6 +13,7 @@ import {
     Select,
     TextField,
     Typography,
+    useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -27,9 +29,11 @@ const LaptopForm = ({
     handleHistoryLocationChange,
     handlePriceChange,
     handleSurtaxChange,
+    isRepairVar,
 }) => {
     const locations = locationsData.map((location) => location.name);
     const [showHistory, setShowHistory] = useState(true);
+    const theme = useTheme();
 
     const currencyOptions = [
         { value: 'KRW', label: '₩ (KRW)' },
@@ -40,6 +44,9 @@ const LaptopForm = ({
     const categoryOptions = ['Macbook', 'LG Gram', 'Samsung', 'Others'];
     const ramOptions = ['8G', '16G', '32G', '64G', '128G'];
     const ssdOptions = ['128G', '256G', '512G', '1TB', '2TB'];
+
+    const requestOptions = ['Approved', 'Denied', 'Pending'];
+    const replaceOptions = ['Complete', 'Pending'];
 
     return (
         <form onSubmit={handleSubmit}>
@@ -132,7 +139,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.CPU}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -241,7 +247,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.serialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -434,7 +439,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.illumiSerial}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -463,7 +467,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.color}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -516,7 +519,6 @@ const LaptopForm = ({
                                 fullWidth
                                 value={laptopInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -687,6 +689,293 @@ const LaptopForm = ({
                         </Box>
                     </>
                 )}
+
+                {isRepairVar && (
+                    <>
+                        <Typography variant="h6">Repair</Typography>
+                        <Box
+                            sx={{
+                                border: '1px solid gray',
+                                borderRadius: '4px',
+                                p: 2,
+                                mt: 2,
+                                borderColor: theme.palette.grey[450],
+                            }}
+                        >
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Issues</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <TextField
+                                            name="issues"
+                                            label="Enter Issues"
+                                            fullWidth
+                                            value={laptopInfo.issues}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                style: {
+                                                    height: '16px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Divider
+                                sx={{
+                                    my: 2,
+                                    borderColor: theme.palette.grey[300],
+                                }}
+                            />
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Request</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <FormControl fullWidth>
+                                            <InputLabel id="select-request-label">
+                                                Select Request
+                                            </InputLabel>
+                                            <Select
+                                                labelId="select-request-label"
+                                                variant="outlined"
+                                                id="request-select"
+                                                name="request"
+                                                label="Select Request"
+                                                value={laptopInfo.request}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                sx={{
+                                                    height: '50px',
+                                                }}
+                                            >
+                                                {requestOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Replace</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <FormControl fullWidth>
+                                            <InputLabel id="select-replace-label">
+                                                Select Replace
+                                            </InputLabel>
+                                            <Select
+                                                labelId="select-replace-label"
+                                                variant="outlined"
+                                                id="replace-select"
+                                                name="replace"
+                                                label="Select Replace"
+                                                value={laptopInfo.replace}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                sx={{
+                                                    height: '50px',
+                                                }}
+                                            >
+                                                {replaceOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Repair Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="repairPrice"
+                                            label="Enter Repair Price"
+                                            type="number"
+                                            fullWidth
+                                            value={laptopInfo.repairPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Repair Details</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <TextField
+                                            name="repairDetails"
+                                            label="Enter Repair Details"
+                                            fullWidth
+                                            value={laptopInfo.repairDetails}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                style: {
+                                                    height: '16px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+                            <Divider
+                                sx={{
+                                    my: 2,
+                                    borderColor: theme.palette.grey[300],
+                                }}
+                            />
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Resell Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="resellPrice"
+                                            label="Enter Resell Price"
+                                            type="number"
+                                            fullWidth
+                                            value={laptopInfo.resellPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Karrot Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="karrotPrice"
+                                            label="Enter Karrot Price"
+                                            type="number"
+                                            fullWidth
+                                            value={laptopInfo.karrotPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </>
+                )}
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
@@ -716,7 +1005,12 @@ const LaptopForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

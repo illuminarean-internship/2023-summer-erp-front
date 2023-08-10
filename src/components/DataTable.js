@@ -11,6 +11,7 @@ const DataTable = ({
     isOpen,
     alertVisible,
     setAlertVisible,
+    children,
 }) => {
     const router = useRouter();
     const { pathname } = router;
@@ -47,6 +48,7 @@ const DataTable = ({
                 <IconButton aria-label="add item" href={`${pathname}/add`}>
                     <AddBoxOutlined />
                 </IconButton>
+                {children}
             </Box>
 
             <DataGrid

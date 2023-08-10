@@ -85,9 +85,15 @@ const LaptopInfo = () => {
             SSD,
             serialNumber,
             location,
-            price: currency_symbols[currency] + price,
-            surtax: currency_symbols[currency] + surtax,
-            totalPrice: currency_symbols[currency] + totalPrice,
+            price: currency_symbols[currency]
+            ? currency_symbols[currency] + price
+            : currency + price,
+            surtax: currency_symbols[currency]
+            ? currency_symbols[currency] + surtax
+            : currency + surtax,
+            totalPrice: currency_symbols[currency]
+            ? currency_symbols[currency] + totalPrice
+            : currency + totalPrice,
             illuminareanSerialNumber: illumiSerial,
             color,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),

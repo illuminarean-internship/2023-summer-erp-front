@@ -44,21 +44,30 @@ export default function InfoPageTemplate({
             justifyContent={'center'}
             key={index}
         >
-            <Grid item xs="auto">
+            <Grid
+                item="true"
+                xs={4.5}
+                sx={{ display: 'flex', justifyContent: 'right' }}
+            >
                 <Typography>
                     {moment(history.startDate).format('YYYY-MM-DD')} -
                 </Typography>
             </Grid>
-            <Grid item xs={1.5}>
+            <Grid item="true" xs={1.5}>
                 <Typography>
                     {history.endDate
                         ? moment(history.endDate).format('YYYY-MM-DD')
                         : null}
                 </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item="true" xs={1.75}>
                 <Typography justifyContent={'left'}>
                     {history.historyLocation}
+                </Typography>
+            </Grid>
+            <Grid item="true" xs={4.25}>
+                <Typography justifyContent={'left'}>
+                    {history.historyRemark}
                 </Typography>
             </Grid>
         </Grid>
@@ -66,9 +75,16 @@ export default function InfoPageTemplate({
 
     const historyRenderer = type !== 'software' && (
         <>
-            <LabelContainer sx={{ marginBottom: 2 }}>
-                <Typography>History</Typography>
-            </LabelContainer>
+            <LabelInfoWrapper>
+                <LabelContainer sx={{ marginBottom: 2 }}>
+                    <Typography>History</Typography>
+                </LabelContainer>
+                <InfoContainer
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                >
+                    <Typography>Remarks</Typography>
+                </InfoContainer>
+            </LabelInfoWrapper>
             {historyLoader}
         </>
     );
@@ -87,19 +103,15 @@ export default function InfoPageTemplate({
                 {renderLabels}
                 {children}
                 {historyRenderer}
-                <LabelInfoWrapper sx={{ marginTop: 5 }}>
-                    <LabelContainer>
-                        <Typography>Remarks</Typography>
-                    </LabelContainer>
-                    <InfoContainer>
-                        <Info>{dataToRender['remarks']}</Info>
-                    </InfoContainer>
-                </LabelInfoWrapper>
                 <Grid
                     container
                     sx={{ justifyContent: 'center', display: 'flex' }}
                 >
-                    <Button variant="outlined" href={pathname}>
+                    <Button
+                        variant="outlined"
+                        href={pathname}
+                        sx={{ margin: 5 }}
+                    >
                         Edit
                     </Button>
                 </Grid>
@@ -118,7 +130,7 @@ const LabelInfoWrapper = styled('div')(() => ({
     width: 1100,
     height: 20,
     marginBottom: 26,
-    alignItems: 'flex-start',
+    alignitems: 'flex-start',
     flexShrink: 0,
     display: 'flex',
 }));

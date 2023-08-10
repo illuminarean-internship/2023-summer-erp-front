@@ -4,12 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import axios from 'axios';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { AddBoxOutlined } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { AddBoxOutlined, Build } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import TestDeviceForm from '../../../../components/form/TestDeviceForm';
 
 const TestDeviceAdd = () => {
     const router = useRouter();
+    const [isRepairVar, setIsRepairVar] = useState(false);
     const [testDeviceInfo, setTestDeviceInfo] = useState({
         model: '',
         category: '',
@@ -33,6 +34,14 @@ const TestDeviceAdd = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
 
     const locations = useLocationsData();
@@ -69,10 +78,34 @@ const TestDeviceAdd = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let updatedTestDeviceInfo = {
+            ...testDeviceInfo,
+        };
+
+        if (isRepairVar) {
+            updatedTestDeviceInfo = {
+                ...updatedTestDeviceInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedTestDeviceInfo = {
+                ...updatedTestDeviceInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
         try {
             const response = await axios.post(
                 'http://43.200.193.130:4040/api/test-device/',
-                testDeviceInfo,
+                updatedTestDeviceInfo,
             );
             console.log('Test device created successfully:', response.data);
             router.push('/assets/test-device');
@@ -139,15 +172,32 @@ const TestDeviceAdd = () => {
         });
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper
             title="Add"
             icon={<AddBoxOutlined />}
             href="/assets/test-device"
         >
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                New Test Device
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    New Test Device
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <TestDeviceForm
                 handleSubmit={handleSubmit}
@@ -159,6 +209,7 @@ const TestDeviceAdd = () => {
                 handleDeleteHistory={handleDeleteHistory}
                 handleAddHistory={handleAddHistory}
                 handleHistoryLocationChange={handleHistoryLocationChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );
