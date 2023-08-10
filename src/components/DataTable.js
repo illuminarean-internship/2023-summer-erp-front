@@ -11,6 +11,17 @@ import {
 import { useRouter } from 'next/router';
 import { getPageTitle } from '../utils/stringUtils';
 
+function CustomToolbar() {
+    return (
+        <GridToolbarContainer>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarExport />
+            <GridToolbarQuickFilter sx={{ ml: 3, width: 300 }} />
+        </GridToolbarContainer>
+    );
+}
+
 const DataTable = ({
     columns,
     rows,
@@ -31,17 +42,6 @@ const DataTable = ({
     } else {
         pageTitle =
             pathParsed[1].charAt(0).toUpperCase() + pathParsed[1].slice(1);
-    }
-
-    function CustomToolbar() {
-        return (
-            <GridToolbarContainer>
-                <GridToolbarColumnsButton />
-                <GridToolbarFilterButton />
-                <GridToolbarExport />
-                <GridToolbarQuickFilter sx={{ ml: 3, width: 300 }} />
-            </GridToolbarContainer>
-        );
     }
 
     return (
