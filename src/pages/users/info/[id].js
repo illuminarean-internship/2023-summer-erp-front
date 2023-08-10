@@ -62,33 +62,62 @@ const UserInfo = () => {
             </div>
         );
     };
-
     const renderLabels = (
-        <Grid container direction={'column'} spacing={2}>
-            <Grid container justifyContent={'center'} columnSpacing={10}>
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Name
-                    </Typography>
-                </Grid>
-                <Grid item xs={7}>
-                    <Typography>{userInfo['name']}</Typography>
-                </Grid>
+        <Grid container columnSpacing={10} rowSpacing={2}>
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Name
+                </Typography>
             </Grid>
-            <Grid container justifyContent={'center'} columnSpacing={10}>
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Team
-                    </Typography>
-                </Grid>
-                <Grid item xs={7}>
-                    <Typography>{userInfo['team']}</Typography>
-                </Grid>
+            <Grid item="true" xs={7}>
+                <Typography>{userInfo['name']}</Typography>
+            </Grid>
+
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Team
+                </Typography>
+            </Grid>
+            <Grid item="true" xs={7}>
+                <Typography>{userInfo['team']}</Typography>
+            </Grid>
+
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Projects
+                </Typography>
+            </Grid>
+            <Grid item="true" xs={7}>
+                <RenderProjects
+                    projects={userInfo['project']}
+                    sx={{
+                        height:
+                            52 +
+                            (userInfo['project'].length - 1 < 0
+                                ? 0
+                                : userInfo['project'].length - 1) *
+                                24,
+                    }}
+                />
+            </Grid>
+
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Field
+                </Typography>
+            </Grid>
+            <Grid item="true" xs={7} rowSpacing={10}>
+                <Typography>{userInfo['field']}</Typography>
+            </Grid>
+
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Possessed Items
+                </Typography>
             </Grid>
             <Grid
-                container
-                justifyContent={'center'}
-                columnSpacing={10}
+                item="true"
+                xs={7}
                 sx={{
                     height:
                         52 +
@@ -98,66 +127,110 @@ const UserInfo = () => {
                             24,
                 }}
             >
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Projects
-                    </Typography>
-                </Grid>
-                <Grid item xs={7}>
-                    <RenderProjects projects={userInfo['project']} />
-                </Grid>
+                <RenderProjects projects={userInfo['possessedItems']} />
             </Grid>
-            <Grid container justifyContent={'center'} columnSpacing={10}>
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Field
-                    </Typography>
-                </Grid>
-                <Grid item xs={7} rowSpacing={10}>
-                    <Typography>{userInfo['field']}</Typography>
-                </Grid>
+
+            <Grid item="true" xs={5}>
+                <Typography display={'flex'} justifyContent={'end'}>
+                    Remarks
+                </Typography>
             </Grid>
-            <Grid
-                container
-                justifyContent={'center'}
-                columnSpacing={10}
-                sx={{
-                    height:
-                        52 +
-                        (userInfo['possessedItems'].length - 1 < 0
-                            ? 0
-                            : userInfo['possessedItems'].length - 1) *
-                            24,
-                }}
-            >
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Possessed Items
-                    </Typography>
-                </Grid>
-                <Grid item xs={7}>
-                    <RenderProjects projects={userInfo['possessedItems']} />
-                </Grid>
-            </Grid>
-            <Grid container justifyContent={'center'} columnSpacing={10}>
-                <Grid item xs={5}>
-                    <Typography display={'flex'} justifyContent={'end'}>
-                        Remarks
-                    </Typography>
-                </Grid>
-                <Grid item xs={7} rowSpacing={10}>
-                    <Typography>{userInfo['remarks']}</Typography>
-                </Grid>
+            <Grid item="true" xs={7} rowSpacing={10}>
+                <Typography>{userInfo['remarks']}</Typography>
             </Grid>
         </Grid>
     );
+    //    const renderLabels = (
+    //        <Grid container direction={'column'} columnSpacing={2} rowSpacing={10}>
+    //            <Grid container justifyContent={'center'} columnSpacing={10}>
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Name
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7}>
+    //                    <Typography>{userInfo['name']}</Typography>
+    //                </Grid>
+    //            </Grid>
+    //            <Grid container justifyContent={'center'} columnSpacing={10}>
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Team
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7}>
+    //                    <Typography>{userInfo['team']}</Typography>
+    //                </Grid>
+    //            </Grid>
+    //            <Grid
+    //                container
+    //                justifyContent={'center'}
+    //                columnSpacing={10}
+    //                sx={{
+    //                    height:
+    //                        52 +
+    //                        (userInfo['project'].length - 1 < 0
+    //                            ? 0
+    //                            : userInfo['project'].length - 1) *
+    //                            24,
+    //                }}
+    //            >
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Projects
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7}>
+    //                    <RenderProjects projects={userInfo['project']} />
+    //                </Grid>
+    //            </Grid>
+    //            <Grid container justifyContent={'center'} columnSpacing={10}>
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Field
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7} rowSpacing={10}>
+    //                    <Typography>{userInfo['field']}</Typography>
+    //                </Grid>
+    //            </Grid>
+    //            <Grid
+    //                container
+    //                justifyContent={'center'}
+    //                columnSpacing={10}
+    //                sx={{
+    //                    height:
+    //                        52 +
+    //                        (userInfo['possessedItems'].length - 1 < 0
+    //                            ? 0
+    //                            : userInfo['possessedItems'].length - 1) *
+    //                            24,
+    //                }}
+    //            >
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Possessed Items
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7}>
+    //                    <RenderProjects projects={userInfo['possessedItems']} />
+    //                </Grid>
+    //            </Grid>
+    //            <Grid container justifyContent={'center'} columnSpacing={10}>
+    //                <Grid item xs={5}>
+    //                    <Typography display={'flex'} justifyContent={'end'}>
+    //                        Remarks
+    //                    </Typography>
+    //                </Grid>
+    //                <Grid item xs={7} rowSpacing={10}>
+    //                    <Typography>{userInfo['remarks']}</Typography>
+    //                </Grid>
+    //            </Grid>
+    //        </Grid>
+    //    );
 
     return (
-        <PageWrapper
-            title="Info"
-            icon={<InfoOutlinedIcon />}
-            href={`/assets/users`}
-        >
+        <PageWrapper title="Info" icon={<InfoOutlinedIcon />} href={`/users`}>
             <Typography variant="h5" component="h5">
                 {userInfo.name + ' - ' + userInfo.team}
             </Typography>

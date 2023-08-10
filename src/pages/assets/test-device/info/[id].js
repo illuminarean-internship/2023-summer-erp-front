@@ -79,7 +79,9 @@ const TestDeviceInfo = () => {
             serialNumber,
             condition,
             color,
-            totalPrice: currency_symbols[currency] + totalPrice,
+            totalPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             purchasedFrom,
             history,
             remarks,
