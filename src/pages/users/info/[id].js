@@ -18,6 +18,7 @@ const UserInfo = () => {
         field: '',
         possessedItems: [''],
         remarks: '',
+        email: '',
     });
 
     useEffect(() => {

@@ -18,9 +18,19 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
 
     const router = useRouter();
 
-    const fetchData = async (queryParams = {}) => {
+    const fetchData = async () => {
         setIsLoading(true);
         try {
+            let queryParams = {};
+
+            if (isArchived) {
+                queryParams.isArchived = true;
+            }
+
+            if (isRepair) {
+                queryParams.isRepair = true;
+            }
+
             const response = await axios.get(
                 'http://43.200.193.130:4040/api/laptop/',
                 {
@@ -39,22 +49,7 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        const queryParams = {};
-
-        if (isArchived) {
-            queryParams.isArchived = true;
-        }
-
-        if (isRepair) {
-            queryParams.isRepair = true;
-        }
-
-        if (!isArchived && !isRepair) {
-            // If both are false, fetch default data
-            fetchData();
-        } else {
-            fetchData(queryParams);
-        }
+        fetchData();
     }, [isArchived, isRepair]);
 
     const handleArchivedClick = () => {
@@ -155,11 +150,6 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
         },
-        {
-            field: 'purchasedFrom',
-            headerName: 'Purchased From',
-            width: 200,
-        },
         ////////////////////////////////////////
         {
             field: 'request',
@@ -187,8 +177,8 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             width: 170,
         },
         {
-            field: 'karrot',
-            headerName: 'Karrot',
+            field: 'karrotPrice',
+            headerName: 'Karrot Price',
             width: 170,
         },
         ///////////////////////////////////////

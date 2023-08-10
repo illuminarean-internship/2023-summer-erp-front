@@ -17,9 +17,18 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
 
     const router = useRouter();
 
-    const fetchData = async (queryParams = {}) => {
+    const fetchData = async () => {
         setIsLoading(true);
         try {
+            let queryParams = {};
+
+            if (isArchived) {
+                queryParams.isArchived = true;
+            }
+
+            if (isRepair) {
+                queryParams.isRepair = true;
+            }
             const response = await axios.get(
                 'http://43.200.193.130:4040/api/test-device/',
                 {
@@ -38,22 +47,7 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        const queryParams = {};
-
-        if (isArchived) {
-            queryParams.isArchived = true;
-        }
-
-        if (isRepair) {
-            queryParams.isRepair = true;
-        }
-
-        if (!isArchived && !isRepair) {
-            // If both are false, fetch default data
-            fetchData();
-        } else {
-            fetchData(queryParams);
-        }
+        fetchData();
     }, [isArchived, isRepair]);
 
     const handleArchivedClick = () => {
@@ -127,7 +121,6 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
         { field: 'location', headerName: 'Location', width: 100 },
         { field: 'serialNumber', headerName: 'Serial #', width: 200 },
         { field: 'condition', headerName: 'Condition', width: 100 },
-        { field: 'color', headerName: 'Color', width: 100 },
         {
             field: 'totalPrice',
             headerName: 'Total Price',
@@ -136,11 +129,6 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
                 `${getCurrencySymbol(params.row.currency)}  ${
                     params.row.totalPrice
                 }`,
-        },
-        {
-            field: 'purchasedFrom',
-            headerName: 'Purchased From',
-            width: 170,
         },
         {
             field: 'remarks',
@@ -174,8 +162,8 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
             width: 170,
         },
         {
-            field: 'karrot',
-            headerName: 'Karrot',
+            field: 'karrotPrice',
+            headerName: 'Karrot Price',
             width: 170,
         },
         ///////////////////////////////////////
@@ -205,7 +193,9 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
             <Button
                 variant={isArchived ? 'contained' : 'outlined'}
                 color="secondary"
-                sx={{ ml: 2 }}
+                sx={{
+                    ml: 2,
+                }}
                 startIcon={<FolderOpen />}
                 onClick={handleArchivedClick}
             >

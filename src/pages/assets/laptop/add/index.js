@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { AddBoxOutlined } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { AddBoxOutlined, Build } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import LaptopForm from '../../../../components/form/LaptopForm';
 const LaptopAdd = () => {
     const router = useRouter();
+
+    const [isRepairVar, setIsRepairVar] = useState(false);
     const [laptopInfo, setLaptopInfo] = useState({
         category: '',
         model: '',
@@ -36,6 +38,14 @@ const LaptopAdd = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
     const locations = useLocationsData();
 
@@ -60,11 +70,30 @@ const LaptopAdd = () => {
         const priceNumber = parseFloat(laptopInfo.price);
         const surtaxNumber = parseFloat(laptopInfo.surtax);
 
-        const updatedLaptopInfo = {
+        let updatedLaptopInfo = {
             ...laptopInfo,
             price: priceNumber,
             surtax: surtaxNumber,
         };
+
+        if (isRepairVar) {
+            updatedLaptopInfo = {
+                ...updatedLaptopInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedLaptopInfo = {
+                ...updatedLaptopInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
 
         try {
             const response = await axios.post(
@@ -155,15 +184,32 @@ const LaptopAdd = () => {
         }));
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper
             title="Add"
             icon={<AddBoxOutlined />}
             href="/assets/laptop"
         >
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                New Laptop
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    New Laptop
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <LaptopForm
                 handleSubmit={handleSubmit}
@@ -177,6 +223,7 @@ const LaptopAdd = () => {
                 handleHistoryLocationChange={handleHistoryLocationChange}
                 handlePriceChange={handlePriceChange}
                 handleSurtaxChange={handleSurtaxChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );

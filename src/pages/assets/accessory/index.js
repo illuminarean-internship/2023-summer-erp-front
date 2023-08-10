@@ -17,9 +17,18 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     const [columns, setColumns] = useState([]);
     const router = useRouter();
 
-    const fetchData = async (queryParams = {}) => {
+    const fetchData = async () => {
         setIsLoading(true);
         try {
+            let queryParams = {};
+
+            if (isArchived) {
+                queryParams.isArchived = true;
+            }
+
+            if (isRepair) {
+                queryParams.isRepair = true;
+            }
             const response = await axios.get(
                 'http://43.200.193.130:4040/api/accessory/',
                 {
@@ -38,22 +47,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        const queryParams = {};
-
-        if (isArchived) {
-            queryParams.isArchived = true;
-        }
-
-        if (isRepair) {
-            queryParams.isRepair = true;
-        }
-
-        if (!isArchived && !isRepair) {
-            // If both are false, fetch default data
-            fetchData();
-        } else {
-            fetchData(queryParams);
-        }
+        fetchData();
     }, [isArchived, isRepair]);
 
     const handleArchivedClick = () => {
@@ -130,18 +124,12 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
                     params.row.totalPrice
                 }`,
         },
-        { field: 'color', headerName: 'Color', width: 150 },
         {
             field: 'purchaseDate',
             headerName: 'Purchase Date',
             width: 200,
             renderCell: (params) =>
                 moment(params.row.purchaseDate).format('YYYY-MM-DD'),
-        },
-        {
-            field: 'purchasedFrom',
-            headerName: 'Purchased From',
-            width: 150,
         },
         ////////////////////////////////////////
         {
@@ -170,8 +158,8 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
             width: 170,
         },
         {
-            field: 'karrot',
-            headerName: 'Karrot',
+            field: 'karrotPrice',
+            headerName: 'Karrot Price',
             width: 170,
         },
         ///////////////////////////////////////

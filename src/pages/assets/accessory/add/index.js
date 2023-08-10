@@ -3,13 +3,15 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { AddBoxOutlined } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { AddBoxOutlined, Build } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import AccessoryForm from '../../../../components/form/AccessoryForm';
 
 const AccessoryAdd = () => {
     const router = useRouter();
+
+    const [isRepairVar, setIsRepairVar] = useState(false);
     const [accessoryInfo, setAccessoryInfo] = useState({
         model: '',
         category: '',
@@ -33,6 +35,14 @@ const AccessoryAdd = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
     const locations = useLocationsData();
 
@@ -53,10 +63,34 @@ const AccessoryAdd = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let updatedAccessoryInfo = {
+            ...accessoryInfo,
+        };
+
+        if (isRepairVar) {
+            updatedAccessoryInfo = {
+                ...updatedAccessoryInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedAccessoryInfo = {
+                ...updatedAccessoryInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
         try {
             const response = await axios.post(
                 'http://43.200.193.130:4040/api/accessory/',
-                accessoryInfo,
+                updatedAccessoryInfo,
             );
             console.log('Accessory created successfully:', response.data);
             router.push('/assets/accessory');
@@ -141,15 +175,32 @@ const AccessoryAdd = () => {
         }));
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper
             title="Add"
             icon={<AddBoxOutlined />}
             href="/assets/accessory"
         >
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                New Accessory
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    New Accessory
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <AccessoryForm
                 handleSubmit={handleSubmit}
@@ -163,6 +214,7 @@ const AccessoryAdd = () => {
                 handleHistoryLocationChange={handleHistoryLocationChange}
                 handlePriceChange={handlePriceChange}
                 handleSurtaxChange={handleSurtaxChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );

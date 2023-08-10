@@ -56,6 +56,35 @@ const UserForm = ({
                 <Grid container spacing={2} sx={{ p: 2 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
+                            <Typography>Email</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            height="100%"
+                            sx={{ width: '100%' }}
+                        >
+                            <TextField
+                                name="email"
+                                label="Enter Email"
+                                fullWidth
+                                value={userInfo.email}
+                                onChange={handleChange}
+                                required
+                                inputProps={{
+                                    style: {
+                                        height: '16px',
+                                    },
+                                }}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ p: 2 }}>
+                    <Grid item xs={4}>
+                        <Box display="flex" alignItems="center" sx={{ p: 2 }}>
                             <Typography>Team</Typography>
                         </Box>
                     </Grid>
@@ -168,7 +197,6 @@ const UserForm = ({
                                 fullWidth
                                 value={userInfo.field}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

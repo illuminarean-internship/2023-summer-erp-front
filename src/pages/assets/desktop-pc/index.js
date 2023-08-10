@@ -15,9 +15,14 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
 
     const router = useRouter();
 
-    const fetchData = async (queryParams = {}) => {
+    const fetchData = async () => {
         setIsLoading(true);
         try {
+            let queryParams = {};
+
+            if (isArchived) {
+                queryParams.isArchived = true;
+            }
             const response = await axios.get(
                 'http://43.200.193.130:4040/api/desktop-pc/',
                 {
@@ -35,17 +40,7 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
 
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
-        const queryParams = {};
-
-        if (isArchived) {
-            queryParams.isArchived = true;
-        }
-
-        if (!isArchived) {
-            fetchData();
-        } else {
-            fetchData(queryParams);
-        }
+        fetchData();
     }, [isArchived]);
 
     const handleArchivedClick = () => {
