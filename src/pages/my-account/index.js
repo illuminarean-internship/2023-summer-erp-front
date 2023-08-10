@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, Container, Typography } from '@mui/material';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import PageWrapper from '../../components/form/PageWrapper';
-import { signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 const MyAccount = () => {
