@@ -241,7 +241,6 @@ const SoftwareForm = ({
                                 fullWidth
                                 value={softwareInfo.reference}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -275,7 +274,7 @@ const SoftwareForm = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="Select team"
+                                        label="Select User"
                                         required
                                     />
                                 )}
@@ -284,7 +283,12 @@ const SoftwareForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

@@ -46,7 +46,6 @@ const UserInfo = () => {
                     `http://43.200.193.130:4040/api/software?userId=${id}`,
                 ),
             ]);
-
             const results = await Promise.all([
                 responses[0].data,
                 responses[1].data,

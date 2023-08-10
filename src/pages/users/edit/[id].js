@@ -22,6 +22,7 @@ const UsersEdit = () => {
         project: [],
         field: '',
         remarks: '',
+        email: '',
     });
 
     const teamList = useTeamData();
