@@ -3,8 +3,10 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 export default function OverviewPage() {
+    const { data: session } = useSession();
     const [categorySizes, setCategorySizes] = useState([
         '...',
         '...',
@@ -42,18 +44,6 @@ export default function OverviewPage() {
         fetchData();
     }, []);
 
-    // to not make any errors comment for a while
-    // const [categoryButtonList, setCategoryButtonList] =
-    //     useState(sampleStartingList); //create a hook whose array can be updated in react
-    // const categories = categoryButtonList.map((item) => (
-    //     <CategoryItem
-    //         key={item.name}
-    //         name={item.name}
-    //         link={item.link}
-    //         size={item.size}
-    //     />
-    // ));
-
     let sampleStartingList = [
         { name: 'Accessory', link: 'accessory', size: categorySizes[0] },
         { name: 'Books', link: 'books', size: categorySizes[1] },
@@ -78,7 +68,7 @@ export default function OverviewPage() {
                     sx={{ ml: -28 }}
                 >
                     <Typography variant="h5" align="center">
-                        {`Welcome "{session.user.name}"`}
+                        {`Welcome "${session.user.name}"`}
                     </Typography>
                     <Box
                         sx={{

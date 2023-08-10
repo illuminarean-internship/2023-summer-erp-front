@@ -24,6 +24,8 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
 
             if (isArchived) {
                 queryParams.isArchived = true;
+            } else {
+                queryParams.isArchived = false;
             }
 
             if (isRepair) {

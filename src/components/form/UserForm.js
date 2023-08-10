@@ -152,7 +152,6 @@ const UserForm = ({
                                             <TextField
                                                 {...params}
                                                 label="Select project"
-                                                required
                                             />
                                         )}
                                     />

@@ -22,8 +22,9 @@ const Books = ({ setSelectedLink, isOpen }) => {
 
             if (isArchived) {
                 queryParams.isArchived = true;
+            } else {
+                queryParams.isArchived = false;
             }
-
             const response = await axios.get(
                 'http://43.200.193.130:4040/api/books/',
                 {
