@@ -92,7 +92,6 @@ const DesktopForm = ({
                                 fullWidth
                                 value={desktopInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',

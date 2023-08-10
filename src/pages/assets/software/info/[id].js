@@ -80,9 +80,6 @@ const SoftwareInfo = () => {
             history,
         };
     };
-
-    console.log(softwareInfo);
-
     return (
         <div>
             <InfoPageTemplate

@@ -1,6 +1,13 @@
 import { AddBoxOutlined } from '@mui/icons-material';
 import { Alert, Box, IconButton, Stack, Typography } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import {
+    DataGrid,
+    GridToolbarColumnsButton,
+    GridToolbarContainer,
+    GridToolbarExport,
+    GridToolbarFilterButton,
+    GridToolbarQuickFilter,
+} from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { getPageTitle } from '../utils/stringUtils';
 
@@ -24,6 +31,17 @@ const DataTable = ({
     } else {
         pageTitle =
             pathParsed[1].charAt(0).toUpperCase() + pathParsed[1].slice(1);
+    }
+
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarColumnsButton />
+                <GridToolbarFilterButton />
+                <GridToolbarExport />
+                <GridToolbarQuickFilter sx={{ ml: 3, width: 300 }} />
+            </GridToolbarContainer>
+        );
     }
 
     return (
@@ -61,8 +79,7 @@ const DataTable = ({
                 pageSizeOptions={[5, 10, 25]}
                 disableDensitySelector
                 autoHeight
-                slots={{ toolbar: GridToolbar }}
-                slotProps={{ toolbar: { showQuickFilter: true } }}
+                slots={{ toolbar: CustomToolbar }}
                 loading={isLoading}
                 style={{ width: isOpen ? '1500px' : '1680px' }}
             ></DataGrid>

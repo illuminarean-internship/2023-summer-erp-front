@@ -6,7 +6,7 @@ const PageWrapper = ({ title, icon, href, children }) => {
     return (
         <Box
             sx={{
-                minHeight: '100vh',
+                minHeight: '150vh',
                 backgroundColor: '#f0f0f0',
                 display: 'flex',
                 flexDirection: 'column',

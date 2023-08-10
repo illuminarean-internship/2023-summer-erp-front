@@ -1,6 +1,5 @@
 import CategoryItem from './CategoryItem';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -18,23 +17,17 @@ export default function OverviewPage() {
 
     const fetchData = async () => {
         try {
-            const responses = await Promise.all([
-                axios.get('http://43.200.193.130:4040/api/accessory/'),
-                axios.get('http://43.200.193.130:4040/api/books/'),
-                axios.get('http://43.200.193.130:4040/api/test-device/'),
-                axios.get('http://43.200.193.130:4040/api/desktop-pc/'),
-                axios.get('http://43.200.193.130:4040/api/laptop/'),
-                axios.get('http://43.200.193.130:4040/api/software/'),
-            ]);
-
-            const results = await Promise.all([
-                responses[0].data.length,
-                responses[1].data.length,
-                responses[2].data.length,
-                responses[3].data.length,
-                responses[4].data.length,
-                responses[5].data.length,
-            ]);
+            const response = await axios.get(
+                'http://43.200.193.130:4040/api/info',
+            );
+            const results = [
+                response.data['numOfAcc'],
+                response.data['numOfBook'],
+                response.data['numOfDesktop'],
+                response.data['numOfLaptop'],
+                response.data['numOfSW'],
+                response.data['numOfTestDev'],
+            ];
             setCategorySizes(results);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -53,39 +46,56 @@ export default function OverviewPage() {
         { name: 'Test Device', link: 'test-device', size: categorySizes[5] },
     ];
 
-    const categories = sampleStartingList.map((item) => (
-        <CategoryItem item={item} key={uuidv4()} />
+    const chunkArray = (array, chunkSize) => {
+        const result = [];
+        for (let i = 0; i < array.length; i += chunkSize) {
+            result.push(array.slice(i, i + chunkSize));
+        }
+        return result;
+    };
+
+    const chunkedCategories = chunkArray(sampleStartingList, 3);
+
+    const rows = chunkedCategories.map((rowItems, rowIndex) => (
+        <Grid container spacing={2} key={rowIndex}>
+            {rowItems.map((item) => (
+                <Grid item xs={4} key={item.name}>
+                    <CategoryItem item={item} />
+                </Grid>
+            ))}
+        </Grid>
     ));
 
     return (
         <div>
-            <Container sx={{ p: 3 }}>
+            <Box
+                display="flex"
+                justifyContent="center"
+                flexDirection="column"
+                alignItems="center"
+                sx={{ mr: 15, mt: 3 }}
+            >
+                <Typography variant="h5" align="center">
+                    {`Welcome "${session.user.name}"`}
+                </Typography>
                 <Box
-                    display="flex"
-                    justifyContent="center"
-                    flexDirection="column"
-                    alignItems="center"
-                    sx={{ ml: -28 }}
-                >
-                    <Typography variant="h5" align="center">
-                        {`Welcome "${session.user.name}"`}
-                    </Typography>
-                    <Box
-                        sx={{
-                            mt: 0.5,
-                            width: 250,
-                            height: 7,
-                            bgcolor: 'text.disabled',
-                        }}
-                    />
-                </Box>
+                    sx={{
+                        mt: 0.5,
+                        width: 250,
+                        height: 7,
+                        bgcolor: 'text.disabled',
+                    }}
+                />
+            </Box>
+
+            <Container>
                 <Typography variant="h5" sx={{ mb: 3, mt: 2 }}>
                     Overview
                 </Typography>
 
                 <Box display="flex" justifyContent="center">
                     <Grid container spacing={2}>
-                        {categories}
+                        {rows}
                     </Grid>
                 </Box>
             </Container>

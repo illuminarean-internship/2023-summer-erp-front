@@ -7,7 +7,6 @@ import PageWrapper from '../../../../components/form/PageWrapper';
 import { ContentCopy } from '@mui/icons-material';
 import { Divider, Typography } from '@mui/material';
 import LaptopForm from '../../../../components/form/LaptopForm';
-import { formatDate } from '../../../../utils/stringUtils';
 import moment from 'moment';
 
 const LaptopCopy = () => {
@@ -62,7 +61,6 @@ const LaptopCopy = () => {
             RAM,
             SSD,
             serialNumber,
-            location,
             currency,
             price,
             warranty,
@@ -73,25 +71,17 @@ const LaptopCopy = () => {
             purchaseDate,
             purchasedFrom,
             remarks,
-            history,
         } = laptopData;
 
-        const updatedHistory = history.length
-            ? history.map((historyEntry) => ({
-                  ...historyEntry,
-                  id: uuidv4(),
-                  startDate: formatDate(historyEntry.startDate),
-                  endDate: formatDate(historyEntry.endDate),
-              }))
-            : [
-                  {
-                      startDate: '',
-                      endDate: '',
-                      historyLocation: null,
-                      historyRemark: '',
-                      id: uuidv4(),
-                  },
-              ];
+        const updatedHistory = [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ];
 
         return {
             category,
@@ -100,7 +90,7 @@ const LaptopCopy = () => {
             RAM,
             SSD,
             serialNumber,
-            location,
+            location: null,
             warranty,
             currency,
             price,

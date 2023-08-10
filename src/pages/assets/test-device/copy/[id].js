@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { formatDate } from '../../../../utils/stringUtils';
 import PageWrapper from '../../../../components/form/PageWrapper';
 import { ContentCopy } from '@mui/icons-material';
 import { Divider, Typography } from '@mui/material';
@@ -59,7 +58,6 @@ const TestDeviceCopy = () => {
             RAM,
             memory,
             team,
-            location,
             serialNumber,
             condition,
             color,
@@ -67,25 +65,17 @@ const TestDeviceCopy = () => {
             purchasedFrom,
             remarks,
             currency,
-            history,
         } = testDeviceData;
 
-        const updatedHistory = history.length
-            ? history.map((historyEntry) => ({
-                  ...historyEntry,
-                  id: uuidv4(),
-                  startDate: formatDate(historyEntry.startDate),
-                  endDate: formatDate(historyEntry.endDate),
-              }))
-            : [
-                  {
-                      startDate: '',
-                      endDate: '',
-                      historyLocation: null,
-                      historyRemark: '',
-                      id: uuidv4(),
-                  },
-              ];
+        const updatedHistory = [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ];
 
         return {
             model,
@@ -93,7 +83,7 @@ const TestDeviceCopy = () => {
             RAM,
             memory,
             team,
-            location,
+            location: null,
             serialNumber,
             condition,
             color,
