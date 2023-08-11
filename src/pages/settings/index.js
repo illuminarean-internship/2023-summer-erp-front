@@ -97,7 +97,7 @@ const Settings = () => {
                 </Typography>
 
                 <Divider sx={{ my: 2, borderColor: theme.palette.grey[300] }} />
-                <Typography variant="h6" sx={{ mt: 2 }}>
+                <Typography variant="h6" sx={{ mt: 5 }}>
                     Administrators
                 </Typography>
                 <Typography gutterBottom>
@@ -116,7 +116,7 @@ const Settings = () => {
                     />
                 </Box>
 
-                <Box mt={3} display="flex" alignItems="center">
+                <Box mt={5} mb={10} display="flex" alignItems="center">
                     <TextField
                         label="New Admin Email"
                         variant="outlined"

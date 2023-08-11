@@ -796,7 +796,6 @@ const AccessoryForm = ({
                                         <TextField
                                             name="resellPrice"
                                             label="Enter Resell Price"
-                                            type="number"
                                             fullWidth
                                             value={accessoryInfo.resellPrice}
                                             onChange={handleChange}
@@ -828,7 +827,6 @@ const AccessoryForm = ({
                                         <TextField
                                             name="karrotPrice"
                                             label="Enter Karrot Price"
-                                            type="number"
                                             fullWidth
                                             value={accessoryInfo.karrotPrice}
                                             onChange={handleChange}

@@ -27,7 +27,7 @@ const MyAccount = () => {
     const { image, name, email } = session.user;
     return (
         <>
-            <PageWrapper>
+            <PageWrapper href="/">
                 <Container>
                     <Typography variant="h4">My account</Typography>
                     <Box sx={{ m: 4, mb: 5 }}>
