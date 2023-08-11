@@ -18,11 +18,7 @@ const BooksInfo = () => {
         price: '',
         history: [],
         remarks: '',
-        isRepair: false,
-        request: '',
-        replace: '',
-        repairPrice: '',
-        repairDetails: '',
+
     });
 
     useEffect(() => {

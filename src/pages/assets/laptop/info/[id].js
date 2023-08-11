@@ -30,6 +30,8 @@ const LaptopInfo = () => {
         request: '',
         replace: '',
         repairPrice: '',
+        resellPrice: '',
+        karrotPrice: '',
         repairDetails: '',
     });
 
@@ -82,9 +84,12 @@ const LaptopInfo = () => {
             currency,
             remarks,
             isRepair,
+            issues,
             request,
             replace,
             repairPrice,
+            resellPrice,
+            karrotPrice,
             repairDetails,
         } = laptopData;
         return {
@@ -118,9 +123,24 @@ const LaptopInfo = () => {
                       ' days '),
             history,
             isRepair,
+            issues,
             request,
             replace,
-            repairPrice,
+            repairPrice: !repairPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + repairPrice
+                : currency + repairPrice,
+            resellPrice: !resellPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + resellPrice
+                : currency + resellPrice,
+            karrotPrice: !karrotPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + karrotPrice
+                : currency + karrotPrice,
             repairDetails,
             remarks,
         };

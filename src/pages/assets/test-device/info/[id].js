@@ -23,9 +23,12 @@ const TestDeviceInfo = () => {
         history: [],
         remarks: '',
         isRepair: false,
+        issues: '',
         request: '',
         replace: '',
         repairPrice: '',
+        resellPrice: '',
+        karrotPrice: '',
         repairDetails: '',
     });
 
@@ -73,10 +76,13 @@ const TestDeviceInfo = () => {
             currency,
             history,
             isRepair,
+            issues,
             request,
             replace,
             repairPrice,
             repairDetails,
+            resellPrice,
+            karrotPrice,
             remarks,
         } = testDeviceData;
         return {
@@ -95,9 +101,25 @@ const TestDeviceInfo = () => {
             purchasedFrom,
             history,
             isRepair,
+            issues,
             request,
             replace,
-            repairPrice,
+            repairPrice: !repairPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + repairPrice
+                : currency + repairPrice,
+            resellPrice: !resellPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + resellPrice
+                : currency + resellPrice,
+            karrotPrice: !karrotPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + karrotPrice
+                : currency + karrotPrice,
+            repairDetails,
             repairDetails,
             remarks,
         };

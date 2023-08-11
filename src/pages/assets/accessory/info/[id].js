@@ -3,7 +3,7 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { Typography } from '@mui/material';
+
 
 const AccessoryInfo = () => {
     const router = useRouter();
@@ -28,7 +28,9 @@ const AccessoryInfo = () => {
         isRepair: false,
         request: '',
         replace: '',
-        repairPrice: '',
+        repairPrice: null,
+        resellPrice: null,
+        karrotPrice: null,
         repairDetails: '',
     });
 
@@ -78,10 +80,13 @@ const AccessoryInfo = () => {
             purchasedFrom,
             history,
             isRepair,
+            issues,
             request,
             replace,
             repairPrice,
             repairDetails,
+            resellPrice,
+            karrotPrice,
             remarks,
         } = accessoryData;
         return {
@@ -111,9 +116,24 @@ const AccessoryInfo = () => {
             purchasedFrom,
             history,
             isRepair,
+            issues,
             request,
             replace,
-            repairPrice,
+            repairPrice: !repairPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + repairPrice
+                : currency + repairPrice,
+            resellPrice: !resellPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + resellPrice
+                : currency + resellPrice,
+            karrotPrice: !karrotPrice
+                ? ''
+                : currency_symbols[currency]
+                ? currency_symbols[currency] + karrotPrice
+                : currency + karrotPrice,
             repairDetails,
             remarks,
         };

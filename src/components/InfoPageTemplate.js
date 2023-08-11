@@ -13,40 +13,48 @@ export default function InfoPageTemplate({
     children = null,
     pathname = '',
 }) {
-    const renderLabels = Object.keys(dataToRender)
-        .flat()
-        .map(
-            (v) =>
-                ![
-                    'history',
-                    'details',
-                    'summedCost',
-                    'remarks',
-                    'isRepair',
-                    'issues',
-                    'replace',
-                    'request',
-                    'repairPrice',
-                    'repairDetails',
-                    'resellPrice',
-                    'karrotPrice',
-                ].includes(v) && (
-                    <LabelInfoWrapper key={v}>
-                        <LabelContainer>
-                            <Typography>
-                                {v
-                                    .replace(/([A-Z])/g, ' $1')
-                                    .replace(/^./, function (str) {
-                                        return str.toUpperCase(); //converts camelCase to Label
-                                    })}
-                            </Typography>
-                        </LabelContainer>
-                        <InfoContainer key={dataToRender[v]}>
-                            <Info>{dataToRender[v]}</Info>
-                        </InfoContainer>
-                    </LabelInfoWrapper>
-                ),
-        );
+    const renderLabels = (
+        <Grid container columnSpacing={10} rowSpacing={2}>
+            {Object.keys(dataToRender)
+                .flat()
+                .map(
+                    (v, index) =>
+                        (![
+                            'history',
+                            'details',
+                            'summedCost',
+                            'remarks',
+                            'isRepair',
+                            'issues',
+                            'replace',
+                            'request',
+                            'repairPrice',
+                            'repairDetails',
+                            'resellPrice',
+                            'karrotPrice',
+                        ].includes(v) ||
+                            (v == 'remarks' && type == 'software')) && (
+                            <Grid container xs={12} key={index}>
+                                <Grid item="true" xs={5}>
+                                    <Typography
+                                        display={'flex'}
+                                        justifyContent={'end'}
+                                    >
+                                        {v
+                                            .replace(/([A-Z])/g, ' $1')
+                                            .replace(/^./, function (str) {
+                                                return str.toUpperCase();
+                                            })}
+                                    </Typography>
+                                </Grid>
+                                <Grid item="true" xs={7}>
+                                    <Typography>{dataToRender[v]}</Typography>
+                                </Grid>
+                            </Grid>
+                        ),
+                )}
+        </Grid>
+    );
     const historyLoader = dataToRender['history'].map((history, index) => (
         <Grid
             container
@@ -86,60 +94,76 @@ export default function InfoPageTemplate({
 
     const historyRenderer = type !== 'software' && (
         <>
-            <LabelInfoWrapper>
-                <LabelContainer sx={{ marginBottom: 2 }}>
-                    <Typography>History</Typography>
-                </LabelContainer>
-                <InfoContainer
+            <Grid container columnSpacing={10} rowSpacing={2}>
+                <Grid item="true" xs={5} sx={{ mt: 2 }}>
+                    <Typography display={'flex'} justifyContent={'end'}>
+                        History
+                    </Typography>
+                </Grid>
+                <Grid
+                    item="true"
+                    xs={7}
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography>History Remarks</Typography>
-                </InfoContainer>
-            </LabelInfoWrapper>
+                    <Typography
+                        display={'flex'}
+                        justifyContent={'end'}
+                        sx={{ mt: 2 }}
+                    >
+                        History Remarks
+                    </Typography>
+                </Grid>
+            </Grid>
             {historyLoader}
         </>
     );
 
-    const renderRepairDetails = ({ details }) => {
-        return (
-            <div>
-                {details.map((detail, index) => (
-                    <Typography key={index}>{detail}</Typography>
-                ))}
-            </div>
-        );
-    };
-
     const repairRender = dataToRender['isRepair'] && (
         <>
-            <LabelInfoWrapper sx={{ mt: 2 }}>
-                <LabelContainer>
-                    <Typography>Issues</Typography>
-                </LabelContainer>
-                <InfoContainer>
+            <Grid container columnSpacing={10} rowSpacing={2} sx={{ mt: 3 }}>
+                <Grid item="true" xs={5}>
+                    <Typography display={'flex'} justifyContent={'end'}>
+                        Issues
+                    </Typography>
+                </Grid>
+                <Grid item="true" xs={7}>
                     <Info>{dataToRender['issues']}</Info>
-                </InfoContainer>
-            </LabelInfoWrapper>
-            <LabelInfoWrapper sx={{ mt: 10, textDecoration: 'underline' }}>
-                <LabelContainer>
-                    <Typography>Repair & Replace</Typography>
-                </LabelContainer>
-            </LabelInfoWrapper>
-            {['request', 'replace', 'repairPrice', 'repairDetails'].map((v) => (
-                <LabelInfoWrapper key={v}>
-                    <LabelContainer>
-                        <Typography>
+                </Grid>
+            </Grid>
+            <Grid
+                container
+                columnSpacing={10}
+                rowSpacing={2}
+                sx={{ mt: 10, textDecoration: 'underline' }}
+            >
+                <Grid item="true" xs={5}>
+                    <Typography display={'flex'} justifyContent={'end'}>
+                        Repair & Replace
+                    </Typography>
+                </Grid>
+            </Grid>
+            {[
+                'request',
+                'replace',
+                'repairPrice',
+                'repairDetails',
+                'resellPrice',
+                'karrotPrice',
+            ].map((v) => (
+                <Grid container columnSpacing={10} rowSpacing={2} key={v}>
+                    <Grid item="true" xs={5}>
+                        <Typography display={'flex'} justifyContent={'end'}>
                             {v
                                 .replace(/([A-Z])/g, ' $1')
                                 .replace(/^./, function (str) {
                                     return str.toUpperCase(); //converts camelCase to Label
                                 })}
                         </Typography>
-                    </LabelContainer>
-                    <InfoContainer key={dataToRender[v]}>
+                    </Grid>
+                    <Grid item="true" xs={7} key={dataToRender[v]}>
                         <Info>{dataToRender[v]}</Info>
-                    </InfoContainer>
-                </LabelInfoWrapper>
+                    </Grid>
+                </Grid>
             ))}
         </>
     );
@@ -153,20 +177,29 @@ export default function InfoPageTemplate({
             <Typography variant="h5" component="h5">
                 {title}
             </Typography>
-            <Divider sx={{ my: 2, borderColor: 'gray' }} />
-            <InfoWrapper>
+            <Divider sx={{ mt: 2, mb: 10, borderColor: 'gray' }} />
+            <div>
                 {renderLabels}
                 {historyRenderer}
                 {children}
                 {repairRender}
-                <LabelInfoWrapper sx={{ marginTop: 3 }}>
-                    <LabelContainer>
-                        <Typography>{type != 'books' && 'Remarks'}</Typography>
-                    </LabelContainer>
-                    <InfoContainer>
-                        <Info>{dataToRender['remarks']}</Info>
-                    </InfoContainer>
-                </LabelInfoWrapper>
+                <Grid
+                    container
+                    columnSpacing={10}
+                    rowSpacing={3}
+                    sx={{ marginTop: 3 }}
+                >
+                    <Grid item="true" xs={5}>
+                        <Typography display={'flex'} justifyContent={'end'}>
+                            {type != 'books' && type != 'software' && 'Remarks'}
+                        </Typography>
+                    </Grid>
+                    <Grid item="true" xs={7}>
+                        <Info>
+                            {type != 'software' && dataToRender['remarks']}
+                        </Info>
+                    </Grid>
+                </Grid>
                 <Grid
                     container
                     sx={{ justifyContent: 'center', display: 'flex' }}
@@ -174,48 +207,15 @@ export default function InfoPageTemplate({
                     <Button
                         variant="outlined"
                         href={pathname}
-                        sx={{ margin: 5 }}
+                        sx={{ margin: 4 }}
                     >
                         Edit
                     </Button>
                 </Grid>
-            </InfoWrapper>
+            </div>
         </PageWrapper>
     );
 }
-
-const InfoWrapper = styled('div')(() => ({
-    width: 1100,
-    height: 617,
-    marginTop: 70,
-}));
-
-const LabelInfoWrapper = styled('div')(() => ({
-    width: 1100,
-    height: 20,
-    marginBottom: 26,
-    alignitems: 'flex-start',
-    flexShrink: 0,
-    display: 'flex',
-}));
-
-const LabelContainer = styled('div')(() => ({
-    width: 402,
-    display: 'flex',
-    height: 22,
-    justifyContent: 'right',
-    flexDirection: 'row',
-    flexShrink: 0,
-}));
-
-const InfoContainer = styled('div')(() => ({
-    width: 491,
-    marginLeft: 100,
-    display: 'flex',
-    height: 22,
-    justifyContent: 'left',
-    flexShrink: 0,
-}));
 
 const Info = styled(Typography)(() => ({
     width: 491,

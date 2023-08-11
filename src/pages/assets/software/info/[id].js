@@ -4,7 +4,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
 
 const SoftwareInfo = () => {
     const router = useRouter();
@@ -22,11 +21,6 @@ const SoftwareInfo = () => {
         reference: '',
         user: '',
         history: [],
-        isRepair: false,
-        request: '',
-        replace: '',
-        repairPrice: '',
-        repairDetails: '',
     });
 
     useEffect(() => {
