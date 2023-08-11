@@ -3,7 +3,10 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-
+import {
+    FilterPrices,
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const AccessoryInfo = () => {
     const router = useRouter();
@@ -44,24 +47,6 @@ const AccessoryInfo = () => {
             });
     }, []);
 
-    const currency_symbols = {
-        USD: '$', // US Dollar
-        EUR: '€', // Euro
-        CRC: '₡', // Costa Rican Colón
-        GBP: '£', // British Pound Sterling
-        ILS: '₪', // Israeli New Sheqel
-        INR: '₹', // Indian Rupee
-        JPY: '¥', // Japanese Yen
-        KRW: '₩', // South Korean Won
-        NGN: '₦', // Nigerian Naira
-        PHP: '₱', // Philippine Peso
-        PLN: 'zł', // Polish Zloty
-        PYG: '₲', // Paraguayan Guarani
-        THB: '฿', // Thai Baht
-        UAH: '₴', // Ukrainian Hryvnia
-        VND: '₫', // Vietnamese Dong
-    };
-
     const filterRelevantData = (accessoryData) => {
         const {
             model,
@@ -89,6 +74,9 @@ const AccessoryInfo = () => {
             karrotPrice,
             remarks,
         } = accessoryData;
+        //console.log(FilterPrices(repairPrice, currency));
+        //console.log(!repairPrice, !resellPrice, !karrotPrice);
+        console.log(repairPrice, currency);
         return {
             model,
             category,
@@ -121,19 +109,13 @@ const AccessoryInfo = () => {
             replace,
             repairPrice: !repairPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + repairPrice
-                : currency + repairPrice,
+                : FilterPrices(repairPrice, currency),
             resellPrice: !resellPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + resellPrice
-                : currency + resellPrice,
+                : FilterPrices(repairPrice, currency),
             karrotPrice: !karrotPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + karrotPrice
-                : currency + karrotPrice,
+                : FilterPrices(repairPrice, currency),
             repairDetails,
             remarks,
         };

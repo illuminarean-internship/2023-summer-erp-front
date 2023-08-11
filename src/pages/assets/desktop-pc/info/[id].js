@@ -61,11 +61,6 @@ const DesktopPcInfo = () => {
             details,
             history,
             totalPrice,
-            isRepair,
-            request,
-            replace,
-            repairPrice,
-            repairDetails,
             remarks,
         } = desktopPcData;
         return {

@@ -3,6 +3,10 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import {
+    FilterPrices,
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const LaptopInfo = () => {
     const router = useRouter();
@@ -128,19 +132,13 @@ const LaptopInfo = () => {
             replace,
             repairPrice: !repairPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + repairPrice
-                : currency + repairPrice,
+                : FilterPrices(repairPrice, currency),
             resellPrice: !resellPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + resellPrice
-                : currency + resellPrice,
+                : FilterPrices(repairPrice, currency),
             karrotPrice: !karrotPrice
                 ? ''
-                : currency_symbols[currency]
-                ? currency_symbols[currency] + karrotPrice
-                : currency + karrotPrice,
+                : FilterPrices(repairPrice, currency),
             repairDetails,
             remarks,
         };

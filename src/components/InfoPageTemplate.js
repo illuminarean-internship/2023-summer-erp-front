@@ -18,7 +18,7 @@ export default function InfoPageTemplate({
             {Object.keys(dataToRender)
                 .flat()
                 .map(
-                    (v, index) =>
+                    (v) =>
                         (![
                             'history',
                             'details',
@@ -34,7 +34,7 @@ export default function InfoPageTemplate({
                             'karrotPrice',
                         ].includes(v) ||
                             (v == 'remarks' && type == 'software')) && (
-                            <Grid container xs={12} key={index}>
+                            <Grid container xs={12} key={v}>
                                 <Grid item="true" xs={5}>
                                     <Typography
                                         display={'flex'}
