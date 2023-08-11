@@ -56,7 +56,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
     };
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 150 },
+        { field: 'name', headerName: 'Name', width: 300 },
 
         {
             field: 'purchaseDate',

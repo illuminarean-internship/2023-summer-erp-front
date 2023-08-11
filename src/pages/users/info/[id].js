@@ -71,25 +71,7 @@ const UserInfo = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    //const [userInfo, setUserInfo] = useState({
-    //    name: '',
-    //    team: '',
-    //    project: [''],
-    //    field: '',
-    //    possessedItems: [''],
-    //    remarks: '',
-    //});
-    //
-    //useEffect(() => {
-    //    axios
-    //        .get(`http://43.200.193.130:4040/api/users/user/${id}`)
-    //        .then((res) => {
-    //            const userData = res.data;
-    //            const filteredData = filterRelevantData(userData);
-    //            setUserInfo(filteredData);
-    //        });
-    //}, []);
-    //
+
     const filterRelevantData = (userData) => {
         const { name, team, project, field, remarks } = userData;
         return {

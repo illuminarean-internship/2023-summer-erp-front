@@ -2,6 +2,10 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {
+    FilterPrices,
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const TestDeviceInfo = () => {
     const router = useRouter();
@@ -22,6 +26,14 @@ const TestDeviceInfo = () => {
         purchasedFrom: 'G 마켓',
         history: [],
         remarks: '',
+        isRepair: false,
+        issues: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        resellPrice: '',
+        karrotPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -33,24 +45,6 @@ const TestDeviceInfo = () => {
                 setTestDeviceInfo(filteredData);
             });
     }, []);
-
-    const currency_symbols = {
-        USD: '$', // US Dollar
-        EUR: '€', // Euro
-        CRC: '₡', // Costa Rican Colón
-        GBP: '£', // British Pound Sterling
-        ILS: '₪', // Israeli New Sheqel
-        INR: '₹', // Indian Rupee
-        JPY: '¥', // Japanese Yen
-        KRW: '₩', // South Korean Won
-        NGN: '₦', // Nigerian Naira
-        PHP: '₱', // Philippine Peso
-        PLN: 'zł', // Polish Zloty
-        PYG: '₲', // Paraguayan Guarani
-        THB: '฿', // Thai Baht
-        UAH: '₴', // Ukrainian Hryvnia
-        VND: '₫', // Vietnamese Dong
-    };
 
     const filterRelevantData = (testDeviceData) => {
         const {
@@ -67,6 +61,14 @@ const TestDeviceInfo = () => {
             purchasedFrom,
             currency,
             history,
+            isRepair,
+            issues,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            resellPrice,
+            karrotPrice,
             remarks,
         } = testDeviceData;
         return {
@@ -84,6 +86,20 @@ const TestDeviceInfo = () => {
                 : currency + totalPrice,
             purchasedFrom,
             history,
+            isRepair,
+            issues,
+            request,
+            replace,
+            repairPrice: !repairPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            resellPrice: !resellPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            karrotPrice: !karrotPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            repairDetails,
             remarks,
         };
     };

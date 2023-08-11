@@ -821,7 +821,6 @@ const TestDeviceForm = ({
                                         <TextField
                                             name="resellPrice"
                                             label="Enter Resell Price"
-                                            type="number"
                                             fullWidth
                                             value={testDeviceInfo.resellPrice}
                                             onChange={handleChange}
@@ -853,7 +852,6 @@ const TestDeviceForm = ({
                                         <TextField
                                             name="karrotPrice"
                                             label="Enter Karrot Price"
-                                            type="number"
                                             fullWidth
                                             value={testDeviceInfo.karrotPrice}
                                             onChange={handleChange}

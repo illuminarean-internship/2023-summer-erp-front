@@ -71,7 +71,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     };
 
     const defaultColumns = [
-        { field: 'model', headerName: 'Model', width: 300 },
+        { field: 'model', headerName: 'Model', width: 450 },
         { field: 'category', headerName: 'Category', width: 150 },
         { field: 'serialNumber', headerName: 'Serial #', width: 150 },
         { field: 'location', headerName: 'Location', width: 150 },
@@ -113,7 +113,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     ];
 
     const repairColumns = [
-        { field: 'model', headerName: 'Model', width: 300 },
+        { field: 'model', headerName: 'Model', width: 450 },
         { field: 'category', headerName: 'Category', width: 150 },
         { field: 'serialNumber', headerName: 'Serial #', width: 150 },
         { field: 'location', headerName: 'Location', width: 150 },

@@ -1,6 +1,9 @@
 export const getPageTitle = (assetName) => {
     let title = assetName.replace(/-/g, ' '); // Replace hyphens with spaces
     title = title.charAt(0).toUpperCase() + title.slice(1); // Capitalize the first letter
+    if (title === 'Desktop pc') {
+        title = 'Desktop PC';
+    }
     return title;
 };
 
