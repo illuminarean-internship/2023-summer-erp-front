@@ -74,8 +74,7 @@ const AccessoryInfo = () => {
             karrotPrice,
             remarks,
         } = accessoryData;
-        //console.log(FilterPrices(repairPrice, currency));
-        //console.log(!repairPrice, !resellPrice, !karrotPrice);
+
         console.log(repairPrice, currency);
         return {
             model,
