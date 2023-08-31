@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { EditNote } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { Build, EditNote } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import LaptopForm from '../../../../components/form/LaptopForm';
 import { formatDate } from '../../../../utils/stringUtils';
 import moment from 'moment';
@@ -13,6 +13,7 @@ import moment from 'moment';
 const LaptopEdit = () => {
     const router = useRouter();
     const { id } = router.query;
+    const [isRepairVar, setIsRepairVar] = useState(false);
 
     const [laptopInfo, setLaptopInfo] = useState({
         category: '',
@@ -41,6 +42,14 @@ const LaptopEdit = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
     const locations = useLocationsData();
 
@@ -65,6 +74,7 @@ const LaptopEdit = () => {
             location,
             currency,
             price,
+            warranty,
             surtax,
             totalPrice,
             illumiSerial,
@@ -73,6 +83,14 @@ const LaptopEdit = () => {
             purchasedFrom,
             remarks,
             history,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         } = laptopData;
 
         const updatedHistory = history.length
@@ -92,7 +110,7 @@ const LaptopEdit = () => {
                   },
               ];
 
-        return {
+        let updatedData = {
             category,
             model,
             CPU,
@@ -100,7 +118,7 @@ const LaptopEdit = () => {
             SSD,
             serialNumber,
             location,
-            warranty: moment(purchaseDate).format('YYYY-MM-DD'),
+            warranty,
             currency,
             price,
             surtax,
@@ -111,7 +129,31 @@ const LaptopEdit = () => {
             purchasedFrom,
             remarks,
             history: updatedHistory,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         };
+
+        // isRepair가 false일 때 관련 필드들 초기화
+        if (!isRepair) {
+            updatedData = {
+                ...updatedData,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
+        return updatedData;
     };
 
     const handleChange = (e) => {
@@ -135,11 +177,30 @@ const LaptopEdit = () => {
         const priceNumber = parseFloat(laptopInfo.price);
         const surtaxNumber = parseFloat(laptopInfo.surtax);
 
-        const updatedLaptopInfo = {
+        let updatedLaptopInfo = {
             ...laptopInfo,
             price: priceNumber,
             surtax: surtaxNumber,
         };
+
+        if (isRepairVar) {
+            updatedLaptopInfo = {
+                ...updatedLaptopInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedLaptopInfo = {
+                ...updatedLaptopInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
 
         try {
             const response = await axios.put(
@@ -230,12 +291,28 @@ const LaptopEdit = () => {
         }));
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper title="Edit" icon={<EditNote />} href="/assets/laptop">
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                ({laptopInfo.serialNumber}) - {laptopInfo.category}{' '}
-                {laptopInfo.model}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    ({laptopInfo.serialNumber}) -{laptopInfo.model}
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <LaptopForm
                 handleSubmit={handleSubmit}
@@ -249,6 +326,7 @@ const LaptopEdit = () => {
                 handleHistoryLocationChange={handleHistoryLocationChange}
                 handlePriceChange={handlePriceChange}
                 handleSurtaxChange={handleSurtaxChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );

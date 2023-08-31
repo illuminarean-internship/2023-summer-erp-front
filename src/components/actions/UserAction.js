@@ -1,5 +1,4 @@
 import {
-    ContentCopy,
     DeleteOutline,
     EditNoteOutlined,
     InfoOutlined,
@@ -14,36 +13,10 @@ import {
     Tooltip,
 } from '@mui/material';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import useBoolean from '../../hooks/useBoolean';
+import { useState } from 'react';
 
-const Action = ({ params, setAlertVisible, fetchData }) => {
+const UserAction = ({ params, setAlertVisible }) => {
     const [open, setOpen] = useState(false);
-    const [deleteUrl, setDeleteUrl] = useState('');
-
-    const {
-        value: isUsers,
-        setTrue: setIsUsersTrue,
-        setFalse: setIsUsersFalse,
-    } = useBoolean(false);
-
-    const router = useRouter();
-    const { pathname } = router;
-
-    useEffect(() => {
-        const pathParsed = pathname.split('/');
-        let url = '';
-
-        if (pathParsed[1] === 'assets') {
-            url = `${pathParsed[2]}/item`;
-            setIsUsersFalse();
-        } else {
-            url = `${pathParsed[1]}/user`;
-            setIsUsersTrue();
-        }
-        setDeleteUrl(url);
-    }, [pathname]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -56,12 +29,11 @@ const Action = ({ params, setAlertVisible, fetchData }) => {
     const deleteItem = () => {
         axios
             .delete(
-                `http://localhost:4040/api/${deleteUrl}/${params.row._id}`,
+                `http://localhost:4040/api/users/user/${params.row._id}`,
             )
             .then(() => {
                 setOpen(false);
                 setAlertVisible(true);
-                fetchData();
             })
             .catch((error) => {
                 console.error(error);
@@ -70,20 +42,13 @@ const Action = ({ params, setAlertVisible, fetchData }) => {
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {!isUsers && (
-                <Tooltip title="Copy item">
-                    <IconButton href={`${pathname}/copy/${params.row._id}`}>
-                        <ContentCopy />
-                    </IconButton>
-                </Tooltip>
-            )}
             <Tooltip title="Item info">
-                <IconButton href={`${pathname}/info/${params.row._id}`}>
+                <IconButton href={`users/info/${params.row._id}`}>
                     <InfoOutlined />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Item edit">
-                <IconButton href={`${pathname}/edit/${params.row._id}`}>
+                <IconButton href={`users/edit/${params.row._id}`}>
                     <EditNoteOutlined />
                 </IconButton>
             </Tooltip>
@@ -116,4 +81,4 @@ const Action = ({ params, setAlertVisible, fetchData }) => {
     );
 };
 
-export default Action;
+export default UserAction;

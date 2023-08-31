@@ -5,21 +5,37 @@ import Action from '../../../components/actions/Action';
 import { useRouter } from 'next/router';
 import DataTable from '../../../components/DataTable';
 import { getCurrencySymbol } from '../../../utils/stringUtils';
+import { Button } from '@mui/material';
+import { FolderOpen } from '@mui/icons-material';
 
 const Software = ({ setSelectedLink, isOpen }) => {
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alertVisible, setAlertVisible] = useState(false);
+    const [isArchived, setIsArchived] = useState(false);
+
     const router = useRouter();
 
     const fetchData = async () => {
+        setIsLoading(true);
         try {
-            await axios
-                .get('http://localhost:4040/api/software/')
-                .then((res) => {
-                    setRows(res.data);
-                });
+            let queryParams = {};
+
+            if (isArchived) {
+                queryParams.isArchived = true;
+            } else {
+                queryParams.isArchived = false;
+            }
+
+            const response = await axios.get(
+                'http://localhost:4040/api/software/',
+                {
+                    params: queryParams,
+                },
+            );
+
             setIsLoading(false);
+            setRows(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
             setIsLoading(false);
@@ -29,10 +45,18 @@ const Software = ({ setSelectedLink, isOpen }) => {
     useEffect(() => {
         setSelectedLink(router.pathname.slice(1));
         fetchData();
-    }, [rows]);
+    }, [isArchived]);
+
+    const handleArchivedClick = () => {
+        if (isArchived) {
+            setIsArchived(false);
+        } else {
+            setIsArchived(true);
+        }
+    };
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 150 },
+        { field: 'name', headerName: 'Name', width: 300 },
 
         {
             field: 'purchaseDate',
@@ -82,7 +106,11 @@ const Software = ({ setSelectedLink, isOpen }) => {
             type: 'actions',
             width: 200,
             renderCell: (params) => (
-                <Action params={params} setAlertVisible={setAlertVisible} />
+                <Action
+                    params={params}
+                    setAlertVisible={setAlertVisible}
+                    fetchData={fetchData}
+                />
             ),
         },
     ];
@@ -94,7 +122,17 @@ const Software = ({ setSelectedLink, isOpen }) => {
             isOpen={isOpen}
             alertVisible={alertVisible}
             setAlertVisible={setAlertVisible}
-        />
+        >
+            <Button
+                variant={isArchived ? 'contained' : 'outlined'}
+                color="secondary"
+                sx={{ ml: 2 }}
+                startIcon={<FolderOpen />}
+                onClick={handleArchivedClick}
+            >
+                Archived
+            </Button>
+        </DataTable>
     );
 };
 

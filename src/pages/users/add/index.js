@@ -19,6 +19,7 @@ const UsersAdd = () => {
         ],
         field: '',
         remarks: '',
+        email: '',
     });
 
     const teamList = useTeamData();
@@ -95,7 +96,7 @@ const UsersAdd = () => {
     return (
         <PageWrapper title="Add" icon={<AddBoxOutlined />} href="/users">
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                User Name - Team
+                New User
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <UserForm

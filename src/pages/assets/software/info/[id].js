@@ -3,10 +3,15 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import {
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const SoftwareInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [softwareInfo, setSoftwareInfo] = useState({
         name: '',
         purchaseDate: '',
@@ -30,6 +35,8 @@ const SoftwareInfo = () => {
             });
     }, []);
 
+
+
     const filterRelevantData = (softwareData) => {
         const {
             name,
@@ -47,24 +54,26 @@ const SoftwareInfo = () => {
             name,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             remarks,
-            unitPrice: '₩' + unitPrice,
+            unitPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + unitPrice
+                : currency + unitPrice,
             quantity,
-            totalPrice: '₩' + totalPrice,
+            totalPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             currency,
             reference,
             user,
             history,
         };
     };
-
-    console.log(softwareInfo);
-
     return (
         <div>
             <InfoPageTemplate
                 dataToRender={softwareInfo}
                 title={softwareInfo.name}
                 type="software"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

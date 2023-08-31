@@ -2,10 +2,16 @@ import { useRouter } from 'next/router';
 import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {
+    FilterPrices,
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const TestDeviceInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [testDeviceInfo, setTestDeviceInfo] = useState({
         category: '',
         model: '',
@@ -19,6 +25,15 @@ const TestDeviceInfo = () => {
         totalPrice: '',
         purchasedFrom: 'G 마켓',
         history: [],
+        remarks: '',
+        isRepair: false,
+        issues: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        resellPrice: '',
+        karrotPrice: '',
+        repairDetails: '',
     });
 
     useEffect(() => {
@@ -44,7 +59,17 @@ const TestDeviceInfo = () => {
             color,
             totalPrice,
             purchasedFrom,
+            currency,
             history,
+            isRepair,
+            issues,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            resellPrice,
+            karrotPrice,
+            remarks,
         } = testDeviceData;
         return {
             category,
@@ -56,9 +81,26 @@ const TestDeviceInfo = () => {
             serialNumber,
             condition,
             color,
-            totalPrice: '₩' + totalPrice,
+            totalPrice: currency_symbols[currency]
+                ? currency_symbols[currency] + totalPrice
+                : currency + totalPrice,
             purchasedFrom,
             history,
+            isRepair,
+            issues,
+            request,
+            replace,
+            repairPrice: !repairPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            resellPrice: !resellPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            karrotPrice: !karrotPrice
+                ? ''
+                : FilterPrices(repairPrice, currency),
+            repairDetails,
+            remarks,
         };
     };
     console.log(testDeviceInfo.model);
@@ -70,6 +112,7 @@ const TestDeviceInfo = () => {
                     `(${testDeviceInfo.serialNumber}) - ` + testDeviceInfo.model
                 }
                 type="test-device"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

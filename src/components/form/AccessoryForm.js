@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     Container,
+    Divider,
     FormControl,
     Grid,
     IconButton,
@@ -12,6 +13,7 @@ import {
     Select,
     TextField,
     Typography,
+    useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -27,9 +29,11 @@ const AccessoryForm = ({
     handleHistoryLocationChange,
     handlePriceChange,
     handleSurtaxChange,
+    isRepairVar,
 }) => {
     const locations = locationsData.map((location) => location.name);
     const [showHistory, setShowHistory] = useState(true);
+    const theme = useTheme();
 
     const currencyOptions = [
         { value: 'KRW', label: '₩ (KRW)' },
@@ -42,8 +46,13 @@ const AccessoryForm = ({
         'Mouse',
         'USB-C Hub',
         'Laptop Acc',
+        'Monitor',
+        'VGA',
         'Others',
     ];
+
+    const requestOptions = ['Approved', 'Denied', 'Pending'];
+    const replaceOptions = ['Complete', 'Pending'];
 
     return (
         <form onSubmit={handleSubmit}>
@@ -136,7 +145,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.serialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -301,7 +309,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.illuSerialNumber}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -330,7 +337,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.color}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -359,7 +365,6 @@ const AccessoryForm = ({
                                 fullWidth
                                 value={accessoryInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -379,11 +384,10 @@ const AccessoryForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="purchasedFrom"
-                                label="Purchased From"
+                                label="Enter Purchase Location"
                                 fullWidth
                                 value={accessoryInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -554,6 +558,290 @@ const AccessoryForm = ({
                         </Box>
                     </>
                 )}
+                {isRepairVar && (
+                    <>
+                        <Typography variant="h6">Repair</Typography>
+                        <Box
+                            sx={{
+                                border: '1px solid gray',
+                                borderRadius: '4px',
+                                p: 2,
+                                mt: 2,
+                                borderColor: theme.palette.grey[450],
+                            }}
+                        >
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Issues</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <TextField
+                                            name="issues"
+                                            label="Enter Issues"
+                                            fullWidth
+                                            value={accessoryInfo.issues}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                style: {
+                                                    height: '16px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Divider
+                                sx={{
+                                    my: 2,
+                                    borderColor: theme.palette.grey[300],
+                                }}
+                            />
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Request</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <FormControl fullWidth>
+                                            <InputLabel id="select-request-label">
+                                                Select Request
+                                            </InputLabel>
+                                            <Select
+                                                labelId="select-request-label"
+                                                variant="outlined"
+                                                id="request-select"
+                                                name="request"
+                                                label="Select Request"
+                                                value={accessoryInfo.request}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                sx={{
+                                                    height: '50px',
+                                                }}
+                                            >
+                                                {requestOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Replace</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <FormControl fullWidth>
+                                            <InputLabel id="select-replace-label">
+                                                Select Replace
+                                            </InputLabel>
+                                            <Select
+                                                labelId="select-replace-label"
+                                                variant="outlined"
+                                                id="replace-select"
+                                                name="replace"
+                                                label="Select Replace"
+                                                value={accessoryInfo.replace}
+                                                onChange={handleChange}
+                                                displayEmpty
+                                                sx={{
+                                                    height: '50px',
+                                                }}
+                                            >
+                                                {replaceOptions.map(
+                                                    (option) => (
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                        >
+                                                            {option}
+                                                        </MenuItem>
+                                                    ),
+                                                )}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Repair Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="repairPrice"
+                                            label="Enter Repair Price"
+                                            type="number"
+                                            fullWidth
+                                            value={accessoryInfo.repairPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Repair Details</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                        sx={{ width: '100%' }}
+                                    >
+                                        <TextField
+                                            name="repairDetails"
+                                            label="Enter Repair Details"
+                                            fullWidth
+                                            value={accessoryInfo.repairDetails}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                style: {
+                                                    height: '16px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+                            <Divider
+                                sx={{
+                                    my: 2,
+                                    borderColor: theme.palette.grey[300],
+                                }}
+                            />
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Resell Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="resellPrice"
+                                            label="Enter Resell Price"
+                                            fullWidth
+                                            value={accessoryInfo.resellPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} sx={{ p: 1 }}>
+                                <Grid item xs={4}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Typography>Karrot Price</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        height="100%"
+                                    >
+                                        <TextField
+                                            name="karrotPrice"
+                                            label="Enter Karrot Price"
+                                            fullWidth
+                                            value={accessoryInfo.karrotPrice}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                style: {
+                                                    height: '50px',
+                                                },
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </>
+                )}
                 <Grid container spacing={2} sx={{ p: 1 }}>
                     <Grid item xs={4}>
                         <Box display="flex" alignItems="center" sx={{ p: 2 }}>
@@ -583,7 +871,12 @@ const AccessoryForm = ({
                     </Grid>
                 </Grid>
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

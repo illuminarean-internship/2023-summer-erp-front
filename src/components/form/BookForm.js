@@ -146,7 +146,6 @@ const BookForm = ({
                                 fullWidth
                                 value={bookInfo.purchaseDate}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -166,11 +165,10 @@ const BookForm = ({
                         <Box display="flex" alignItems="center" height="100%">
                             <TextField
                                 name="purchasedFrom"
-                                label="Purchased From"
+                                label="Enter Purchase Location"
                                 fullWidth
                                 value={bookInfo.purchasedFrom}
                                 onChange={handleChange}
-                                required
                                 inputProps={{
                                     style: {
                                         height: '16px',
@@ -389,7 +387,12 @@ const BookForm = ({
                     </>
                 )}
                 <Box display="flex" justifyContent="center" mt={3}>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
                         Save
                     </Button>
                 </Box>

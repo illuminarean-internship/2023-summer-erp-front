@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { OpenInBrowserOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 export default function CategoryItem({ item }) {
     return (
@@ -13,14 +14,14 @@ export default function CategoryItem({ item }) {
                 </ButtonStyleTextWrapper>
             </ButtonStyleTop>
             <ButtonStyleBottom>
-                <Button
-                    variant="text"
-                    color="inherit"
-                    endIcon={<OpenInBrowserOutlined />}
-                    href={`/assets/${item.link}`}
-                >
-                    View All
-                </Button>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Link href={`/assets/${item.link}`}>
+                        <span>View All</span>
+                    </Link>
+                    <Box sx={{ marginLeft: '4px' }}>
+                        <OpenInBrowserOutlined />
+                    </Box>
+                </Box>
             </ButtonStyleBottom>
         </ButtonStyle>
     );

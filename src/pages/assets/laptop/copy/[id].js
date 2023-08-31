@@ -7,7 +7,6 @@ import PageWrapper from '../../../../components/form/PageWrapper';
 import { ContentCopy } from '@mui/icons-material';
 import { Divider, Typography } from '@mui/material';
 import LaptopForm from '../../../../components/form/LaptopForm';
-import { formatDate } from '../../../../utils/stringUtils';
 import moment from 'moment';
 
 const LaptopCopy = () => {
@@ -62,9 +61,9 @@ const LaptopCopy = () => {
             RAM,
             SSD,
             serialNumber,
-            location,
             currency,
             price,
+            warranty,
             surtax,
             totalPrice,
             illumiSerial,
@@ -72,25 +71,17 @@ const LaptopCopy = () => {
             purchaseDate,
             purchasedFrom,
             remarks,
-            history,
         } = laptopData;
 
-        const updatedHistory = history.length
-            ? history.map((historyEntry) => ({
-                  ...historyEntry,
-                  id: uuidv4(),
-                  startDate: formatDate(historyEntry.startDate),
-                  endDate: formatDate(historyEntry.endDate),
-              }))
-            : [
-                  {
-                      startDate: '',
-                      endDate: '',
-                      historyLocation: null,
-                      historyRemark: '',
-                      id: uuidv4(),
-                  },
-              ];
+        const updatedHistory = [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ];
 
         return {
             category,
@@ -99,8 +90,8 @@ const LaptopCopy = () => {
             RAM,
             SSD,
             serialNumber,
-            location,
-            warranty: moment(purchaseDate).format('YYYY-MM-DD'),
+            location: null,
+            warranty,
             currency,
             price,
             surtax,
@@ -233,8 +224,7 @@ const LaptopCopy = () => {
     return (
         <PageWrapper title="Copy" icon={<ContentCopy />} href="/assets/laptop">
             <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                ({laptopInfo.serialNumber}) - {laptopInfo.category}{' '}
-                {laptopInfo.model}
+                ({laptopInfo.serialNumber}) -{laptopInfo.model}
             </Typography>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <LaptopForm

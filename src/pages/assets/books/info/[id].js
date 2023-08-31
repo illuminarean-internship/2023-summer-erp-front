@@ -3,10 +3,15 @@ import InfoPageTemplate from '../../../../components/InfoPageTemplate';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import {
+    currency_symbols,
+} from '../../../../constants/filterPrices';
 
 const BooksInfo = () => {
     const router = useRouter();
     const { id } = router.query;
+    const { pathname } = router;
+
     const [bookInfo, setBookInfo] = useState({
         title: '',
         team: '',
@@ -15,6 +20,8 @@ const BooksInfo = () => {
         purchasedFrom: 'G 마켓',
         price: '',
         history: [],
+        remarks: '',
+
     });
 
     useEffect(() => {
@@ -27,6 +34,7 @@ const BooksInfo = () => {
             });
     }, []);
 
+
     const filterRelevantData = (bookData) => {
         const {
             title,
@@ -36,6 +44,9 @@ const BooksInfo = () => {
             purchasedFrom,
             price,
             history,
+            remarks,
+            currency,
+            
         } = bookData;
         return {
             title,
@@ -43,8 +54,11 @@ const BooksInfo = () => {
             location,
             purchaseDate: moment(purchaseDate).format('YYYY-MM-DD'),
             purchasedFrom,
-            price: '₩' + price,
+            price: currency_symbols[currency]
+                ? currency_symbols[currency] + price
+                : currency + price,
             history,
+            remarks,
         };
     };
 
@@ -77,6 +91,7 @@ const BooksInfo = () => {
                 dataToRender={bookInfo}
                 title={bookInfo.title}
                 type="books"
+                pathname={pathname.replace('info', 'edit').replace('[id]', id)}
             />
         </div>
     );

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { EditNote } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { Build, EditNote } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import TestDeviceForm from '../../../../components/form/TestDeviceForm';
 import axios from 'axios';
 import { formatDate } from '../../../../utils/stringUtils';
@@ -12,6 +12,7 @@ import { formatDate } from '../../../../utils/stringUtils';
 const TestDeviceEdit = () => {
     const router = useRouter();
     const { id } = router.query;
+    const [isRepairVar, setIsRepairVar] = useState(false);
 
     const [testDeviceInfo, setTestDeviceInfo] = useState({
         model: '',
@@ -36,6 +37,14 @@ const TestDeviceEdit = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
 
     const locations = useLocationsData();
@@ -69,6 +78,14 @@ const TestDeviceEdit = () => {
             remarks,
             currency,
             history,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         } = testDeviceData;
 
         const updatedHistory = history.length
@@ -88,7 +105,7 @@ const TestDeviceEdit = () => {
                   },
               ];
 
-        return {
+        let updatedData = {
             model,
             category,
             RAM,
@@ -103,7 +120,30 @@ const TestDeviceEdit = () => {
             remarks,
             currency,
             history: updatedHistory,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         };
+
+        if (!isRepair) {
+            updatedData = {
+                ...updatedData,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
+        return updatedData;
     };
 
     const handleChange = (e) => {
@@ -138,10 +178,34 @@ const TestDeviceEdit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let updatedTestDeviceInfo = {
+            ...testDeviceInfo,
+        };
+
+        if (isRepairVar) {
+            updatedTestDeviceInfo = {
+                ...updatedTestDeviceInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedTestDeviceInfo = {
+                ...updatedTestDeviceInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
         try {
             const response = await axios.put(
                 `http://localhost:4040/api/test-device/item/${id}`,
-                testDeviceInfo,
+                updatedTestDeviceInfo,
             );
             console.log('Test device updated successfully:', response.data);
             router.push(`/assets/test-device/info/${id}`);
@@ -208,15 +272,32 @@ const TestDeviceEdit = () => {
         });
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper
             title="Edit"
             icon={<EditNote />}
             href="/assets/test-device"
         >
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                {testDeviceInfo.serialNumber} - {testDeviceInfo.model}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    {testDeviceInfo.serialNumber} - {testDeviceInfo.model}
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <TestDeviceForm
                 handleSubmit={handleSubmit}
@@ -228,6 +309,7 @@ const TestDeviceEdit = () => {
                 handleDeleteHistory={handleDeleteHistory}
                 handleAddHistory={handleAddHistory}
                 handleHistoryLocationChange={handleHistoryLocationChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );

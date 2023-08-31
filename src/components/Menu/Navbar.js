@@ -21,8 +21,10 @@ import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import logo from 'public/images/logo.png';
 import { drawerWidth } from '../../constants/constants';
+import { useRouter } from 'next/router';
 
 export default function Navbar({ isOpen: open, handleDrawerOpen }) {
+    const router = useRouter();
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -46,6 +48,10 @@ export default function Navbar({ isOpen: open, handleDrawerOpen }) {
         handleMobileMenuClose();
     };
 
+    function handleMyAccountClick() {
+        router.push('/my-account');
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -63,8 +69,7 @@ export default function Navbar({ isOpen: open, handleDrawerOpen }) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMyAccountClick}>My account</MenuItem>
             <MenuItem onClick={() => signOut()}>Logout</MenuItem>
         </Menu>
     );

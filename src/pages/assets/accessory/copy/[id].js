@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import axios from 'axios';
-import { formatDate } from '../../../../utils/stringUtils';
 import moment from 'moment';
 import PageWrapper from '../../../../components/form/PageWrapper';
 import { ContentCopy } from '@mui/icons-material';
@@ -55,7 +54,6 @@ const AccessoryCopy = () => {
             model,
             category,
             serialNumber,
-            location,
             currency,
             price,
             surtax,
@@ -65,31 +63,23 @@ const AccessoryCopy = () => {
             purchaseDate,
             purchasedFrom,
             remarks,
-            history,
         } = accessoryData;
 
-        const updatedHistory = history.length
-            ? history.map((historyEntry) => ({
-                  ...historyEntry,
-                  id: uuidv4(),
-                  startDate: formatDate(historyEntry.startDate),
-                  endDate: formatDate(historyEntry.endDate),
-              }))
-            : [
-                  {
-                      startDate: '',
-                      endDate: '',
-                      historyLocation: null,
-                      historyRemark: '',
-                      id: uuidv4(),
-                  },
-              ];
+        const updatedHistory = [
+            {
+                startDate: '',
+                endDate: '',
+                historyLocation: null,
+                historyRemark: '',
+                id: uuidv4(),
+            },
+        ];
 
         return {
             model,
             category,
             serialNumber,
-            location,
+            location: null,
             currency,
             price,
             surtax,

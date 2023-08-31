@@ -6,12 +6,13 @@ import moment from 'moment';
 import useLocationsData from '../../../../hooks/useLocationsData';
 import axios from 'axios';
 import PageWrapper from '../../../../components/form/PageWrapper';
-import { EditNote } from '@mui/icons-material';
-import { Divider, Typography } from '@mui/material';
+import { Build, EditNote } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import AccessoryForm from '../../../../components/form/AccessoryForm';
 const AccessoryEdit = () => {
     const router = useRouter();
     const { id } = router.query;
+    const [isRepairVar, setIsRepairVar] = useState(false);
 
     const [accessoryInfo, setAccessoryInfo] = useState({
         model: '',
@@ -36,6 +37,14 @@ const AccessoryEdit = () => {
                 id: uuidv4(),
             },
         ],
+        isRepair: false,
+        resellPrice: '',
+        karrotPrice: '',
+        request: '',
+        replace: '',
+        repairPrice: '',
+        repairDetails: '',
+        issues: '',
     });
 
     const locations = useLocationsData();
@@ -66,6 +75,14 @@ const AccessoryEdit = () => {
             purchasedFrom,
             remarks,
             history,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         } = accessoryData;
 
         const updatedHistory = history.length
@@ -84,8 +101,7 @@ const AccessoryEdit = () => {
                       id: uuidv4(),
                   },
               ];
-
-        return {
+        let updatedData = {
             model,
             category,
             serialNumber,
@@ -100,7 +116,28 @@ const AccessoryEdit = () => {
             purchasedFrom,
             remarks,
             history: updatedHistory,
+            isRepair,
+            resellPrice,
+            karrotPrice,
+            request,
+            replace,
+            repairPrice,
+            repairDetails,
+            issues,
         };
+        if (!isRepair) {
+            updatedData = {
+                ...updatedData,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+        return updatedData;
     };
 
     const handleChange = (e) => {
@@ -120,10 +157,34 @@ const AccessoryEdit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let updatedAccessoryInfo = {
+            ...accessoryInfo,
+        };
+
+        if (isRepairVar) {
+            updatedAccessoryInfo = {
+                ...updatedAccessoryInfo,
+                isRepair: true,
+            };
+        } else {
+            updatedAccessoryInfo = {
+                ...updatedAccessoryInfo,
+                isRepair: false,
+                resellPrice: '',
+                karrotPrice: '',
+                request: '',
+                replace: '',
+                repairPrice: '',
+                repairDetails: '',
+                issues: '',
+            };
+        }
+
         try {
             const response = await axios.put(
                 `http://localhost:4040/api/accessory/item/${id}`,
-                accessoryInfo,
+                updatedAccessoryInfo,
             );
             console.log('Accessory edited successfully:', response.data);
             router.push(`/assets/accessory/info/${id}`);
@@ -208,11 +269,28 @@ const AccessoryEdit = () => {
         }));
     };
 
+    const handleRepairClick = () => {
+        setIsRepairVar(!isRepairVar);
+    };
+
     return (
         <PageWrapper title="Edit" icon={<EditNote />} href="/assets/accessory">
-            <Typography variant="h5" component="h5" sx={{ color: 'gray' }}>
-                {accessoryInfo.model} - {accessoryInfo.category}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                    variant="h5"
+                    component="h5"
+                    sx={{ color: 'gray', flex: 1 }}
+                >
+                    {accessoryInfo.model} - {accessoryInfo.category}
+                </Typography>
+                <Button
+                    variant={isRepairVar ? 'contained' : 'outlined'}
+                    startIcon={<Build />}
+                    onClick={handleRepairClick}
+                >
+                    Repair
+                </Button>
+            </Box>
             <Divider sx={{ my: 2, borderColor: 'gray' }} />
             <AccessoryForm
                 handleSubmit={handleSubmit}
@@ -226,6 +304,7 @@ const AccessoryEdit = () => {
                 handleHistoryLocationChange={handleHistoryLocationChange}
                 handlePriceChange={handlePriceChange}
                 handleSurtaxChange={handleSurtaxChange}
+                isRepairVar={isRepairVar}
             />
         </PageWrapper>
     );
