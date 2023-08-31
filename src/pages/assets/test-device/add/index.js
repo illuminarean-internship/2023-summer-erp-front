@@ -104,7 +104,7 @@ const TestDeviceAdd = () => {
 
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/test-device/',
+                'http://localhost:4040/api/test-device/',
                 updatedTestDeviceInfo,
             );
             console.log('Test device created successfully:', response.data);

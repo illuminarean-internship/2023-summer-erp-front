@@ -32,7 +32,7 @@ const TestDevice = ({ setSelectedLink, isOpen }) => {
                 queryParams.isRepair = true;
             }
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/test-device/',
+                'http://localhost:4040/api/test-device/',
                 {
                     params: queryParams,
                 },

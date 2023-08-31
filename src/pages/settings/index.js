@@ -28,7 +28,7 @@ const Settings = () => {
     const fetchAdminList = async () => {
         try {
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/users/admin?isAdmin=true',
+                'http://localhost:4040/api/users/admin?isAdmin=true',
             );
             const adminList = response.data;
             const transformedAdminList = adminList.map((admin) => ({
@@ -45,7 +45,7 @@ const Settings = () => {
 
     const addNewAdmin = async () => {
         try {
-            await axios.put('http://43.200.193.130:4040/api/users/admin', {
+            await axios.put('http://localhost:4040/api/users/admin', {
                 email: newAdminEmail + '@illuminarean.com',
                 isAdmin: true,
             });

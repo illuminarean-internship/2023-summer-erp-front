@@ -25,7 +25,7 @@ const DesktopPcInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/desktop-pc/item/${id}`)
+            .get(`http://localhost:4040/api/desktop-pc/item/${id}`)
             .then((res) => {
                 const desktopPcData = res.data;
                 const filteredData = filterRelevantData(desktopPcData);

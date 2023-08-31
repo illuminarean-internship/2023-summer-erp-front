@@ -14,7 +14,7 @@ export default NextAuth({
             // Fetch admin information from the database
             try {
                 const response = await axios.get(
-                    `http://43.200.193.130:4040/api/users/check?email=${user.user.email}`,
+                    `http://localhost:4040/api/users/check?email=${user.user.email}`,
                 ); // Adjust the API endpoint
                 const { isAdmin } = response.data; // Assuming the response structure has an isAdmin field
                 return isAdmin ? true : false;

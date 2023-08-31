@@ -18,7 +18,7 @@ export default function OverviewPage() {
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/info',
+                'http://localhost:4040/api/info',
             );
             const results = [
                 response.data['numOfAcc'],

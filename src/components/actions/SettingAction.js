@@ -24,7 +24,7 @@ const SettingAction = ({ params, setAlertVisible }) => {
 
     const deleteUser = () => {
         axios
-            .put('http://43.200.193.130:4040/api/users/admin', {
+            .put('http://localhost:4040/api/users/admin', {
                 email: params.row.email,
                 isAdmin: false,
             })

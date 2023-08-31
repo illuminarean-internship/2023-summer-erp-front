@@ -29,7 +29,7 @@ const UserAction = ({ params, setAlertVisible }) => {
     const deleteItem = () => {
         axios
             .delete(
-                `http://43.200.193.130:4040/api/users/user/${params.row._id}`,
+                `http://localhost:4040/api/users/user/${params.row._id}`,
             )
             .then(() => {
                 setOpen(false);

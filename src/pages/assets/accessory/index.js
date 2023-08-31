@@ -32,7 +32,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
                 queryParams.isRepair = true;
             }
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/accessory/',
+                'http://localhost:4040/api/accessory/',
                 {
                     params: queryParams,
                 },

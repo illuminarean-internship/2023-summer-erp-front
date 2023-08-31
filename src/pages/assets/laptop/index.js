@@ -34,7 +34,7 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             }
 
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/laptop/',
+                'http://localhost:4040/api/laptop/',
                 {
                     params: queryParams,
                 },

@@ -41,7 +41,7 @@ const AccessoryCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/accessory/item/${id}`)
+            .get(`http://localhost:4040/api/accessory/item/${id}`)
             .then((res) => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);
@@ -112,7 +112,7 @@ const AccessoryCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/accessory/',
+                'http://localhost:4040/api/accessory/',
                 accessoryInfo,
             );
             console.log('Accessory copied successfully:', response.data);

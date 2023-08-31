@@ -30,20 +30,20 @@ const UserInfo = () => {
     const fetchData = async () => {
         try {
             const responses = await Promise.all([
-                axios.get(`http://43.200.193.130:4040/api/users/user/${id}`),
+                axios.get(`http://localhost:4040/api/users/user/${id}`),
                 axios.get(
-                    `http://43.200.193.130:4040/api/accessory?userId=${id}`,
+                    `http://localhost:4040/api/accessory?userId=${id}`,
                 ),
-                axios.get(`http://43.200.193.130:4040/api/books?userId=${id}`),
+                axios.get(`http://localhost:4040/api/books?userId=${id}`),
                 axios.get(
-                    `http://43.200.193.130:4040/api/test-device?userId=${id}`,
+                    `http://localhost:4040/api/test-device?userId=${id}`,
                 ),
                 axios.get(
-                    `http://43.200.193.130:4040/api/desktop-pc?userId=${id}`,
+                    `http://localhost:4040/api/desktop-pc?userId=${id}`,
                 ),
-                axios.get(`http://43.200.193.130:4040/api/laptop?userId=${id}`),
+                axios.get(`http://localhost:4040/api/laptop?userId=${id}`),
                 axios.get(
-                    `http://43.200.193.130:4040/api/software?userId=${id}`,
+                    `http://localhost:4040/api/software?userId=${id}`,
                 ),
             ]);
             const results = await Promise.all([

@@ -65,7 +65,7 @@ const BooksAdd = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/books',
+                'http://localhost:4040/api/books',
                 bookInfo,
             );
             console.log('Book created successfully:', response.data);

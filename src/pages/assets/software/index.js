@@ -28,7 +28,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
             }
 
             const response = await axios.get(
-                'http://43.200.193.130:4040/api/software/',
+                'http://localhost:4040/api/software/',
                 {
                     params: queryParams,
                 },

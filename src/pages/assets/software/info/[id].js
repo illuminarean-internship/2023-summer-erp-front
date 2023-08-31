@@ -27,7 +27,7 @@ const SoftwareInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/software/item/${id}`)
+            .get(`http://localhost:4040/api/software/item/${id}`)
             .then((res) => {
                 const softwareData = res.data;
                 const filteredData = filterRelevantData(softwareData);
