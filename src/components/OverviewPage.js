@@ -18,7 +18,7 @@ export default function OverviewPage() {
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:4040/api/info',
+                'http://internship-server.illuminarean.com:4040/api/info',
             );
             const results = [
                 response.data['numOfAcc'],

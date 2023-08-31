@@ -11,7 +11,7 @@ const MyAccount = () => {
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:4040/api/users?email=${email}`,
+                `http://internship-server.illuminarean.com:4040/api/users?email=${email}`,
             );
             setTeam(response.data[0].team);
             setUserProjects(response.data[0].project);

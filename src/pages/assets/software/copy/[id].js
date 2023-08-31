@@ -28,7 +28,7 @@ const SoftwareCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4040/api/software/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/software/item/${id}`)
             .then((res) => {
                 const softwareData = res.data;
                 const filteredData = filterRelevantData(softwareData);
@@ -80,7 +80,7 @@ const SoftwareCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:4040/api/software',
+                'http://internship-server.illuminarean.com:4040/api/software',
                 softwareInfo,
             );
             console.log('Software created successfully:', response.data);

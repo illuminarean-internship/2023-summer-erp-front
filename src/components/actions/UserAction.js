@@ -29,7 +29,7 @@ const UserAction = ({ params, setAlertVisible }) => {
     const deleteItem = () => {
         axios
             .delete(
-                `http://localhost:4040/api/users/user/${params.row._id}`,
+                `http://internship-server.illuminarean.com:4040/api/users/user/${params.row._id}`,
             )
             .then(() => {
                 setOpen(false);
