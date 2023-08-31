@@ -55,7 +55,7 @@ const UsersEdit = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(
-                    `http://43.200.193.130:4040/api/users/user/${id}`,
+                    `http://localhost:4040/api/users/user/${id}`,
                 );
                 const userData = response.data;
 
@@ -96,7 +96,7 @@ const UsersEdit = () => {
 
         try {
             const response = await axios.put(
-                `http://43.200.193.130:4040/api/users/user/${id}`, // Replace userId with the ID of the user you want to edit
+                `http://localhost:4040/api/users/user/${id}`, // Replace userId with the ID of the user you want to edit
                 userInfo,
             );
             console.log('User updated successfully:', response.data);

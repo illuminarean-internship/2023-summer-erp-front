@@ -46,7 +46,7 @@ const LaptopEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/laptop/item/${id}`)
+            .get(`http://localhost:4040/api/laptop/item/${id}`)
             .then((res) => {
                 const laptopData = res.data;
                 const filteredData = filterRelevantData(laptopData);
@@ -143,7 +143,7 @@ const LaptopEdit = () => {
 
         try {
             const response = await axios.put(
-                `http://43.200.193.130:4040/api/laptop/item/${id}`,
+                `http://localhost:4040/api/laptop/item/${id}`,
                 updatedLaptopInfo,
             );
             console.log('Laptop edited successfully:', response.data);

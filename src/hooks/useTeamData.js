@@ -8,7 +8,7 @@ const useTeamData = () => {
         const fetchTeams = async () => {
             try {
                 const response = await axios.get(
-                    'http://43.200.193.130:4040/api/teams/',
+                    'http://localhost:4040/api/teams/',
                 );
                 const teamNames = response.data
                     .map((data) => data.name)

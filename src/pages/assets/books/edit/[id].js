@@ -37,7 +37,7 @@ const BooksEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/books/item/${id}`)
+            .get(`http://localhost:4040/api/books/item/${id}`)
             .then((res) => {
                 const bookData = res.data;
                 const filteredData = filterRelevantData(bookData);
@@ -120,7 +120,7 @@ const BooksEdit = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-                `http://43.200.193.130:4040/api/books/item/${id}`,
+                `http://localhost:4040/api/books/item/${id}`,
                 bookInfo,
             );
             console.log('Book updated successfully:', response.data);

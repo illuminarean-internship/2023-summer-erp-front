@@ -57,7 +57,7 @@ const DesktopPcEdit = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(
-                    `http://43.200.193.130:4040/api/desktop-pc/item/${id}`,
+                    `http://localhost:4040/api/desktop-pc/item/${id}`,
                 );
                 const desktopData = response.data;
                 const formattedPurchaseDate = moment(
@@ -136,7 +136,7 @@ const DesktopPcEdit = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-                `http://43.200.193.130:4040/api/desktop-pc/item/${id}`,
+                `http://localhost:4040/api/desktop-pc/item/${id}`,
                 desktopInfo,
             );
             console.log('Desktop PC edited successfully:', response.data);

@@ -37,7 +37,7 @@ const BooksCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/books/item/${id}`)
+            .get(`http://localhost:4040/api/books/item/${id}`)
             .then((res) => {
                 const bookData = res.data;
                 const filteredData = filterRelevantData(bookData);
@@ -120,7 +120,7 @@ const BooksCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/books',
+                'http://localhost:4040/api/books',
                 bookInfo,
             );
             console.log('Book created successfully:', response.data);

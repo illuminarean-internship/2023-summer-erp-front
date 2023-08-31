@@ -46,7 +46,7 @@ const LaptopCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/laptop/item/${id}`)
+            .get(`http://localhost:4040/api/laptop/item/${id}`)
             .then((res) => {
                 const laptopData = res.data;
                 const filteredData = filterRelevantData(laptopData);
@@ -143,7 +143,7 @@ const LaptopCopy = () => {
 
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/laptop/',
+                'http://localhost:4040/api/laptop/',
                 updatedLaptopInfo,
             );
             console.log('Laptop copied successfully:', response.data);

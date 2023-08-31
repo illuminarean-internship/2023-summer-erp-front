@@ -59,7 +59,7 @@ const DesktopPcAdd = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/desktop-pc',
+                'http://localhost:4040/api/desktop-pc',
                 desktopInfo,
             );
             console.log('Desktop PC created successfully:', response.data);

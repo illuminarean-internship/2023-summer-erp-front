@@ -13,7 +13,7 @@ const UserPage = ({ setSelectedLink, isOpen }) => {
     const fetchData = async () => {
         try {
             await axios
-                .get('http://43.200.193.130:4040/api/users/')
+                .get('http://localhost:4040/api/users/')
                 .then((res) => {
                     const filteredData = res.data.filter(
                         (item) =>

@@ -57,7 +57,7 @@ const DesktopPcCopy = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(
-                    `http://43.200.193.130:4040/api/desktop-pc/item/${id}`,
+                    `http://localhost:4040/api/desktop-pc/item/${id}`,
                 );
                 const desktopData = response.data;
                 const formattedPurchaseDate = moment(
@@ -136,7 +136,7 @@ const DesktopPcCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://43.200.193.130:4040/api/desktop-pc',
+                'http://localhost:4040/api/desktop-pc',
                 desktopInfo,
             );
             console.log('Desktop PC copied successfully:', response.data);

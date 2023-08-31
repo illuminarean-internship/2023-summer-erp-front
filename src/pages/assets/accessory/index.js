@@ -15,7 +15,7 @@ const Accessory = ({ setSelectedLink, isOpen }) => {
     const fetchData = async () => {
         try {
             await axios
-                .get('http://43.200.193.130:4040/api/accessory/')
+                .get('http://localhost:4040/api/accessory/')
                 .then((res) => {
                     setRows(res.data);
                 });

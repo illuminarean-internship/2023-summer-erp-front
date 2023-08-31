@@ -8,7 +8,7 @@ const useLocationsData = () => {
         const fetchLocations = async () => {
             try {
                 const response = await axios.get(
-                    'http://43.200.193.130:4040/api/users/',
+                    'http://localhost:4040/api/users/',
                 );
                 const locationNames = response.data.map((location) => ({
                     name: location.name,

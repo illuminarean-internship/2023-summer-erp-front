@@ -7,7 +7,7 @@ import moment from 'moment';
 const AccessoryInfo = () => {
     const router = useRouter();
     const { id } = router.query;
-  
+
     const [accessoryInfo, setAccessoryInfo] = useState({
         model: '',
         category: '',
@@ -26,7 +26,7 @@ const AccessoryInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/accessory/item/${id}`)
+            .get(`http://localhost:4040/api/accessory/item/${id}`)
             .then((res) => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);

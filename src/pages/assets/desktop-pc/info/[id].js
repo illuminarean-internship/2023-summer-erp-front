@@ -11,7 +11,7 @@ const DesktopPcInfo = () => {
     useEffect(() => {
         // Fetch the dictionary using Axios with custom "transformResponse" function
         axios
-            .get(`http://43.200.193.130:4040/api/software/item/${id}`)
+            .get(`http://localhost:4040/api/software/item/${id}`)
             .then((response) => {
                 setRetreivedInfoState(response.data);
             })

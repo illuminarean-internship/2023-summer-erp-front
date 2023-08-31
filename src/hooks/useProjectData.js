@@ -8,7 +8,7 @@ const useProjectData = () => {
         const fetchTeams = async () => {
             try {
                 const response = await axios.get(
-                    'http://43.200.193.130:4040/api/projs/',
+                    'http://localhost:4040/api/projs/',
                 );
                 const projectNames = response.data.map((data) => data.name);
                 setProjectList(projectNames);

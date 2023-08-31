@@ -42,7 +42,7 @@ const TestDeviceEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://43.200.193.130:4040/api/test-device/item/${id}`)
+            .get(`http://localhost:4040/api/test-device/item/${id}`)
             .then((res) => {
                 const testDeviceData = res.data;
                 const filteredData = filterRelevantData(testDeviceData);
@@ -140,7 +140,7 @@ const TestDeviceEdit = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-                `http://43.200.193.130:4040/api/test-device/item/${id}`,
+                `http://localhost:4040/api/test-device/item/${id}`,
                 testDeviceInfo,
             );
             console.log('Test device updated successfully:', response.data);

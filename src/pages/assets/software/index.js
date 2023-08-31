@@ -15,7 +15,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
     const fetchData = async () => {
         try {
             await axios
-                .get('http://43.200.193.130:4040/api/software/')
+                .get('http://localhost:4040/api/software/')
                 .then((res) => {
                     setRows(res.data);
                 });
