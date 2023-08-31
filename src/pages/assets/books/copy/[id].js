@@ -36,7 +36,7 @@ const BooksCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4040/api/books/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/books/item/${id}`)
             .then((res) => {
                 const bookData = res.data;
                 const filteredData = filterRelevantData(bookData);
@@ -104,7 +104,7 @@ const BooksCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:4040/api/books',
+                'http://internship-server.illuminarean.com:4040/api/books',
                 bookInfo,
             );
             console.log('Book created successfully:', response.data);

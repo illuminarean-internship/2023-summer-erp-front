@@ -8,7 +8,7 @@ const useLocationsData = () => {
         const fetchLocations = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:4040/api/users/',
+                    'http://internship-server.illuminarean.com:4040/api/users/',
                 );
                 const locationNames = response.data.map((location) => ({
                     name: location.name,

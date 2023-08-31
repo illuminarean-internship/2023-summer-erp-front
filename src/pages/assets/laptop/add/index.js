@@ -97,7 +97,7 @@ const LaptopAdd = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:4040/api/laptop/',
+                'http://internship-server.illuminarean.com:4040/api/laptop/',
                 updatedLaptopInfo,
             );
             console.log('Laptop created successfully:', response.data);

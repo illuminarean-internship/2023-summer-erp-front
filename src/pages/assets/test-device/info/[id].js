@@ -38,7 +38,7 @@ const TestDeviceInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4040/api/test-device/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/test-device/item/${id}`)
             .then((res) => {
                 const testDeviceData = res.data;
                 const filteredData = filterRelevantData(testDeviceData);

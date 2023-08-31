@@ -65,7 +65,7 @@ const UsersAdd = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:4040/api/users/',
+                'http://internship-server.illuminarean.com:4040/api/users/',
                 updatedUserInfo,
             );
             console.log('User created successfully:', response.data);

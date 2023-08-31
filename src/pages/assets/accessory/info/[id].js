@@ -39,7 +39,7 @@ const AccessoryInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4040/api/accessory/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/accessory/item/${id}`)
             .then((res) => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);

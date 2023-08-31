@@ -41,7 +41,7 @@ const AccessoryCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4040/api/accessory/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/accessory/item/${id}`)
             .then((res) => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);
@@ -112,7 +112,7 @@ const AccessoryCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:4040/api/accessory/',
+                'http://internship-server.illuminarean.com:4040/api/accessory/',
                 accessoryInfo,
             );
             console.log('Accessory copied successfully:', response.data);
