@@ -41,7 +41,7 @@ const LaptopInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:4040/api/laptop/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:3000/api/laptop/item/${id}`)
             .then((res) => {
                 const laptopData = res.data;
                 const filteredData = filterRelevantData(laptopData);

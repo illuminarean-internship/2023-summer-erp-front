@@ -65,7 +65,7 @@ const BooksAdd = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://internship-server.illuminarean.com:4040/api/books',
+                'http://internship-server.illuminarean.com:3000/api/books',
                 bookInfo,
             );
             console.log('Book created successfully:', response.data);
