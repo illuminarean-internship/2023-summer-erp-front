@@ -56,7 +56,7 @@ const UsersEdit = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(
-                    `http://internship-server.illuminarean.com:4040/api/users/user/${id}`,
+                    `http://internship-server.illuminarean.com:3000/api/users/user/${id}`,
                 );
                 const userData = response.data;
 
@@ -97,7 +97,7 @@ const UsersEdit = () => {
 
         try {
             const response = await axios.put(
-                `http://internship-server.illuminarean.com:4040/api/users/user/${id}`, // Replace userId with the ID of the user you want to edit
+                `http://internship-server.illuminarean.com:3000/api/users/user/${id}`, // Replace userId with the ID of the user you want to edit
                 userInfo,
             );
             console.log('User updated successfully:', response.data);

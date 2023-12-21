@@ -13,7 +13,7 @@ const UserPage = ({ setSelectedLink, isOpen }) => {
     const fetchData = async () => {
         try {
             await axios
-                .get('http://internship-server.illuminarean.com:4040/api/users/')
+                .get('http://internship-server.illuminarean.com:3000/api/users/')
                 .then((res) => {
                     const filteredData = res.data.filter(
                         (item) =>

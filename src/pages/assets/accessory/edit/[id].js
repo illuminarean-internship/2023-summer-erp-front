@@ -51,7 +51,7 @@ const AccessoryEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:4040/api/accessory/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:3000/api/accessory/item/${id}`)
             .then((res) => {
                 const accessoryData = res.data;
                 const filteredData = filterRelevantData(accessoryData);
@@ -183,7 +183,7 @@ const AccessoryEdit = () => {
 
         try {
             const response = await axios.put(
-                `http://internship-server.illuminarean.com:4040/api/accessory/item/${id}`,
+                `http://internship-server.illuminarean.com:3000/api/accessory/item/${id}`,
                 updatedAccessoryInfo,
             );
             console.log('Accessory edited successfully:', response.data);

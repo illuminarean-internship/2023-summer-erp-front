@@ -30,20 +30,20 @@ const UserInfo = () => {
     const fetchData = async () => {
         try {
             const responses = await Promise.all([
-                axios.get(`http://internship-server.illuminarean.com:4040/api/users/user/${id}`),
+                axios.get(`http://internship-server.illuminarean.com:3000/api/users/user/${id}`),
                 axios.get(
-                    `http://internship-server.illuminarean.com:4040/api/accessory?userId=${id}`,
+                    `http://internship-server.illuminarean.com:3000/api/accessory?userId=${id}`,
                 ),
-                axios.get(`http://internship-server.illuminarean.com:4040/api/books?userId=${id}`),
+                axios.get(`http://internship-server.illuminarean.com:3000/api/books?userId=${id}`),
                 axios.get(
-                    `http://internship-server.illuminarean.com:4040/api/test-device?userId=${id}`,
+                    `http://internship-server.illuminarean.com:3000/api/test-device?userId=${id}`,
                 ),
                 axios.get(
-                    `http://internship-server.illuminarean.com:4040/api/desktop-pc?userId=${id}`,
+                    `http://internship-server.illuminarean.com:3000/api/desktop-pc?userId=${id}`,
                 ),
-                axios.get(`http://internship-server.illuminarean.com:4040/api/laptop?userId=${id}`),
+                axios.get(`http://internship-server.illuminarean.com:3000/api/laptop?userId=${id}`),
                 axios.get(
-                    `http://internship-server.illuminarean.com:4040/api/software?userId=${id}`,
+                    `http://internship-server.illuminarean.com:3000/api/software?userId=${id}`,
                 ),
             ]);
             const results = await Promise.all([

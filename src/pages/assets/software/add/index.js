@@ -42,7 +42,7 @@ const SoftwareAdd = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://internship-server.illuminarean.com:4040/api/software',
+                'http://internship-server.illuminarean.com:3000/api/software',
                 softwareInfo,
             );
             console.log('Software created successfully:', response.data);
