@@ -34,7 +34,7 @@ const Laptop = ({ setSelectedLink, isOpen }) => {
             }
 
             const response = await axios.get(
-                'http://internship-server.illuminarean.com:3000/api/laptop/',
+                'http://internship-server.illuminarean.com:4040/api/laptop/',
                 {
                     params: queryParams,
                 },

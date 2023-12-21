@@ -8,7 +8,7 @@ const useProjectData = () => {
         const fetchTeams = async () => {
             try {
                 const response = await axios.get(
-                    'http://internship-server.illuminarean.com:3000/api/projs/',
+                    'http://internship-server.illuminarean.com:4040/api/projs/',
                 );
                 const projectNames = response.data.map((data) => data.name);
                 setProjectList(projectNames);

@@ -28,7 +28,7 @@ const SoftwareEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:3000/api/software/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/software/item/${id}`)
             .then((res) => {
                 const softwareData = res.data;
                 const filteredData = filterRelevantData(softwareData);
@@ -80,7 +80,7 @@ const SoftwareEdit = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-                `http://internship-server.illuminarean.com:3000/api/software/item/${id}`,
+                `http://internship-server.illuminarean.com:4040/api/software/item/${id}`,
                 softwareInfo,
             );
             console.log('Software updated successfully:', response.data);

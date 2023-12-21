@@ -24,7 +24,7 @@ const DesktopPc = ({ setSelectedLink, isOpen }) => {
                 queryParams.isArchived = true;
             }
             const response = await axios.get(
-                'http://internship-server.illuminarean.com:3000/api/desktop-pc/',
+                'http://internship-server.illuminarean.com:4040/api/desktop-pc/',
                 {
                     params: queryParams,
                 },

@@ -25,7 +25,7 @@ const DesktopPcInfo = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:3000/api/desktop-pc/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/desktop-pc/item/${id}`)
             .then((res) => {
                 const desktopPcData = res.data;
                 const filteredData = filterRelevantData(desktopPcData);
