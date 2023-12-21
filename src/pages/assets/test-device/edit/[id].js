@@ -51,7 +51,7 @@ const TestDeviceEdit = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:3000/api/test-device/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/test-device/item/${id}`)
             .then((res) => {
                 const testDeviceData = res.data;
                 const filteredData = filterRelevantData(testDeviceData);
@@ -204,7 +204,7 @@ const TestDeviceEdit = () => {
 
         try {
             const response = await axios.put(
-                `http://internship-server.illuminarean.com:3000/api/test-device/item/${id}`,
+                `http://internship-server.illuminarean.com:4040/api/test-device/item/${id}`,
                 updatedTestDeviceInfo,
             );
             console.log('Test device updated successfully:', response.data);

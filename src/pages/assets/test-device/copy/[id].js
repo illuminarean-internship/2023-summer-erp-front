@@ -40,7 +40,7 @@ const TestDeviceCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:3000/api/test-device/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/test-device/item/${id}`)
             .then((res) => {
                 const testDeviceData = res.data;
                 const filteredData = filterRelevantData(testDeviceData);
@@ -129,7 +129,7 @@ const TestDeviceCopy = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://internship-server.illuminarean.com:3000/api/test-device/',
+                'http://internship-server.illuminarean.com:4040/api/test-device/',
                 testDeviceInfo,
             );
             console.log('Test device created successfully:', response.data);

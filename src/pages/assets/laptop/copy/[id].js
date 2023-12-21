@@ -45,7 +45,7 @@ const LaptopCopy = () => {
 
     useEffect(() => {
         axios
-            .get(`http://internship-server.illuminarean.com:3000/api/laptop/item/${id}`)
+            .get(`http://internship-server.illuminarean.com:4040/api/laptop/item/${id}`)
             .then((res) => {
                 const laptopData = res.data;
                 const filteredData = filterRelevantData(laptopData);
@@ -134,7 +134,7 @@ const LaptopCopy = () => {
 
         try {
             const response = await axios.post(
-                'http://internship-server.illuminarean.com:3000/api/laptop/',
+                'http://internship-server.illuminarean.com:4040/api/laptop/',
                 updatedLaptopInfo,
             );
             console.log('Laptop copied successfully:', response.data);

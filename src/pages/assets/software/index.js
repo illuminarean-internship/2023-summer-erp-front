@@ -28,7 +28,7 @@ const Software = ({ setSelectedLink, isOpen }) => {
             }
 
             const response = await axios.get(
-                'http://internship-server.illuminarean.com:3000/api/software/',
+                'http://internship-server.illuminarean.com:4040/api/software/',
                 {
                     params: queryParams,
                 },

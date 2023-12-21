@@ -89,7 +89,7 @@ const AccessoryAdd = () => {
 
         try {
             const response = await axios.post(
-                'http://internship-server.illuminarean.com:3000/api/accessory/',
+                'http://internship-server.illuminarean.com:4040/api/accessory/',
                 updatedAccessoryInfo,
             );
             console.log('Accessory created successfully:', response.data);
